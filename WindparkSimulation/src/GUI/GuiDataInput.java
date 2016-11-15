@@ -10,7 +10,6 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-
 public class GuiDataInput {
 
     Scene scene;
@@ -45,7 +44,7 @@ public class GuiDataInput {
         settings.setLayoutY(10.0);
 
         Chart chart = new Chart(pane, art);
-        chart.setLayout(30.0, 30.0);
+        chart.setLayout(100.0, 100.0);
 
         pane.getChildren().addAll(vorherigeSchema, settings);
 
