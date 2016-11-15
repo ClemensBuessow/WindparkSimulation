@@ -23,7 +23,7 @@ Group root;
 		primaryStage.setScene(simulation);
 		simulation.setRoot(region);
 		
-		GUI start = new GUI(simulation,region);
+		new GUI(simulation,region);
 		
 		primaryStage.show();
 		
