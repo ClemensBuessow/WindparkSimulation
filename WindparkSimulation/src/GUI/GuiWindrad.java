@@ -8,7 +8,7 @@ package GUI;
  */
 public class GuiWindrad {
 
-    public void GuiWindrad() {
+    public void GuiWindradShow() {
         System.out.println("die Gui des Windrades");
     }
 

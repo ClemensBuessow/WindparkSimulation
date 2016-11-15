@@ -13,7 +13,7 @@ public class WindradClickHandler implements EventHandler<MouseEvent> {
     public void handle(MouseEvent event) {
         System.out.println("wurde gehandelt");
         GuiWindrad rad = new GuiWindrad();
-        rad.GuiWindrad();
+        rad.GuiWindradShow();
 
     }
 
