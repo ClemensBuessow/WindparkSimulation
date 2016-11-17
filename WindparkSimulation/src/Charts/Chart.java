@@ -19,9 +19,9 @@ import javafx.scene.layout.Pane;
  * @version Release 5.2
  */
 public class Chart {
-    public LineChart<Number, String> chart;
+    public LineChart<String, Number> chart;
 
-    public XYChart.Series<Number, String> series;
+    public XYChart.Series<String, Number> series;
 
     public String art;
 
@@ -34,11 +34,11 @@ public class Chart {
             xAxis.setLabel("Windrichtung");
             yAxis.setLabel("Zeit");
 
-            series = new XYChart.Series<Number, String>();
+            series = new XYChart.Series<String, Number>();
             series.setName("Windrichtung");
-            series.getData().add(new Data<Number, String>(5, "1.1."));
+            series.getData().add(new Data<String, Number>("1.1.", 5));
 
-            chart = new LineChart<Number, String>(xAxis, yAxis);
+            chart = new LineChart<String, Number>(yAxis, xAxis);
             chart.getData().add(series);
             chart.setTitleSide(Side.TOP);
             chart.setPrefSize(350, 230);
@@ -50,11 +50,11 @@ public class Chart {
             xAxis.setLabel("Windstaerke in m/s");
             yAxis.setLabel("Zeit");
 
-            series = new XYChart.Series<Number, String>();
+            series = new XYChart.Series<String, Number>();
             series.setName("Windstaerke");
-            series.getData().add(new Data<Number, String>(5, "1.1."));
+            series.getData().add(new Data<String, Number>("1.1.", 5));
 
-            chart = new LineChart<Number, String>(xAxis, yAxis);
+            chart = new LineChart<String, Number>(yAxis, xAxis);
             chart.getData().add(series);
             chart.setTitleSide(Side.TOP);
             chart.setPrefSize(350, 230);
@@ -72,12 +72,25 @@ public class Chart {
         chart.setLayoutY(y);
     }
 
-    public void setNewDataEntry(Number wert, String zeit) {
-        series.getData().add(new Data<Number, String>(wert, zeit));
+    public void setNewDataEntry(String zeit, Number wert) {
+        series.getData().add(new Data<String, Number>(zeit, wert));
+    }
+
+    public void alterDataEntry(String zeit, Number wert) {
+        if (chart.getData().contains(zeit)) {
+            int index = chart.getData().indexOf(zeit);
+            series.getData().set(index, new Data<String, Number>(zeit, wert));
+        } else {
+            series.getData().add(new Data<String, Number>(zeit, wert));
+        }
+    }
+
+    public void setNewSeries(XYChart.Series<String, Number> serie) {
+        chart.getData().add(serie);
     }
 
     public void enableEventHandler() {
-        ClickHandler handler = new ClickHandler(art);
+        ClickHandler handler = new ClickHandler(series, art);
         chart.addEventHandler(MouseEvent.MOUSE_CLICKED, handler);
     }
 

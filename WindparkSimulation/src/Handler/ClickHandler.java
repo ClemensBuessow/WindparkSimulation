@@ -1,13 +1,17 @@
 package Handler;
+
 import GUI.GuiDataInput;
 import javafx.event.EventHandler;
+import javafx.scene.chart.XYChart;
 import javafx.scene.input.MouseEvent;
 
-
 public class ClickHandler implements EventHandler<MouseEvent> {
+    XYChart.Series<String, Number> serie = new XYChart.Series<String, Number>();
+
     String art;
 
-    public ClickHandler(String art) {
+    public ClickHandler(XYChart.Series<String, Number> series, String art) {
+        serie = series;
         this.art = art;
     }
 
@@ -15,6 +19,6 @@ public class ClickHandler implements EventHandler<MouseEvent> {
     public void handle(MouseEvent event) {
         System.out.println("wurde gehandelt");
         GuiDataInput daten = new GuiDataInput();
-        daten.GuiDatenEingebens(art);
+        daten.GuiDatenEingebens(serie, art);
     }
 }
