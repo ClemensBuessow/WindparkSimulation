@@ -171,12 +171,6 @@ public class GUI {
         gamefield.setLayoutX(400);
         gamefield.setLayoutY(500);
 
-        // Axis<Number> yAxisBar = new NumberAxis();
-        // Axis<Number> xAxisBar = new NumberAxis();
-        // LineChart<Number, Number> wind = new LineChart<Number,
-        // Number>(xAxisBar, yAxisBar);
-        //
-
         bottomLine = new Line(0, 650, 850, 650);
         sideline = new Line(850, 0, 850, 1000);
         settingLine = new Line(850, 140, 1500, 140);
@@ -227,10 +221,20 @@ public class GUI {
         String artLeistung = "Leistung";
         Chart chartLeistung = new Chart(pane, artLeistung);
         chartLeistung.enableEventHandler();
+        chartLeistung.setLayout(835, 310);
 
         String artStaerke = "Staerke";
         Chart chartStaerke = new Chart(pane, artStaerke);
         chartStaerke.enableEventHandler();
+        chartStaerke.setLayout(835, 760);
+        chartStaerke.setNewDataEntry("1", 15);
+        chartStaerke.setNewDataEntry("2", 11);
+        chartStaerke.setNewDataEntry("3", 10);
+        chartStaerke.setNewDataEntry("4", 5);
+        chartStaerke.setNewDataEntry("5", 0);
+        chartStaerke.setNewDataEntry("6", 5);
+        chartStaerke.setNewDataEntry("7", 5);
+        chartStaerke.setNewDataEntry("8", 10);
 
         Windrad rad = new Windrad(scene, pane);
         rad.setXY(350.0, 350.0);
