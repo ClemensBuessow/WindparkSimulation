@@ -13,6 +13,7 @@ import javafx.scene.layout.Pane;
 
 /**
  * 
+ * used to generate the charts
  * 
  * @author Sophie Schumann
  * @since 15.11.2016 16:11:54
