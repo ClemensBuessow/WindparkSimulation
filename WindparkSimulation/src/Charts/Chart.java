@@ -23,6 +23,9 @@ public class Chart {
     public LineChart<String, Number> chart;
 
     public XYChart.Series<String, Number> series;
+    public XYChart.Series<String, Number> series2;
+    
+  
 
     public String art;
 
@@ -47,7 +50,7 @@ public class Chart {
             chart.setLayoutX(820);
             chart.setLayoutY(300);
 
-        } else if (art.equals("Staerke") || art.equals("Leistung")) {
+        } if (art.equals("Staerke") || art.equals("Leistung")) {
             xAxis.setLabel("Windstaerke in m/s");
             yAxis.setLabel("Zeit");
 
