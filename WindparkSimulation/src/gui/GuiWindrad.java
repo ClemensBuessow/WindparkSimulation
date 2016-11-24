@@ -1,4 +1,10 @@
 package gui;
+
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
+import mapElements.singleWindrad;
+
 /**
  * 
  * 
@@ -7,9 +13,18 @@ package gui;
  * @version Release 5.2
  */
 public class GuiWindrad {
+	Pane pane;
+	Scene scene;
+	Group root;
 
     public void GuiWindradShow() {
-        System.out.println("die Gui des Windrades");
+    	
+    	pane = new Pane();
+		root = new Group();
+		scene = new Scene(root,1000,700);
+		
+       new singleWindrad();
+    	
     }
 
 }
