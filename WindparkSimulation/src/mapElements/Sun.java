@@ -1,4 +1,4 @@
-package MapElements;
+package mapElements;
 
 import javafx.animation.Animation;
 import javafx.animation.RotateTransition;

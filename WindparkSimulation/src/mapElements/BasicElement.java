@@ -1,4 +1,4 @@
-package MapElements;
+package mapElements;
 
 import javafx.scene.Node;
 

@@ -1,8 +1,8 @@
-package MapElements;
+package mapElements;
 
 import javafx.scene.Node;
 
-public class Birds extends BasicElement {
+public class Cloud extends BasicElement {
 
 	@Override
 	public void startRotation(Double duration) {

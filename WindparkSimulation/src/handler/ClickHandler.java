@@ -1,6 +1,6 @@
-package Handler;
+package handler;
 
-import GUI.GuiDataInput;
+import gui.GuiDataInput;
 import javafx.event.EventHandler;
 import javafx.scene.chart.XYChart;
 import javafx.scene.input.MouseEvent;

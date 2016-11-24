@@ -1,6 +1,6 @@
-package Charts;
+package charts;
 
-import Handler.ClickHandler;
+import handler.ClickHandler;
 import javafx.geometry.Side;
 import javafx.scene.chart.Axis;
 import javafx.scene.chart.CategoryAxis;

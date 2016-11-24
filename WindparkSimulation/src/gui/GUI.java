@@ -1,8 +1,6 @@
-package GUI;
+package gui;
 
-import Charts.Chart;
-import MapElements.Sun;
-import MapElements.Windrad;
+import charts.Chart;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -20,6 +18,8 @@ import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Box;
 import javafx.scene.shape.Line;
 import javafx.scene.transform.Rotate;
+import mapElements.Sun;
+import mapElements.Windrad;
 
 public class GUI {
 
@@ -264,6 +264,7 @@ public class GUI {
 
 		Windrad rad2 = new Windrad(scene, pane);
 		rad2.setXY(250.0, 300.0);
+		
 
 		Windrad rad3 = new Windrad(scene, pane);
 		rad3.setXY(600.0, 360.0);
@@ -282,8 +283,9 @@ public class GUI {
 			@Override
 			public void handle(ActionEvent event) {
 				rad.startRotation(1000.0);
-				rad2.startRotation(1000.0);
+			//	rad2.startRotation(1000.0);
 				rad3.startRotation(1000.0);
+				rad2.gesamtRotate();
 
 				rad5.startRotation(1000.0);
 				rad6.startRotation(1000.0);

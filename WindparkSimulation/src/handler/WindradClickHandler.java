@@ -1,5 +1,5 @@
-package Handler;
-import GUI.GuiWindrad;
+package handler;
+import gui.GuiWindrad;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 

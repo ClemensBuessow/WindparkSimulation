@@ -1,6 +1,6 @@
-package GUI;
+package gui;
 
-import Charts.Chart;
+import charts.Chart;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;

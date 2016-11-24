@@ -1,5 +1,5 @@
-package MapElements;
-import Handler.WindradClickHandler;
+package mapElements;
+import handler.WindradClickHandler;
 import javafx.animation.Animation;
 import javafx.animation.RotateTransition;
 import javafx.scene.Group;
@@ -132,7 +132,7 @@ public class Windrad extends BasicElement {
 		
 	}
 	public void gesamtRotate(){
-		RotateTransition rt = new RotateTransition(Duration.seconds(5), fullhead);
+		RotateTransition rt = new RotateTransition(Duration.seconds(5), head);
 		rt.setToAngle(360);
 		rt.setAxis(Rotate.Y_AXIS);
 		rt.setCycleCount(Animation.INDEFINITE);
