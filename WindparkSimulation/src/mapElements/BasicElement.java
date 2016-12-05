@@ -9,13 +9,17 @@ public abstract class BasicElement {
 	 * 
 	 * @param duration the time that is needed for the full rotation
 	 **/
-	public abstract void startRotation(Double duration);
+	public  void startRotation(Double duration) {
+		
+	}
 	
 	/**
 	 * stops he rotation
 	 */
 	
-	public abstract void stopRotation();
+	public void stopRotation() {
+		
+	}
 	
 	/**
 	 * needed to set the layout of an object 

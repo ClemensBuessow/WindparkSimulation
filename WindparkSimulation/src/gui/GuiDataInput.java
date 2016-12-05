@@ -25,7 +25,7 @@ public class GuiDataInput {
 
 	Stage stage = new Stage();
 
-	ObservableList<String> eintraege;
+	ObservableList<String> records;
 
 	Label settings;
 
@@ -33,13 +33,13 @@ public class GuiDataInput {
 
 	TextField time;
 
-	TextField windstaerke;
+	TextField windStrenght;
 
 	Button add;
 
-	String windstaerkedata;
+	String windStrenghtData;
 
-	double timedata;
+	double timeData;
 
 	XYChart.Series<String, Number> series2;
 
@@ -59,10 +59,10 @@ public class GuiDataInput {
 		time.setLayoutX(30);
 		time.setLayoutY(300);
 
-		windstaerke = new TextField();
-		windstaerke.setPromptText("Set Windstaerke");
-		windstaerke.setLayoutX(190);
-		windstaerke.setLayoutY(300);
+		windStrenght = new TextField();
+		windStrenght.setPromptText("Set Windstaerke");
+		windStrenght.setLayoutX(190);
+		windStrenght.setLayoutY(300);
 
 		add = new Button("Add to Series");
 		add.setLayoutX(350);
@@ -73,11 +73,11 @@ public class GuiDataInput {
 			@Override
 			public void handle(ActionEvent event) {
 			
-				timedata = Double.parseDouble(time.getText());
-				windstaerkedata = windstaerke.getText();
-				series.getData().add(new Data<String, Number>(windstaerkedata, timedata));
+				timeData = Double.parseDouble(time.getText());
+				windStrenghtData = windStrenght.getText();
+				series.getData().add(new Data<String, Number>(windStrenghtData, timeData));
 				time.clear();
-				windstaerke.clear();
+				windStrenght.clear();
 
 				
 
@@ -88,7 +88,7 @@ public class GuiDataInput {
 		chart.setNewSeries(series);
 		chart.setLayout(10, 50);
 
-		pane.getChildren().addAll(settings, time, windstaerke, add);
+		pane.getChildren().addAll(settings, time, windStrenght, add);
 
 		scene.setRoot(pane);
 

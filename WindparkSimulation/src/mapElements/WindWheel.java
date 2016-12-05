@@ -16,13 +16,13 @@ import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Translate;
 import javafx.util.Duration;
 
-public class Windrad extends BasicElement {
+public class WindWheel extends BasicElement {
 
-	Box fluegel1;
-	Box fluegel2;
-	Box fluegel3;
-	Cylinder schaft;
-	Sphere rotorNarbe;
+	Box wingOne;
+	Box wingTwo;
+	Box wingThree;
+	Cylinder shaft;
+	Sphere rotorNabe;
 	Box generator;
 	Pane pane;
 	Scene scene;
@@ -33,7 +33,7 @@ public class Windrad extends BasicElement {
 	
 	 RotateTransition rotateHead;
 
-	public Windrad(Scene scene, Pane pane) {
+	public WindWheel(Scene scene, Pane pane) {
 
 		this.scene = scene;
 		this.pane = pane;
@@ -42,40 +42,40 @@ public class Windrad extends BasicElement {
 		windrad = new Group();
 		fullhead = new Group();
 		
-		fluegel1 = new Box(30 / a, 250 / a, 7 / a);
-		fluegel1.setMaterial(new PhongMaterial(Color.ALICEBLUE));
-		fluegel1.getTransforms().add(new Rotate(20, 0, 0, 0, Rotate.X_AXIS));
-		fluegel1.getTransforms().add(new Rotate(20, 0, 0, 0, Rotate.Y_AXIS));
-		fluegel1.getTransforms().add(new Rotate(20, 0, 0, 0, Rotate.Z_AXIS));
+		wingOne = new Box(30 / a, 250 / a, 7 / a);
+		wingOne.setMaterial(new PhongMaterial(Color.ALICEBLUE));
+		wingOne.getTransforms().add(new Rotate(20, 0, 0, 0, Rotate.X_AXIS));
+		wingOne.getTransforms().add(new Rotate(20, 0, 0, 0, Rotate.Y_AXIS));
+		wingOne.getTransforms().add(new Rotate(20, 0, 0, 0, Rotate.Z_AXIS));
 //		fluegel1.getTransforms().add(new Translate(0, 0, -10));
-		fluegel1.getTransforms().add(new Rotate(130));
-		fluegel1.setLayoutX(280 / a);
-		fluegel1.setLayoutY(220 / a);
+		wingOne.getTransforms().add(new Rotate(130));
+		wingOne.setLayoutX(280 / a);
+		wingOne.setLayoutY(220 / a);
 		
 
-		fluegel2 = new Box(30 / a, 250 / a, 7 / a);
-		fluegel2.setMaterial(new PhongMaterial(Color.ALICEBLUE));
-		fluegel2.getTransforms().add(new Rotate(20, 0, 0, 0, Rotate.X_AXIS));
-		fluegel2.getTransforms().add(new Rotate(20, 0, 0, 0, Rotate.Y_AXIS));
-		fluegel2.getTransforms().add(new Rotate(20, 0, 0, 0, Rotate.Z_AXIS));
-		fluegel2.getTransforms().add(new Rotate(190));
-		fluegel2.setLayoutX(280 / a);
-		fluegel2.setLayoutY(10 / a);
+		wingTwo = new Box(30 / a, 250 / a, 7 / a);
+		wingTwo.setMaterial(new PhongMaterial(Color.ALICEBLUE));
+		wingTwo.getTransforms().add(new Rotate(20, 0, 0, 0, Rotate.X_AXIS));
+		wingTwo.getTransforms().add(new Rotate(20, 0, 0, 0, Rotate.Y_AXIS));
+		wingTwo.getTransforms().add(new Rotate(20, 0, 0, 0, Rotate.Z_AXIS));
+		wingTwo.getTransforms().add(new Rotate(190));
+		wingTwo.setLayoutX(280 / a);
+		wingTwo.setLayoutY(10 / a);
 
-		fluegel3 = new Box(30 / a, 250 / a, 7 / a);
-		fluegel3.setMaterial(new PhongMaterial(Color.ALICEBLUE));
-		fluegel3.getTransforms().add(new Rotate(20, 0, 0, 0, Rotate.X_AXIS));
-		fluegel3.getTransforms().add(new Rotate(20, 0, 0, 0, Rotate.Y_AXIS));
-		fluegel3.getTransforms().add(new Rotate(20, 0, 0, 0, Rotate.Z_AXIS));
-		fluegel3.getTransforms().add(new Rotate(65));
-		fluegel3.setLayoutX(100 / a);
-		fluegel3.setLayoutY(100 / a);
+		wingThree = new Box(30 / a, 250 / a, 7 / a);
+		wingThree.setMaterial(new PhongMaterial(Color.ALICEBLUE));
+		wingThree.getTransforms().add(new Rotate(20, 0, 0, 0, Rotate.X_AXIS));
+		wingThree.getTransforms().add(new Rotate(20, 0, 0, 0, Rotate.Y_AXIS));
+		wingThree.getTransforms().add(new Rotate(20, 0, 0, 0, Rotate.Z_AXIS));
+		wingThree.getTransforms().add(new Rotate(65));
+		wingThree.setLayoutX(100 / a);
+		wingThree.setLayoutY(100 / a);
 
-		rotorNarbe = new Sphere(30 / a);
-		rotorNarbe.setLayoutX(220 / a);
-		rotorNarbe.setLayoutY(105 / a);
-		rotorNarbe.getTransforms().add(new Rotate(20, 0, 0, 0, Rotate.X_AXIS));
-		rotorNarbe.getTransforms().add(new Rotate(20, 0, 0, 0, Rotate.Y_AXIS));
+		rotorNabe = new Sphere(30 / a);
+		rotorNabe.setLayoutX(220 / a);
+		rotorNabe.setLayoutY(105 / a);
+		rotorNabe.getTransforms().add(new Rotate(20, 0, 0, 0, Rotate.X_AXIS));
+		rotorNabe.getTransforms().add(new Rotate(20, 0, 0, 0, Rotate.Y_AXIS));
 
 		generator = new Box(60 / a, 60 / a, 60 / a);
 		generator.setMaterial(new PhongMaterial(Color.ALICEBLUE));
@@ -84,19 +84,19 @@ public class Windrad extends BasicElement {
 		generator.setLayoutX(235 / a);
 		generator.setLayoutY(95 / a);
 
-		schaft = new Cylinder(20 / a, 400 / a);
-		schaft.setMaterial(new PhongMaterial(Color.ALICEBLUE));
-		schaft.getTransforms().add(new Rotate(20, 0, 0, 0, Rotate.X_AXIS));
-		schaft.getTransforms().add(new Rotate(20, 0, 0, 0, Rotate.Y_AXIS));
-		schaft.setLayoutX(235 / a);
-		schaft.setLayoutY(310 / a);
+		shaft = new Cylinder(20 / a, 400 / a);
+		shaft.setMaterial(new PhongMaterial(Color.ALICEBLUE));
+		shaft.getTransforms().add(new Rotate(20, 0, 0, 0, Rotate.X_AXIS));
+		shaft.getTransforms().add(new Rotate(20, 0, 0, 0, Rotate.Y_AXIS));
+		shaft.setLayoutX(235 / a);
+		shaft.setLayoutY(310 / a);
 
 		movePivot(head, 53.5 / a, -16 / a);
 		movePivot(fullhead, 14, 0);
 
-		head.getChildren().addAll(fluegel1, fluegel2, fluegel3, rotorNarbe);
+		head.getChildren().addAll(wingOne, wingTwo, wingThree, rotorNabe);
 //		fullhead.getChildren().addAll(fluegel1,fluegel2,fluegel3,rotorNarbe,generator);
-		windrad.getChildren().addAll(schaft, generator, head,fullhead);
+		windrad.getChildren().addAll(shaft, generator, head,fullhead);
 		windrad.addEventHandler(MouseEvent.MOUSE_CLICKED, new WindradClickHandler());
 		
 	

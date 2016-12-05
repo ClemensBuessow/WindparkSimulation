@@ -16,7 +16,7 @@ public class Sun extends BasicElement{
 	Sphere sun;
 	Pane pane;
 	Scene scene;
-	RotateTransition rotateHead;
+	RotateTransition sunRotate;
 	
 	public Sun(Scene scene,Pane pane){
 		this.pane = pane;
@@ -31,10 +31,10 @@ public class Sun extends BasicElement{
 	}
 	
 	public void startRotation(Double duration) {
-        rotateHead = new RotateTransition(Duration.seconds(duration), sun);
-        rotateHead.setToAngle(500000);
-        rotateHead.setCycleCount(Animation.INDEFINITE);
-        rotateHead.play();
+        sunRotate = new RotateTransition(Duration.seconds(duration), sun);
+        sunRotate.setToAngle(500000);
+        sunRotate.setCycleCount(Animation.INDEFINITE);
+        sunRotate.play();
     }
 
 	public void setXY(Double x, Double y) {

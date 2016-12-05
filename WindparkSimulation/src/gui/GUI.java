@@ -19,7 +19,7 @@ import javafx.scene.shape.Box;
 import javafx.scene.shape.Line;
 import javafx.scene.transform.Rotate;
 import mapElements.Sun;
-import mapElements.Windrad;
+import mapElements.WindWheel;
 
 public class GUI {
 
@@ -27,23 +27,23 @@ public class GUI {
 
 	ComboBox<String> windpark;
 
-	ObservableList<String> eintraegeWindpark;
+	ObservableList<String> recordsWindpark;
 
-	ObservableList<String> eintraegeWindrichtung;
+	ObservableList<String> recrodsWindDirection;
 
 	Label settings;
 
-	Label windrichtung;
+	Label windDirection;
 
-	Label windstaerke;
+	Label windStrength;
 
-	Label voegel;
+	Label birds;
 
-	Label boeen;
+	Label bos;
 
-	Label brand;
+	Label fire;
 
-	Label gesamtKW;
+	Label totalKW;
 
 	Button start;
 
@@ -69,21 +69,21 @@ public class GUI {
 
 	Line settingLine;
 
-	CheckBox vogelYes;
+	CheckBox birdsYes;
 
-	CheckBox vogelNo;
+	CheckBox birdsNo;
 
-	CheckBox brandYes;
+	CheckBox fireYes;
 
-	CheckBox brandNo;
+	CheckBox fireNo;
 
-	CheckBox boeenYes;
+	CheckBox bosYes;
 
-	CheckBox boeenNo;
+	CheckBox bosNo;
 
-	ComboBox<String> windRichtung;
+	ComboBox<String> windDirectionCombo;
 
-	TextField windGrad;
+	TextField windDegree;
 
 	Box gamefield;
 
@@ -91,10 +91,10 @@ public class GUI {
 
 	Group root;
 
-	int a;
-	
+	int scalingForGUI;
+
 	Double timeData;
-	String windstaerkenData;
+	String windStrenghtData;
 
 	public GUI(Scene scene, Pane pane) {
 
@@ -102,40 +102,40 @@ public class GUI {
 		root = new Group();
 		this.scene = scene;
 
-		eintraegeWindpark = FXCollections.observableArrayList("Windpark Ostsee", "Windpark Nordsee");
-		eintraegeWindrichtung = FXCollections.observableArrayList("Nord", "Ost", "Süd", "West");
+		recordsWindpark = FXCollections.observableArrayList("Windpark Ostsee", "Windpark Nordsee");
+		recrodsWindDirection = FXCollections.observableArrayList("Nord", "Ost", "Süd", "West");
 
 		settings = new Label("Settings");
 		settings.setLayoutX(900);
-		settings.setLayoutY(30 - a);
+		settings.setLayoutY(30 - scalingForGUI);
 
-		windpark = new ComboBox<>(eintraegeWindpark);
+		windpark = new ComboBox<>(recordsWindpark);
 		windpark.setLayoutX(900);
-		windpark.setLayoutY(90 - a);
+		windpark.setLayoutY(90 - scalingForGUI);
 
-		windrichtung = new Label("Windrichtung");
-		windrichtung.setLayoutX(900);
-		windrichtung.setLayoutY(200 - a);
+		windDirection = new Label("Windrichtung");
+		windDirection.setLayoutX(900);
+		windDirection.setLayoutY(200 - scalingForGUI);
 
-		windstaerke = new Label("Windstaerke");
-		windstaerke.setLayoutX(900);
-		windstaerke.setLayoutY(300 - a);
+		windStrength = new Label("Windstaerke");
+		windStrength.setLayoutX(900);
+		windStrength.setLayoutY(300 - scalingForGUI);
 
-		voegel = new Label("Voegel");
-		voegel.setLayoutX(900);
-		voegel.setLayoutY(540 - a);
+		birds = new Label("Voegel");
+		birds.setLayoutX(900);
+		birds.setLayoutY(540 - scalingForGUI);
 
-		boeen = new Label("Boeen");
-		boeen.setLayoutX(900);
-		boeen.setLayoutY(600 - a);
+		bos = new Label("Boeen");
+		bos.setLayoutX(900);
+		bos.setLayoutY(600 - scalingForGUI);
 
-		brand = new Label("Brand");
-		brand.setLayoutX(900);
-		brand.setLayoutY(660 - a);
+		fire = new Label("Brand");
+		fire.setLayoutX(900);
+		fire.setLayoutY(660 - scalingForGUI);
 
-		gesamtKW = new Label("Gesamt KW");
-		gesamtKW.setLayoutX(900);
-		gesamtKW.setLayoutY(750 - a);
+		totalKW = new Label("Gesamt KW");
+		totalKW.setLayoutX(900);
+		totalKW.setLayoutY(750 - scalingForGUI);
 
 		start = new Button("Start");
 		start.setLayoutX(30);
@@ -180,49 +180,50 @@ public class GUI {
 		sideline = new Line(850, 0, 850, 1000);
 		settingLine = new Line(850, 140, 1500, 140);
 
-		vogelYes = new CheckBox("Yes");
-		vogelYes.setLayoutX(900);
-		vogelYes.setLayoutY(560 - a);
+		birdsYes = new CheckBox("Yes");
+		birdsYes.setLayoutX(900);
+		birdsYes.setLayoutY(560 - scalingForGUI);
 
-		vogelNo = new CheckBox("No");
-		vogelNo.setLayoutX(970);
-		vogelNo.setLayoutY(560 - a);
+		birdsNo = new CheckBox("No");
+		birdsNo.setLayoutX(970);
+		birdsNo.setLayoutY(560 - scalingForGUI);
 
-		brandYes = new CheckBox("Yes");
-		brandYes.setLayoutX(900);
-		brandYes.setLayoutY(680 - a);
+		fireYes = new CheckBox("Yes");
+		fireYes.setLayoutX(900);
+		fireYes.setLayoutY(680 - scalingForGUI);
 
-		brandNo = new CheckBox("No");
-		brandNo.setLayoutX(970);
-		brandNo.setLayoutY(680 - a);
+		fireNo = new CheckBox("No");
+		fireNo.setLayoutX(970);
+		fireNo.setLayoutY(680 - scalingForGUI);
 
-		boeenYes = new CheckBox("Yes");
-		boeenYes.setLayoutX(900);
-		boeenYes.setLayoutY(620 - a);
+		bosYes = new CheckBox("Yes");
+		bosYes.setLayoutX(900);
+		bosYes.setLayoutY(620 - scalingForGUI);
 
-		boeenNo = new CheckBox("No");
-		boeenNo.setLayoutX(970);
-		boeenNo.setLayoutY(620 - a);
+		bosNo = new CheckBox("No");
+		bosNo.setLayoutX(970);
+		bosNo.setLayoutY(620 - scalingForGUI);
 
 		chartRenew = new Button("Renew Charts");
 		chartRenew.setLayoutX(720);
 		chartRenew.setLayoutY(100);
 
-		windRichtung = new ComboBox<>(eintraegeWindrichtung);
-		windRichtung.setLayoutX(900);
-		windRichtung.setLayoutY(230);
-		windRichtung.setOnAction(e -> {
+		windDirectionCombo = new ComboBox<>(recrodsWindDirection);
+		windDirectionCombo.setLayoutX(900);
+		windDirectionCombo.setLayoutY(230);
+		windDirectionCombo.setOnAction(e -> {
 			switchtingWind();
 		});
 
-		windGrad = new TextField("Gradzahl");
-		windGrad.setLayoutX(900);
-		windGrad.setLayoutY(260);
-		windGrad.setEditable(false);
+		windDegree = new TextField("Gradzahl");
+		windDegree.setLayoutX(900);
+		windDegree.setLayoutY(260);
+		windDegree.setEditable(false);
 
-		pane.getChildren().addAll(gamefield, settings, windpark, windrichtung, windstaerke, voegel, boeen, brand,
-				gesamtKW, start, stop, reset, add, delete, x1, x2, x4, bottomLine, sideline, settingLine, vogelYes,
-				vogelNo, brandYes, brandNo, boeenYes, boeenNo, windRichtung, windGrad, chartRenew);
+		pane.getChildren().addAll(gamefield, settings, windpark, windDirection, windStrength, birds, bos, fire, totalKW,
+				start, stop, reset, add, delete, x1, x2, x4, bottomLine, sideline, settingLine, birdsYes, birdsNo,
+				fireYes, fireNo, bosYes, bosNo, windDirectionCombo, windDegree, chartRenew);
+
 		scene.setRoot(pane);
 
 		String artLeistung = "Leistung";
@@ -234,15 +235,15 @@ public class GUI {
 
 			@Override
 			public void handle(ActionEvent event) {
-				
-//				GuiDataInput guiData = new GuiDataInput();
-//				
-//				System.out.println(timeData);
-//				System.out.println(windstaerkenData);
-//				
-////				timeData = guiData.getTime();
-////				windstaerkenData = guiData.getwindstaerke();
-//				chartLeistung.setNewDataEntry(windstaerkenData,timeData);
+
+				// GuiDataInput guiData = new GuiDataInput();
+				//
+				// System.out.println(timeData);
+				// System.out.println(windstaerkenData);
+				//
+				//// timeData = guiData.getTime();
+				//// windstaerkenData = guiData.getwindstaerke();
+				// chartLeistung.setNewDataEntry(windstaerkenData,timeData);
 			}
 		});
 
@@ -259,20 +260,19 @@ public class GUI {
 		chartStaerke.setNewDataEntry("7", 5);
 		chartStaerke.setNewDataEntry("8", 10);
 
-		Windrad rad = new Windrad(scene, pane);
+		WindWheel rad = new WindWheel(scene, pane);
 		rad.setXY(350.0, 350.0);
 
-		Windrad rad2 = new Windrad(scene, pane);
+		WindWheel rad2 = new WindWheel(scene, pane);
 		rad2.setXY(250.0, 300.0);
-		
 
-		Windrad rad3 = new Windrad(scene, pane);
+		WindWheel rad3 = new WindWheel(scene, pane);
 		rad3.setXY(600.0, 360.0);
 
-		Windrad rad5 = new Windrad(scene, pane);
+		WindWheel rad5 = new WindWheel(scene, pane);
 		rad5.setXY(200.0, 360.0);
 
-		Windrad rad6 = new Windrad(scene, pane);
+		WindWheel rad6 = new WindWheel(scene, pane);
 		rad6.setXY(500.0, 320.0);
 
 		Sun sun = new Sun(scene, pane);
@@ -283,7 +283,7 @@ public class GUI {
 			@Override
 			public void handle(ActionEvent event) {
 				rad.startRotation(1000.0);
-			//	rad2.startRotation(1000.0);
+				// rad2.startRotation(1000.0);
 				rad3.startRotation(1000.0);
 				rad2.gesamtRotate();
 
@@ -348,79 +348,79 @@ public class GUI {
 			}
 		});
 
-		vogelYes.setOnAction(new EventHandler<ActionEvent>() {
+		birdsYes.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
 			public void handle(ActionEvent event) {
-				if (vogelYes.isSelected()) {
-					vogelNo.setDisable(true);
+				if (birdsYes.isSelected()) {
+					birdsNo.setDisable(true);
 				} else {
-					vogelNo.setDisable(false);
+					birdsNo.setDisable(false);
 				}
 
 			}
 		});
 
-		vogelNo.setOnAction(new EventHandler<ActionEvent>() {
+		birdsNo.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
 			public void handle(ActionEvent event) {
-				if (vogelNo.isSelected()) {
-					vogelYes.setDisable(true);
+				if (birdsNo.isSelected()) {
+					birdsYes.setDisable(true);
 				} else {
-					vogelYes.setDisable(false);
+					birdsYes.setDisable(false);
 				}
 
 			}
 		});
 
-		boeenYes.setOnAction(new EventHandler<ActionEvent>() {
+		bosYes.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
 			public void handle(ActionEvent event) {
-				if (boeenYes.isSelected()) {
-					boeenNo.setDisable(true);
+				if (bosYes.isSelected()) {
+					bosNo.setDisable(true);
 				} else {
-					boeenNo.setDisable(false);
+					bosNo.setDisable(false);
 				}
 
 			}
 		});
 
-		boeenNo.setOnAction(new EventHandler<ActionEvent>() {
+		bosNo.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
 			public void handle(ActionEvent event) {
-				if (boeenNo.isSelected()) {
-					boeenYes.setDisable(true);
+				if (bosNo.isSelected()) {
+					bosYes.setDisable(true);
 				} else {
-					boeenYes.setDisable(false);
+					bosYes.setDisable(false);
 				}
 
 			}
 		});
 
-		brandYes.setOnAction(new EventHandler<ActionEvent>() {
+		fireYes.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
 			public void handle(ActionEvent event) {
-				if (brandYes.isSelected()) {
-					brandNo.setDisable(true);
+				if (fireYes.isSelected()) {
+					fireNo.setDisable(true);
 				} else {
-					brandNo.setDisable(false);
+					fireNo.setDisable(false);
 				}
 
 			}
 		});
 
-		brandNo.setOnAction(new EventHandler<ActionEvent>() {
+		fireNo.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
 			public void handle(ActionEvent event) {
-				if (brandNo.isSelected()) {
-					brandYes.setDisable(true);
+				if (fireNo.isSelected()) {
+					fireYes.setDisable(true);
 				} else {
-					brandYes.setDisable(false);
+					fireYes.setDisable(false);
 				}
 
 			}
@@ -429,22 +429,22 @@ public class GUI {
 	}
 
 	public void switchtingWind() {
-		switch (windRichtung.getValue()) {
+		switch (windDirectionCombo.getValue()) {
 		case "Nord":
-			windGrad.setEditable(true);
-			windGrad.clear();
+			windDegree.setEditable(true);
+			windDegree.clear();
 			break;
 		case "Ost":
-			windGrad.setEditable(true);
-			windGrad.clear();
+			windDegree.setEditable(true);
+			windDegree.clear();
 			break;
 		case "Süd":
-			windGrad.setEditable(true);
-			windGrad.clear();
+			windDegree.setEditable(true);
+			windDegree.clear();
 			break;
 		case "West":
-			windGrad.setEditable(true);
-			windGrad.clear();
+			windDegree.setEditable(true);
+			windDegree.clear();
 			break;
 		}
 	}

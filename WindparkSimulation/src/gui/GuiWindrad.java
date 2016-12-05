@@ -3,7 +3,7 @@ package gui;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
-import mapElements.singleWindrad;
+import mapElements.SingleWindWheel;
 
 /**
  * 
@@ -23,7 +23,7 @@ public class GuiWindrad {
 		root = new Group();
 		scene = new Scene(root,1000,700);
 		
-       new singleWindrad();
+       new SingleWindWheel();
     	
     }
 
