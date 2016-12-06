@@ -18,6 +18,7 @@ import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Box;
 import javafx.scene.shape.Line;
 import javafx.scene.transform.Rotate;
+import mapElements.Cloud;
 import mapElements.Sun;
 import mapElements.WindWheel;
 
@@ -96,14 +97,28 @@ public class GUI {
 	Double timeData;
 	String windStrenghtData;
 
+	WindWheel rad;
+	WindWheel rad2;
+	WindWheel rad3;
+	WindWheel rad4;
+	WindWheel rad5;
+	WindWheel rad6;
+
+//	WindWheel rad7;
+//	WindWheel rad8;
+//	WindWheel rad9;
+//	WindWheel rad10;
+//	WindWheel rad11;
+//	WindWheel rad12;
 	public GUI(Scene scene, Pane pane) {
 
 		this.pane = pane;
 		root = new Group();
 		this.scene = scene;
 
-		recordsWindpark = FXCollections.observableArrayList("Windpark Ostsee", "Windpark Nordsee");
-		recrodsWindDirection = FXCollections.observableArrayList("Nord", "Ost", "SÃ¼d", "West");
+		recordsWindpark = FXCollections.observableArrayList("Windpark Ostsee", "Windpark Nordsee","Delete");
+		recrodsWindDirection = FXCollections.observableArrayList("Nord - Nord/Ost", "Ost - Süd/Ost", "Süd - Süd/West",
+				"West - Nord/West");
 
 		settings = new Label("Settings");
 		settings.setLayoutX(900);
@@ -219,7 +234,8 @@ public class GUI {
 		windDegree.setLayoutX(900);
 		windDegree.setLayoutY(260);
 		windDegree.setEditable(false);
-
+		
+	
 		pane.getChildren().addAll(gamefield, settings, windpark, windDirection, windStrength, birds, bos, fire, totalKW,
 				start, stop, reset, add, delete, x1, x2, x4, bottomLine, sideline, settingLine, birdsYes, birdsNo,
 				fireYes, fireNo, bosYes, bosNo, windDirectionCombo, windDegree, chartRenew);
@@ -260,20 +276,20 @@ public class GUI {
 		chartStaerke.setNewDataEntry("7", 5);
 		chartStaerke.setNewDataEntry("8", 10);
 
-		WindWheel rad = new WindWheel(scene, pane);
-		rad.setXY(350.0, 350.0);
-
-		WindWheel rad2 = new WindWheel(scene, pane);
-		rad2.setXY(250.0, 300.0);
-
-		WindWheel rad3 = new WindWheel(scene, pane);
-		rad3.setXY(600.0, 360.0);
-
-		WindWheel rad5 = new WindWheel(scene, pane);
-		rad5.setXY(200.0, 360.0);
-
-		WindWheel rad6 = new WindWheel(scene, pane);
-		rad6.setXY(500.0, 320.0);
+		// WindWheel rad = new WindWheel(scene, pane);
+		// rad.setXY(350.0, 350.0);
+		//
+		// WindWheel rad2 = new WindWheel(scene, pane);
+		// rad2.setXY(250.0, 300.0);
+		//
+		// WindWheel rad3 = new WindWheel(scene, pane);
+		// rad3.setXY(600.0, 360.0);
+		//
+		// WindWheel rad5 = new WindWheel(scene, pane);
+		// rad5.setXY(200.0, 360.0);
+		//
+		// WindWheel rad6 = new WindWheel(scene, pane);
+		// rad6.setXY(500.0, 320.0);
 
 		Sun sun = new Sun(scene, pane);
 		sun.startRotation(10000.0);
@@ -283,12 +299,13 @@ public class GUI {
 			@Override
 			public void handle(ActionEvent event) {
 				rad.startRotation(1000.0);
-				// rad2.startRotation(1000.0);
+				rad2.startRotation(1000.0);
 				rad3.startRotation(1000.0);
-				rad2.gesamtRotate();
-
+				// rad2.gesamtRotate();
+				rad4.startRotation(1000.0);
 				rad5.startRotation(1000.0);
 				rad6.startRotation(1000.0);
+			
 			}
 		});
 
@@ -299,7 +316,7 @@ public class GUI {
 				rad.stopRotation();
 				rad2.stopRotation();
 				rad3.stopRotation();
-
+				rad4.stopRotation();
 				rad5.stopRotation();
 				rad6.stopRotation();
 
@@ -313,7 +330,7 @@ public class GUI {
 				rad.startRotation(1000.0);
 				rad2.startRotation(1000.0);
 				rad3.startRotation(1000.0);
-
+				rad4.startRotation(1000.0);
 				rad5.startRotation(1000.0);
 				rad6.startRotation(1000.0);
 
@@ -327,7 +344,7 @@ public class GUI {
 				rad.startRotation(700.0);
 				rad2.startRotation(700.0);
 				rad3.startRotation(700.0);
-
+				rad4.startRotation(700.0);
 				rad5.startRotation(700.0);
 				rad6.startRotation(700.0);
 
@@ -341,7 +358,7 @@ public class GUI {
 				rad.startRotation(500.00);
 				rad2.startRotation(500.00);
 				rad3.startRotation(500.00);
-
+				rad4.startRotation(500.0);
 				rad5.startRotation(500.00);
 				rad6.startRotation(500.00);
 
@@ -426,6 +443,15 @@ public class GUI {
 			}
 		});
 
+		windpark.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				switchingPark();
+
+			}
+		});
+
 	}
 
 	public void switchtingWind() {
@@ -446,6 +472,55 @@ public class GUI {
 			windDegree.setEditable(true);
 			windDegree.clear();
 			break;
+		}
+	}
+
+	public void switchingPark() {
+		switch (windpark.getValue()) {
+		case "Windpark Ostsee":
+
+			rad2 = new WindWheel(scene, pane);
+			rad2.setXY(250.0, 320.0);
+
+			rad4 = new WindWheel(scene, pane);
+			rad4.setXY(400.0, 330.0);
+
+			rad = new WindWheel(scene, pane);
+			rad.setXY(320.0, 370.0);
+
+			rad6 = new WindWheel(scene, pane);
+			rad6.setXY(570.0, 340.0);
+
+			rad3 = new WindWheel(scene, pane);
+			rad3.setXY(480.0, 380.0);
+
+			rad5 = new WindWheel(scene, pane);
+			rad5.setXY(150.0, 360.0);
+			
+			gamefield.setMaterial(new PhongMaterial(Color.DEEPSKYBLUE));
+			
+			Cloud cloud = new Cloud(scene, pane);
+			cloud.setXY(200.0, 160.0);
+			cloud.translateToWindDirection(-80.0, 20.0, 45.0);
+			
+			Cloud cloud2 = new Cloud(scene, pane);
+			cloud2.setXY(400.0, 160.0);
+			cloud2.translateToWindDirection(-80.0, 20.0, 45.0);
+
+			Cloud cloud3 = new Cloud(scene, pane);
+			cloud3.setXY(600.0, 160.0);
+			cloud3.translateToWindDirection(-80.0, 20.0, 45.0);
+			
+			break;
+
+		case "Windpark Nordsee":
+			break;
+			
+			
+		case "Delete":
+			break;
+			
+			
 		}
 	}
 

@@ -116,8 +116,9 @@ public class WindWheel extends BasicElement {
 		windrad.setLayoutY(y);
 	}
 	
-	public void setVisibility(){
+	public void setVisibilityFalse(){
 		windrad.setVisible(false);
+		
 	}
 	
 	public void startRotation(Double duration) {
