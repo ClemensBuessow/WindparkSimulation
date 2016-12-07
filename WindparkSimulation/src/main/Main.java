@@ -2,9 +2,16 @@ package main;
 
 import gui.GUI;
 import javafx.application.Application;
+import javafx.application.ConditionalFeature;
+import javafx.application.Platform;
+import javafx.scene.Camera;
+import javafx.scene.DepthTest;
 import javafx.scene.Group;
+import javafx.scene.Node;
+import javafx.scene.PerspectiveCamera;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
+import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
 
 public class Main extends Application {
@@ -23,12 +30,23 @@ public class Main extends Application {
 		this.primaryStage = primaryStage;
 		region = new Pane();
 		root = new Group();
+		
+		root.setDepthTest(DepthTest.ENABLE);
+		System.out.println("root z-buffer" + root.getDepthTest());
+		System.out.println("3D Support?" + Platform.isSupported(ConditionalFeature.SCENE3D));
+		
 		simulation = new Scene(root, 1200, 1000);
+		
+//		PerspectiveCamera pe = new PerspectiveCamera();
+//		pe.setRotationAxis(Rotate.Y_AXIS);
+//		simulation.setCamera(pe);
+		
+		
 		primaryStage.setScene(simulation);
 		simulation.setRoot(region);
 
 		new GUI(simulation, region);
-
+		
 		primaryStage.show();
 
 	}

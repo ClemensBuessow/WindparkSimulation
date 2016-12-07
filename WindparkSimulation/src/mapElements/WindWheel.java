@@ -1,7 +1,9 @@
 package mapElements;
 import handler.WindradClickHandler;
 import javafx.animation.Animation;
+import javafx.animation.ParallelTransition;
 import javafx.animation.RotateTransition;
+import javafx.scene.DepthTest;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -44,59 +46,70 @@ public class WindWheel extends BasicElement {
 		
 		wingOne = new Box(30 / a, 250 / a, 7 / a);
 		wingOne.setMaterial(new PhongMaterial(Color.ALICEBLUE));
-		wingOne.getTransforms().add(new Rotate(20, 0, 0, 0, Rotate.X_AXIS));
+//		wingOne.getTransforms().add(new Rotate(20, 0, 0, 0, Rotate.X_AXIS));
 		wingOne.getTransforms().add(new Rotate(20, 0, 0, 0, Rotate.Y_AXIS));
 		wingOne.getTransforms().add(new Rotate(20, 0, 0, 0, Rotate.Z_AXIS));
 //		fluegel1.getTransforms().add(new Translate(0, 0, -10));
-		wingOne.getTransforms().add(new Rotate(130));
-		wingOne.setLayoutX(280 / a);
-		wingOne.setLayoutY(220 / a);
+		wingOne.getTransforms().add(new Rotate(131));
+		wingOne.setTranslateX(290 / a);
+		wingOne.setTranslateY(230 / a);
+		wingOne.setTranslateZ(-50/ a);
+		
 		
 
 		wingTwo = new Box(30 / a, 250 / a, 7 / a);
 		wingTwo.setMaterial(new PhongMaterial(Color.ALICEBLUE));
-		wingTwo.getTransforms().add(new Rotate(20, 0, 0, 0, Rotate.X_AXIS));
+//		wingTwo.getTransforms().add(new Rotate(20, 0, 0, 0, Rotate.X_AXIS));
 		wingTwo.getTransforms().add(new Rotate(20, 0, 0, 0, Rotate.Y_AXIS));
 		wingTwo.getTransforms().add(new Rotate(20, 0, 0, 0, Rotate.Z_AXIS));
-		wingTwo.getTransforms().add(new Rotate(190));
-		wingTwo.setLayoutX(280 / a);
-		wingTwo.setLayoutY(10 / a);
+		wingTwo.getTransforms().add(new Rotate(196));
+		wingTwo.setTranslateX(310 / a);
+		wingTwo.setTranslateY(-30 / a);
+		wingTwo.setTranslateZ(-50/a);
 
 		wingThree = new Box(30 / a, 250 / a, 7 / a);
 		wingThree.setMaterial(new PhongMaterial(Color.ALICEBLUE));
-		wingThree.getTransforms().add(new Rotate(20, 0, 0, 0, Rotate.X_AXIS));
+//		wingThree.getTransforms().add(new Rotate(20, 0, 0, 0, Rotate.X_AXIS));
 		wingThree.getTransforms().add(new Rotate(20, 0, 0, 0, Rotate.Y_AXIS));
 		wingThree.getTransforms().add(new Rotate(20, 0, 0, 0, Rotate.Z_AXIS));
-		wingThree.getTransforms().add(new Rotate(65));
-		wingThree.setLayoutX(100 / a);
-		wingThree.setLayoutY(100 / a);
+		wingThree.getTransforms().add(new Rotate(63));
+		wingThree.setTranslateX(77 / a);
+		wingThree.setTranslateY(110 / a);
+		wingThree.setTranslateZ(20/a);
 
 		rotorNabe = new Sphere(30 / a);
 		rotorNabe.setLayoutX(220 / a);
-		rotorNabe.setLayoutY(105 / a);
+		rotorNabe.setLayoutY(95 / a);
+		rotorNabe.setTranslateZ(-5);
 		rotorNabe.getTransforms().add(new Rotate(20, 0, 0, 0, Rotate.X_AXIS));
 		rotorNabe.getTransforms().add(new Rotate(20, 0, 0, 0, Rotate.Y_AXIS));
+		
 
 		generator = new Box(60 / a, 60 / a, 60 / a);
 		generator.setMaterial(new PhongMaterial(Color.ALICEBLUE));
-		generator.getTransforms().add(new Rotate(20, 0, 0, 0, Rotate.X_AXIS));
+//		generator.getTransforms().add(new Rotate(20, 0, 0, 0, Rotate.X_AXIS));
 		generator.getTransforms().add(new Rotate(20, 0, 0, 0, Rotate.Y_AXIS));
 		generator.setLayoutX(235 / a);
 		generator.setLayoutY(95 / a);
+		generator.setTranslateZ(10/a);
+		
 
 		shaft = new Cylinder(20 / a, 400 / a);
 		shaft.setMaterial(new PhongMaterial(Color.ALICEBLUE));
-		shaft.getTransforms().add(new Rotate(20, 0, 0, 0, Rotate.X_AXIS));
+//		shaft.getTransforms().add(new Rotate(20, 0, 0, 0, Rotate.X_AXIS));
 		shaft.getTransforms().add(new Rotate(20, 0, 0, 0, Rotate.Y_AXIS));
 		shaft.setLayoutX(235 / a);
 		shaft.setLayoutY(310 / a);
 
-		movePivot(head, 53.5 / a, -16 / a);
-		movePivot(fullhead, 14, 0);
+		movePivot(head, 50 / a, -14 / a);
+		movePivot(fullhead, 55/a, 0);
 
-		head.getChildren().addAll(wingOne, wingTwo, wingThree, rotorNabe);
-//		fullhead.getChildren().addAll(fluegel1,fluegel2,fluegel3,rotorNarbe,generator);
-		windrad.getChildren().addAll(shaft, generator, head,fullhead);
+		movePivot(windrad, -10, 0);
+		head.getChildren().addAll(wingOne, wingTwo, wingThree);
+		
+		fullhead.getChildren().addAll(head,generator,rotorNabe);
+		windrad.setDepthTest(DepthTest.ENABLE);
+		windrad.getChildren().addAll(shaft, fullhead);
 		windrad.addEventHandler(MouseEvent.MOUSE_CLICKED, new WindradClickHandler());
 		
 	
@@ -121,11 +134,18 @@ public class WindWheel extends BasicElement {
 		
 	}
 	
+	public void setVisibilityTrue(){
+		windrad.setVisible(true);
+		
+	}
+	
 	public void startRotation(Double duration) {
         rotateHead = new RotateTransition(Duration.seconds(duration), head);
         rotateHead.setToAngle(500000);
         rotateHead.setCycleCount(Animation.INDEFINITE);
         rotateHead.play();
+        
+      
     }
 	
 	public void stopRotation() {
@@ -133,11 +153,11 @@ public class WindWheel extends BasicElement {
 		
 	}
 	public void gesamtRotate(){
-		RotateTransition rt = new RotateTransition(Duration.seconds(5), head);
-		rt.setToAngle(360);
-		rt.setAxis(Rotate.Y_AXIS);
-		rt.setCycleCount(Animation.INDEFINITE);
-		rt.play();
+		  RotateTransition rt = new RotateTransition(Duration.seconds(5),fullhead);
+			rt.setToAngle(360);
+			rt.setAxis(Rotate.Y_AXIS);
+			rt.setCycleCount(Animation.INDEFINITE);
+			rt.play();
 	}
 
 }
