@@ -1,21 +1,16 @@
 package gui;
 
 import charts.Chart;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.Orientation;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollBar;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
@@ -29,84 +24,56 @@ import mapElements.WindWheel;
 public class GUI {
 
 	Pane pane;
+	Scene scene;
+	Group root;
 
 	ComboBox<String> windpark;
+	ComboBox<String> windDirectionCombo;
 
 	ObservableList<String> recordsWindpark;
-
 	ObservableList<String> recrodsWindDirection;
 
 	Label settings;
-
 	Label windDirection;
-
 	Label windStrength;
-
 	Label birds;
-
 	Label bos;
-
 	Label fire;
-
 	Label totalKW;
 
 	Button start;
-
 	Button stop;
-
 	Button reset;
-
 	Button add;
-
 	Button delete;
-
 	Button x1;
-
 	Button x2;
-
 	Button x4;
-
 	Button chartRenew;
 
 	Line bottomLine;
-
 	Line sideline;
-
 	Line settingLine;
 
 	CheckBox birdsYes;
-
 	CheckBox birdsNo;
-
 	CheckBox fireYes;
-
 	CheckBox fireNo;
-
 	CheckBox bosYes;
-
 	CheckBox bosNo;
-
-	ComboBox<String> windDirectionCombo;
-
-	TextField windDegree;
 
 	Box gamefield;
 
-	Scene scene;
-
-	Group root;
-
 	int scalingForGUI;
-
 	Double timeData;
 	String windStrenghtData;
 
-	WindWheel rad;
-	WindWheel rad2;
-	WindWheel rad3;
-	WindWheel rad4;
-	WindWheel rad5;
-	WindWheel rad6;
+	WindWheel windWheelOne;
+	WindWheel windWheelTwo;
+	WindWheel windWheelThree;
+	WindWheel windWheelFour;
+	WindWheel windWheelFive;
+	WindWheel windWheelSix;
 
 	Cloud cloud;
 	Cloud cloud2;
@@ -118,6 +85,204 @@ public class GUI {
 		root = new Group();
 		this.scene = scene;
 
+		creatingGUI();
+		accessEventHandler();
+		generateMapElements();
+		createDataEntrys();
+		resetTransition();
+		scene.setRoot(pane);
+
+	}
+
+	private void switchingPark() {
+		switch (windpark.getValue()) {
+		case "Windpark Ostsee":
+
+			generateBalticSea();
+			break;
+
+		case "Windpark Nordsee":
+			break;
+
+		case "Delete":
+			break;
+
+		}
+
+	}
+
+	private void switchingDirectionClouds() {
+		switch (windDirectionCombo.getValue()) {
+
+		case "Nord - Nord/Ost":
+
+			stopTransition();
+			changeDirectionToNorth();
+			break;
+
+		case "Ost - Süd/Ost":
+
+			stopTransition();
+			changeDirectionToEast();
+			break;
+
+		case "Süd - Süd/West":
+
+			stopTransition();
+			changeDirectionToSouth();
+			break;
+
+		case "West - Nord/West":
+
+			stopTransition();
+			changeDirectionToWest();
+			break;
+
+		}
+	}
+
+	private void stopTransition() {
+		cloud.stopTT();
+		cloud2.stopTT();
+		cloud3.stopTT();
+	}
+
+	private void changeDirectionToNorth() {
+
+		cloud.setXY(150.0, 160.0);
+		cloud.translateToWindDirection(-80.0, 20.0, 45.0, 4.0);
+
+		cloud2.setXY(350.0, 160.0);
+		cloud2.translateToWindDirection(-80.0, 20.0, 45.0, 4.0);
+
+		cloud3.setXY(550.0, 160.0);
+		cloud3.translateToWindDirection(-80.0, 20.0, 45.0, 4.0);
+
+		windWheelOne.rotateToWindDirection(180.0, 6);
+
+		windWheelTwo.rotateToWindDirection(180.0, 6);
+		windWheelThree.rotateToWindDirection(180.0, 6);
+		windWheelFour.rotateToWindDirection(180.0, 6);
+		windWheelFive.rotateToWindDirection(180.0, 6);
+		windWheelSix.rotateToWindDirection(180.0, 6);
+
+	}
+
+	private void changeDirectionToEast() {
+		cloud.setXY(150.0, 160.0);
+		cloud.translateToWindDirection(80.0, 0.0, 0.0, 4.0);
+
+		cloud2.setXY(350.0, 160.0);
+		cloud2.translateToWindDirection(80.0, 0.0, 0.0, 4.0);
+
+		cloud3.setXY(550.0, 160.0);
+		cloud3.translateToWindDirection(80.0, 0.0, 0.0, 4.0);
+
+		windWheelOne.rotateToWindDirection(90.0, 4);
+		windWheelTwo.rotateToWindDirection(90.0, 4);
+		windWheelThree.rotateToWindDirection(90.0, 4);
+		windWheelFour.rotateToWindDirection(90.0, 4);
+		windWheelFive.rotateToWindDirection(90.0, 4);
+		windWheelSix.rotateToWindDirection(90.0, 4);
+	}
+
+	private void changeDirectionToSouth() {
+		cloud.setXY(150.0, 160.0);
+		cloud.translateToWindDirection(80.0, -20.0, 0.0, 4.0);
+
+		cloud2.setXY(350.0, 160.0);
+		cloud2.translateToWindDirection(80.0, -20.0, 0.0, 4.0);
+
+		cloud3.setXY(550.0, 160.0);
+		cloud3.translateToWindDirection(80.0, -20.0, 0.0, 4.0);
+
+		windWheelOne.rotateToWindDirection(360.0, 4);
+		windWheelTwo.rotateToWindDirection(360.0, 4);
+		windWheelThree.rotateToWindDirection(360.0, 4);
+		windWheelFour.rotateToWindDirection(360.0, 4);
+		windWheelFive.rotateToWindDirection(360.0, 4);
+		windWheelSix.rotateToWindDirection(360.0, 4);
+
+	}
+
+	private void changeDirectionToWest() {
+		cloud.setXY(150.0, 160.0);
+		cloud.translateToWindDirection(-80.0, 0.0, 0.0, 4.0);
+
+		cloud2.setXY(350.0, 160.0);
+		cloud2.translateToWindDirection(-80.0, 0.0, 0.0, 4.0);
+
+		cloud3.setXY(550.0, 160.0);
+		cloud3.translateToWindDirection(-80.0, 0.0, 0.0, 4.0);
+
+		windWheelOne.rotateToWindDirection(270.0, 7);
+		windWheelTwo.rotateToWindDirection(270.0, 7);
+		windWheelThree.rotateToWindDirection(270.0, 7);
+		windWheelFour.rotateToWindDirection(270.0, 7);
+		windWheelFive.rotateToWindDirection(270.0, 7);
+		windWheelSix.rotateToWindDirection(270.0, 7);
+	}
+
+	private void resetTransition() {
+		cloud.translateToWindDirection(0.000, 0.0000, 0.0, 1.0);
+		cloud2.translateToWindDirection(0.0000, 0.00000, 0.0, 1.0);
+		cloud3.translateToWindDirection(0.0000, 0.00000, 0.0, 1.0);
+	}
+
+	private void generateMapElements() {
+		cloud = new Cloud(scene, pane);
+		cloud.setXY(200.0, 160.0);
+		cloud2 = new Cloud(scene, pane);
+		cloud2.setXY(400.0, 160.0);
+		cloud3 = new Cloud(scene, pane);
+		cloud3.setXY(600.0, 160.0);
+
+		windWheelTwo = new WindWheel(scene, pane);
+		windWheelTwo.setVisibilityFalse();
+
+		windWheelFour = new WindWheel(scene, pane);
+		windWheelFour.setVisibilityFalse();
+
+		windWheelOne = new WindWheel(scene, pane);
+		windWheelOne.setVisibilityFalse();
+
+		windWheelSix = new WindWheel(scene, pane);
+		windWheelSix.setVisibilityFalse();
+
+		windWheelThree = new WindWheel(scene, pane);
+		windWheelThree.setVisibilityFalse();
+
+		windWheelFive = new WindWheel(scene, pane);
+		windWheelFive.setVisibilityFalse();
+
+	}
+
+	/**
+	 * creating a Chart and Data entrys
+	 */
+	private void createDataEntrys() {
+
+		String artLeistung = "Leistung";
+		Chart chartLeistung = new Chart(pane, artLeistung);
+		chartLeistung.enableEventHandler();
+		chartLeistung.setLayout(835, 310);
+
+		String artStaerke = "Staerke";
+		Chart chartStaerke = new Chart(pane, artStaerke);
+		chartStaerke.enableEventHandler();
+		chartStaerke.setLayout(835, 760);
+		chartStaerke.setNewDataEntry("1", 15);
+		chartStaerke.setNewDataEntry("2", 11);
+		chartStaerke.setNewDataEntry("3", 10);
+		chartStaerke.setNewDataEntry("4", 5);
+		chartStaerke.setNewDataEntry("5", 0);
+		chartStaerke.setNewDataEntry("6", 5);
+		chartStaerke.setNewDataEntry("7", 5);
+		chartStaerke.setNewDataEntry("8", 10);
+
+	}
+
+	private void creatingGUI() {
 		recordsWindpark = FXCollections.observableArrayList("Windpark Ostsee", "Windpark Nordsee", "Delete");
 		recrodsWindDirection = FXCollections.observableArrayList("Nord - Nord/Ost", "Ost - Süd/Ost", "Süd - Süd/West",
 				"West - Nord/West");
@@ -229,102 +394,59 @@ public class GUI {
 		windDirectionCombo = new ComboBox<>(recrodsWindDirection);
 		windDirectionCombo.setLayoutX(900);
 		windDirectionCombo.setLayoutY(230);
-		windDirectionCombo.setOnAction(e -> {
-			switchtingWind();
-		});
-
-		windDegree = new TextField("Gradzahl");
-		windDegree.setLayoutX(900);
-		windDegree.setLayoutY(260);
-		windDegree.setEditable(false);
 
 		pane.getChildren().addAll(gamefield, settings, windpark, windDirection, windStrength, birds, bos, fire, totalKW,
 				start, stop, reset, add, delete, x1, x2, x4, bottomLine, sideline, settingLine, birdsYes, birdsNo,
-				fireYes, fireNo, bosYes, bosNo, windDirectionCombo, windDegree, chartRenew);
-
-		cloud = new Cloud(scene, pane);
-		cloud2 = new Cloud(scene, pane);
-		cloud3 = new Cloud(scene, pane);
-
-		rad = new WindWheel(scene, pane);
-		rad.setVisibilityFalse();
-		rad2 = new WindWheel(scene, pane);
-		rad2.setVisibilityFalse();
-		rad3 = new WindWheel(scene, pane);
-		rad3.setVisibilityFalse();
-		rad4 = new WindWheel(scene, pane);
-		rad4.setVisibilityFalse();
-		rad5 = new WindWheel(scene, pane);
-		rad5.setVisibilityFalse();
-		rad6 = new WindWheel(scene, pane);
-		rad6.setVisibilityFalse();
-		
-		scene.setRoot(pane);
-
-		String artLeistung = "Leistung";
-		Chart chartLeistung = new Chart(pane, artLeistung);
-		chartLeistung.enableEventHandler();
-		chartLeistung.setLayout(835, 310);
-
-		chartRenew.setOnAction(new EventHandler<ActionEvent>() {
-
-			@Override
-			public void handle(ActionEvent event) {
-
-				// GuiDataInput guiData = new GuiDataInput();
-				//
-				// System.out.println(timeData);
-				// System.out.println(windstaerkenData);
-				//
-				//// timeData = guiData.getTime();
-				//// windstaerkenData = guiData.getwindstaerke();
-				// chartLeistung.setNewDataEntry(windstaerkenData,timeData);
-			}
-		});
-
-		String artStaerke = "Staerke";
-		Chart chartStaerke = new Chart(pane, artStaerke);
-		chartStaerke.enableEventHandler();
-		chartStaerke.setLayout(835, 760);
-		chartStaerke.setNewDataEntry("1", 15);
-		chartStaerke.setNewDataEntry("2", 11);
-		chartStaerke.setNewDataEntry("3", 10);
-		chartStaerke.setNewDataEntry("4", 5);
-		chartStaerke.setNewDataEntry("5", 0);
-		chartStaerke.setNewDataEntry("6", 5);
-		chartStaerke.setNewDataEntry("7", 5);
-		chartStaerke.setNewDataEntry("8", 10);
-
-		// WindWheel rad = new WindWheel(scene, pane);
-		// rad.setXY(350.0, 350.0);
-		//
-		// WindWheel rad2 = new WindWheel(scene, pane);
-		// rad2.setXY(250.0, 300.0);
-		//
-		// WindWheel rad3 = new WindWheel(scene, pane);
-		// rad3.setXY(600.0, 360.0);
-		//
-		// WindWheel rad5 = new WindWheel(scene, pane);
-		// rad5.setXY(200.0, 360.0);
-		//
-		// WindWheel rad6 = new WindWheel(scene, pane);
-		// rad6.setXY(500.0, 320.0);
+				fireYes, fireNo, bosYes, bosNo, windDirectionCombo, chartRenew);
 
 		Sun sun = new Sun(scene, pane);
 		sun.startRotation(10000.0);
 
+	}
+
+	private void windWheelSpeedOne() {
+		windWheelOne.startRotation(1000.0);
+		windWheelTwo.startRotation(1000.0);
+		windWheelThree.startRotation(1000.0);
+		windWheelFour.startRotation(1000.0);
+		windWheelFive.startRotation(1000.0);
+		windWheelSix.startRotation(1000.0);
+	}
+
+	private void stopHeadRotation() {
+		windWheelOne.stopRotation();
+		windWheelTwo.stopRotation();
+		windWheelThree.stopRotation();
+		windWheelFour.stopRotation();
+		windWheelFive.stopRotation();
+		windWheelSix.stopRotation();
+	}
+
+	private void windWheelSpeedTwo() {
+		windWheelOne.startRotation(700.0);
+		windWheelTwo.startRotation(700.0);
+		windWheelThree.startRotation(700.0);
+		windWheelFour.startRotation(700.0);
+		windWheelFive.startRotation(700.0);
+		windWheelSix.startRotation(700.0);
+	}
+
+	private void windWheelSpeedFour() {
+		windWheelOne.startRotation(500.00);
+		windWheelTwo.startRotation(500.00);
+		windWheelThree.startRotation(500.00);
+		windWheelFour.startRotation(500.0);
+		windWheelFive.startRotation(500.00);
+		windWheelSix.startRotation(500.00);
+	}
+
+	private void accessEventHandler() {
 		start.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
 			public void handle(ActionEvent event) {
-				rad.startRotation(1000.0);
-				// rad2.startRotation(1000.0);
-				rad3.startRotation(1000.0);
-				rad2.gesamtRotate();
-				rad4.startRotation(1000.0);
-				rad5.startRotation(1000.0);
-				rad6.startRotation(1000.0);
 
+				windWheelSpeedOne();
 			}
 		});
 
@@ -332,12 +454,7 @@ public class GUI {
 
 			@Override
 			public void handle(ActionEvent event) {
-				rad.stopRotation();
-				rad2.stopRotation();
-				rad3.stopRotation();
-				rad4.stopRotation();
-				rad5.stopRotation();
-				rad6.stopRotation();
+				stopHeadRotation();
 
 			}
 		});
@@ -346,13 +463,7 @@ public class GUI {
 
 			@Override
 			public void handle(ActionEvent event) {
-				rad.startRotation(1000.0);
-				rad2.startRotation(1000.0);
-				rad3.startRotation(1000.0);
-				rad4.startRotation(1000.0);
-				rad5.startRotation(1000.0);
-				rad6.startRotation(1000.0);
-
+				windWheelSpeedOne();
 			}
 		});
 
@@ -360,12 +471,7 @@ public class GUI {
 
 			@Override
 			public void handle(ActionEvent event) {
-				rad.startRotation(700.0);
-				rad2.startRotation(700.0);
-				rad3.startRotation(700.0);
-				rad4.startRotation(700.0);
-				rad5.startRotation(700.0);
-				rad6.startRotation(700.0);
+				windWheelSpeedTwo();
 
 			}
 		});
@@ -374,12 +480,7 @@ public class GUI {
 
 			@Override
 			public void handle(ActionEvent event) {
-				rad.startRotation(500.00);
-				rad2.startRotation(500.00);
-				rad3.startRotation(500.00);
-				rad4.startRotation(500.0);
-				rad5.startRotation(500.00);
-				rad6.startRotation(500.00);
+				windWheelSpeedFour();
 
 			}
 		});
@@ -475,88 +576,29 @@ public class GUI {
 
 			@Override
 			public void handle(ActionEvent event) {
-				switchingDirection();
+
+				switchingDirectionClouds();
 
 			}
 		});
 
 	}
 
-	public void switchtingWind() {
-		switch (windDirectionCombo.getValue()) {
-		case "Nord":
-			windDegree.setEditable(true);
-			windDegree.clear();
-			break;
-		case "Ost":
-			windDegree.setEditable(true);
-			windDegree.clear();
-			break;
-		case "SÃ¼d":
-			windDegree.setEditable(true);
-			windDegree.clear();
-			break;
-		case "West":
-			windDegree.setEditable(true);
-			windDegree.clear();
-			break;
-		}
-	}
+	private void generateBalticSea() {
+		windWheelTwo.setXY(250.0, 320.0);
+		windWheelTwo.setVisibilityTrue();
+		windWheelFour.setXY(400.0, 330.0);
+		windWheelFour.setVisibilityTrue();
+		windWheelOne.setXY(320.0, 370.0);
+		windWheelOne.setVisibilityTrue();
+		windWheelSix.setXY(570.0, 340.0);
+		windWheelSix.setVisibilityTrue();
+		windWheelThree.setXY(480.0, 380.0);
+		windWheelThree.setVisibilityTrue();
+		windWheelFive.setXY(150.0, 360.0);
+		windWheelFive.setVisibilityTrue();
 
-	public void switchingPark() {
-		switch (windpark.getValue()) {
-		case "Windpark Ostsee":
-
-			rad2.setXY(250.0, 320.0);
-			rad2.setVisibilityTrue();
-			rad4.setXY(400.0, 330.0);
-			rad4.setVisibilityTrue();
-			rad.setXY(320.0, 370.0);
-			rad.setVisibilityTrue();
-			rad6.setXY(570.0, 340.0);
-			rad6.setVisibilityTrue();
-			rad3.setXY(480.0, 380.0);
-			rad3.setVisibilityTrue();
-			rad5.setXY(150.0, 360.0);
-			rad5.setVisibilityTrue();
-
-			gamefield.setMaterial(new PhongMaterial(Color.DEEPSKYBLUE));
-
-			break;
-
-		case "Windpark Nordsee":
-			break;
-
-		case "Delete":
-			break;
-
-		}
-
-	}
-
-	public void switchingDirection() {
-		switch (windDirectionCombo.getValue()) {
-
-		case "Nord - Nord/Ost":
-
-			cloud.translateToWindDirection(-80.0, 20.0, 45.0);
-			cloud.setXY(200.0, 160.0);
-
-			cloud2.translateToWindDirection(-80.0, 20.0, 45.0);
-			cloud2.setXY(400.0, 160.0);
-
-			cloud3.translateToWindDirection(-80.0, 20.0, 45.0);
-			cloud3.setXY(600.0, 160.0);
-			break;
-
-		case "Ost - Süd/Ost":
-			break;
-		case "Süd - Süd/West":
-			break;
-		case "West - Nord/West":
-			break;
-
-		}
+		gamefield.setMaterial(new PhongMaterial(Color.DEEPSKYBLUE));
 	}
 
 }

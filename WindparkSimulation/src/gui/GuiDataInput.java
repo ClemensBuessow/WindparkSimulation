@@ -43,7 +43,7 @@ public class GuiDataInput {
 
 	XYChart.Series<String, Number> series2;
 
-	public void GuiDatenEingebens(XYChart.Series<String, Number> series, String art) {
+	public void setGuiData(XYChart.Series<String, Number> series, String art) {
 		System.out.println("eine Gui zum Daten Eingeben");
 
 		pane = new Pane();
@@ -98,18 +98,4 @@ public class GuiDataInput {
 
 	}
 
-//	public void setSeries() {
-//		Chart chart = new Chart(pane, art);
-//		series2 = chart.getSeries();
-//	}
-	//
-	// public double getTime(){
-	// System.out.println(timedata + "von Guidata");
-	// return timedata;
-	// }
-	//
-	// public String getwindstaerke(){
-	// System.out.println(windstaerkedata + "von GuiData");
-	// return windstaerkedata;
-	// }
 }

@@ -3,6 +3,8 @@ package mapElements;
 import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -21,20 +23,59 @@ public class Cloud extends BasicElement {
 	Sphere cloudElementFive;
 	Sphere cloudElementSix;
 	Sphere cloudElementSeven;
-	
+	TranslateTransition cloudTT;
+
 	Double a = 3.0;
 	Pane pane;
 	Scene scene;
 	Group cloud;
 	Stage primaryStage;
 
-
-
-	public Cloud(Scene scene, Pane pane){
+	public Cloud(Scene scene, Pane pane) {
 		this.scene = scene;
 		this.pane = pane;
 		cloud = new Group();
 
+		addAllClouds();
+		pane.getChildren().add(cloud);
+	}
+
+	public void setXY(Double x, Double y) {
+		cloud.setTranslateX(x);
+		cloud.setTranslateY(y);
+
+	}
+
+	public void movePivot(Node node, double x, double y) {
+		node.getTransforms().add(new Translate(-x, -y));
+		node.setTranslateX(x);
+		node.setTranslateY(y);
+
+	}
+
+	public void translateToWindDirection(Double xValue, Double yValue, Double zValue, double duration) {
+		cloudTT = new TranslateTransition(Duration.seconds(duration), cloud);
+		cloudTT.setByX(xValue);
+		cloudTT.setByY(yValue);
+		cloudTT.setByZ(zValue);
+		cloudTT.setCycleCount(Timeline.INDEFINITE);
+		cloudTT.playFromStart();
+
+		cloudTT.setOnFinished(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				cloudTT.play();
+
+			}
+		});
+	}
+
+	public void stopTT() {
+		cloudTT.stop();
+	}
+
+	private void addAllClouds() {
 		cloudElementOne = new Sphere(30 / a);
 		cloudElementOne.setLayoutX(220 / a);
 		cloudElementOne.setLayoutY(105 / a);
@@ -79,29 +120,6 @@ public class Cloud extends BasicElement {
 
 		cloud.getChildren().addAll(cloudElementOne, cloudElementTwo, cloudElementThree, cloudElementFour,
 				cloudElementFive, cloudElementSix, cloudElementSeven);
-		
-		pane.getChildren().add(cloud);
-	}
-	
-	public void setXY(Double x, Double y) {
-		cloud.setLayoutX(x);
-		cloud.setLayoutY(y);
-
-	}
-
-	public void movePivot(Node node, double x, double y) {
-		node.getTransforms().add(new Translate(-x, -y));
-		node.setTranslateX(x);
-		node.setTranslateY(y);
-
-	}
-	public void translateToWindDirection(Double xValue, Double yValue,Double zValue){
-		TranslateTransition cloudTT = new TranslateTransition(Duration.seconds(4), cloud);
-		cloudTT.setByX(xValue);
-		cloudTT.setByY(yValue);
-		cloudTT.setByZ(zValue);
-		cloudTT.setCycleCount(Timeline.INDEFINITE);
-		cloudTT.play();
 	}
 
 }
