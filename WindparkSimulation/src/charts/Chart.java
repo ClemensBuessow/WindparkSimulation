@@ -50,7 +50,7 @@ public class Chart {
             chart.setLayoutX(820);
             chart.setLayoutY(300);
 
-        } if (art.equals("Staerke") || art.equals("Leistung")) {
+        } if (art.equals("Leistung")) {
             xAxis.setLabel("Windstaerke in m/s");
             yAxis.setLabel("Zeit");
 
@@ -66,6 +66,23 @@ public class Chart {
             chart.setLayoutX(820);
             chart.setLayoutY(300);
 
+        }
+        
+        if(art.equals("Staerke")){
+        	  xAxis.setLabel("Leistung in KW");
+              yAxis.setLabel("Zeit");
+
+              series = new XYChart.Series<String, Number>();
+              series.setName("Windstaerke");
+              series.getData().add(new Data<String, Number>("1.1.", 5));
+
+              chart = new LineChart<String, Number>(yAxis, xAxis);
+              chart.getData().add(series);
+              chart.setTitleSide(Side.TOP);
+              chart.setPrefSize(350, 230);
+              chart.setLegendVisible(false);
+              chart.setLayoutX(820);
+              chart.setLayoutY(300);
         }
 
         pane.getChildren().add(chart);

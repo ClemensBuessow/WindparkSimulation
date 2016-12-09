@@ -90,19 +90,26 @@ public class WindWheel extends BasicElement {
 //		nabe.getTransforms().add(rt);
 //		System.out.println("Die rotate soll starten");
 		
-		rotateHead = new RotateTransition(Duration.seconds(duration),nabe);
-		rotateHead.setToAngle(600000);
-		rotateHead.setCycleCount(Animation.INDEFINITE);
-		rotateHead.play();
+//		rotateHead = new RotateTransition(Duration.seconds(duration),nabe);
+//		rotateHead.setToAngle(600000);
+//		rotateHead.setCycleCount(Animation.INDEFINITE);
+//		rotateHead.play();
+		
+		
+		
+	
+		Rotate rt = new Rotate(360, rotorNabe.getTranslateX(), rotorNabe.getTranslateY(), rotorNabe.getTranslateZ());
+		nabe.getTransforms().add(rt);
 		
 //		Rotate rotateTransform = new Rotate(0, rotorNabe.getTranslateX()+ 50, rotorNabe.getTranslateY()+10);
 //		nabe.getTransforms().add(rotateTransform);
 //
-//		Timeline rotateAnimation = new Timeline();
-//		rotateAnimation.getKeyFrames()
-//				.add(new KeyFrame(Duration.seconds(10), new KeyValue(rt.angleProperty(), 360)));
-//		rotateAnimation.setCycleCount(Animation.INDEFINITE);
-//		rotateAnimation.play();
+		Timeline rotateAnimation = new Timeline();
+		rotateAnimation.getKeyFrames()
+				.add(new KeyFrame(Duration.seconds(10), new KeyValue(rt.angleProperty(), 360)));
+		rotateAnimation.setCycleCount(Animation.INDEFINITE);
+		rotateAnimation.play();
+		System.out.println("Rotatiion starten");
 //		
 		
 
@@ -135,6 +142,8 @@ public class WindWheel extends BasicElement {
 		wingOne.setTranslateX(290 / a);
 		wingOne.setTranslateY(230 / a);
 		wingOne.setTranslateZ(-50 / a);
+	
+	
 
 		wingTwo = new Box(30 / a, 250 / a, 7 / a);
 		wingTwo.setMaterial(new PhongMaterial(Color.ALICEBLUE));
