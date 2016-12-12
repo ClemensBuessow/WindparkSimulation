@@ -2,6 +2,7 @@ package mapElements;
 
 import javafx.animation.Animation;
 import javafx.animation.RotateTransition;
+import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
@@ -15,19 +16,22 @@ public class Sun extends BasicElement{
 	
 	Sphere sun;
 	Pane pane;
+	Group root;
 	Scene scene;
 	RotateTransition sunRotate;
 	
-	public Sun(Scene scene,Pane pane){
+	public Sun(Scene scene,Pane pane, Group root){
 		this.pane = pane;
 		this.scene = scene;
+		this.root = root;
+		
 		
 		sun = new Sphere(30 );
 		sun.setMaterial(new PhongMaterial(Color.YELLOW));
 		sun.getTransforms().add(new Rotate(20, 0, 0, 0, Rotate.X_AXIS));
 		sun.getTransforms().add(new Rotate(20, 0, 0, 0, Rotate.Y_AXIS));
 		
-		pane.getChildren().add(sun);
+		root.getChildren().add(sun);
 	}
 	
 	public void startRotation(Double duration) {

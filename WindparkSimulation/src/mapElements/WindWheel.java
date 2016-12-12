@@ -2,11 +2,9 @@ package mapElements;
 
 import handler.WindradClickHandler;
 import javafx.animation.Animation;
-import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
-import javafx.animation.ParallelTransition;
+
 import javafx.animation.RotateTransition;
-import javafx.animation.Timeline;
+
 import javafx.scene.DepthTest;
 import javafx.scene.Group;
 import javafx.scene.Node;
@@ -37,21 +35,23 @@ public class WindWheel extends BasicElement {
 	Group head;
 	Group fullhead;
 	Group nabe;
+	Group root;
 
 	RotateTransition rotateHead;
 
-	public WindWheel(Scene scene, Pane pane) {
+	public WindWheel(Scene scene, Pane pane, Group root) {
 
 		this.scene = scene;
 		this.pane = pane;
-
+		this.root = root;
+		
 		head = new Group();
 		windrad = new Group();
 		fullhead = new Group();
 		nabe = new Group();
 
 		generateWindWheel();
-		pane.getChildren().add(windrad);
+		
 
 	}
 
@@ -90,26 +90,26 @@ public class WindWheel extends BasicElement {
 //		nabe.getTransforms().add(rt);
 //		System.out.println("Die rotate soll starten");
 		
-//		rotateHead = new RotateTransition(Duration.seconds(duration),nabe);
-//		rotateHead.setToAngle(600000);
-//		rotateHead.setCycleCount(Animation.INDEFINITE);
-//		rotateHead.play();
+		rotateHead = new RotateTransition(Duration.seconds(duration),nabe);
+		rotateHead.setToAngle(600000);
+		rotateHead.setCycleCount(Animation.INDEFINITE);
+		rotateHead.play();
 		
 		
 		
-	
-		Rotate rt = new Rotate(360, rotorNabe.getTranslateX(), rotorNabe.getTranslateY(), rotorNabe.getTranslateZ());
-		nabe.getTransforms().add(rt);
+//	
+//		Rotate rt = new Rotate(360, rotorNabe.getTranslateX(), rotorNabe.getTranslateY(), rotorNabe.getTranslateZ());
+//		nabe.getTransforms().add(rt);
 		
 //		Rotate rotateTransform = new Rotate(0, rotorNabe.getTranslateX()+ 50, rotorNabe.getTranslateY()+10);
 //		nabe.getTransforms().add(rotateTransform);
 //
-		Timeline rotateAnimation = new Timeline();
-		rotateAnimation.getKeyFrames()
-				.add(new KeyFrame(Duration.seconds(10), new KeyValue(rt.angleProperty(), 360)));
-		rotateAnimation.setCycleCount(Animation.INDEFINITE);
-		rotateAnimation.play();
-		System.out.println("Rotatiion starten");
+//		Timeline rotateAnimation = new Timeline();
+//		rotateAnimation.getKeyFrames()
+//				.add(new KeyFrame(Duration.seconds(10), new KeyValue(rt.angleProperty(), 360)));
+//		rotateAnimation.setCycleCount(Animation.INDEFINITE);
+//		rotateAnimation.play();
+//		System.out.println("Rotatiion starten");
 //		
 		
 
@@ -202,6 +202,7 @@ public class WindWheel extends BasicElement {
 		windrad.setDepthTest(DepthTest.ENABLE);
 		windrad.getChildren().addAll(shaft, fullhead);
 		windrad.addEventHandler(MouseEvent.MOUSE_CLICKED, new WindradClickHandler());
+		root.getChildren().add(windrad);
 
 
 	}

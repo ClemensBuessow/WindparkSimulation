@@ -4,14 +4,14 @@ import gui.GUI;
 import javafx.application.Application;
 import javafx.application.ConditionalFeature;
 import javafx.application.Platform;
-import javafx.scene.Camera;
+
 import javafx.scene.DepthTest;
 import javafx.scene.Group;
-import javafx.scene.Node;
+
 import javafx.scene.PerspectiveCamera;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
-import javafx.scene.transform.Rotate;
+
 import javafx.stage.Stage;
 
 public class Main extends Application {
@@ -34,8 +34,10 @@ public class Main extends Application {
 		root.setDepthTest(DepthTest.ENABLE);
 		System.out.println("root z-buffer" + root.getDepthTest());
 		System.out.println("3D Support?" + Platform.isSupported(ConditionalFeature.SCENE3D));
+		PerspectiveCamera p = new PerspectiveCamera();
+		p.setFarClip(1000);
 		
-		simulation = new Scene(root, 1200, 1000);
+		simulation = new Scene(root, 1200, 1000,true);
 		
 //		PerspectiveCamera pe = new PerspectiveCamera();
 //		pe.setRotationAxis(Rotate.Y_AXIS);

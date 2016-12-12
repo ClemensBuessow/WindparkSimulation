@@ -26,6 +26,7 @@ public class GUI {
 	Pane pane;
 	Scene scene;
 	Group root;
+	
 
 	ComboBox<String> windpark;
 	ComboBox<String> windDirectionCombo;
@@ -90,7 +91,7 @@ public class GUI {
 		generateMapElements();
 		createDataEntrys();
 		resetTransition();
-		scene.setRoot(pane);
+		
 
 	}
 
@@ -230,29 +231,29 @@ public class GUI {
 	}
 
 	private void generateMapElements() {
-		cloud = new Cloud(scene, pane);
+		cloud = new Cloud(scene, pane, root);
 		cloud.setXY(200.0, 160.0);
-		cloud2 = new Cloud(scene, pane);
+		cloud2 = new Cloud(scene, pane, root);
 		cloud2.setXY(400.0, 160.0);
-		cloud3 = new Cloud(scene, pane);
+		cloud3 = new Cloud(scene, pane, root);
 		cloud3.setXY(600.0, 160.0);
 
-		windWheelTwo = new WindWheel(scene, pane);
+		windWheelTwo = new WindWheel(scene, pane,root);
 		windWheelTwo.setVisibilityFalse();
 
-		windWheelFour = new WindWheel(scene, pane);
+		windWheelFour = new WindWheel(scene, pane,root);
 		windWheelFour.setVisibilityFalse();
 
-		windWheelOne = new WindWheel(scene, pane);
+		windWheelOne = new WindWheel(scene, pane,root);
 		windWheelOne.setVisibilityFalse();
 
-		windWheelSix = new WindWheel(scene, pane);
+		windWheelSix = new WindWheel(scene, pane,root);
 		windWheelSix.setVisibilityFalse();
 
-		windWheelThree = new WindWheel(scene, pane);
+		windWheelThree = new WindWheel(scene, pane,root);
 		windWheelThree.setVisibilityFalse();
 
-		windWheelFive = new WindWheel(scene, pane);
+		windWheelFive = new WindWheel(scene, pane,root);
 		windWheelFive.setVisibilityFalse();
 
 	}
@@ -263,12 +264,12 @@ public class GUI {
 	private void createDataEntrys() {
 
 		String artLeistung = "Leistung";
-		Chart chartLeistung = new Chart(pane, artLeistung);
+		Chart chartLeistung = new Chart(pane, artLeistung,root);
 		chartLeistung.enableEventHandler();
 		chartLeistung.setLayout(835, 310);
 
 		String artStaerke = "Staerke";
-		Chart chartStaerke = new Chart(pane, artStaerke);
+		Chart chartStaerke = new Chart(pane, artStaerke,root);
 		chartStaerke.enableEventHandler();
 		chartStaerke.setLayout(835, 760);
 		chartStaerke.setNewDataEntry("1", 15);
@@ -286,6 +287,8 @@ public class GUI {
 		recordsWindpark = FXCollections.observableArrayList("Windpark Ostsee", "Windpark Nordsee", "Delete");
 		recrodsWindDirection = FXCollections.observableArrayList("Nord - Nord/Ost", "Ost - Süd/Ost", "Süd - Süd/West",
 				"West - Nord/West");
+		
+		root = new Group();
 
 		settings = new Label("Settings");
 		settings.setLayoutX(900);
@@ -395,12 +398,13 @@ public class GUI {
 		windDirectionCombo.setLayoutX(900);
 		windDirectionCombo.setLayoutY(230);
 
-		pane.getChildren().addAll(gamefield, settings, windpark, windDirection, windStrength, birds, bos, fire, totalKW,
+		root.getChildren().addAll(gamefield, settings, windpark, windDirection, windStrength, birds, bos, fire, totalKW,
 				start, stop, reset, add, delete, x1, x2, x4, bottomLine, sideline, settingLine, birdsYes, birdsNo,
 				fireYes, fireNo, bosYes, bosNo, windDirectionCombo, chartRenew);
 
-		Sun sun = new Sun(scene, pane);
+		Sun sun = new Sun(scene, pane,root);
 		sun.startRotation(10000.0);
+		scene.setRoot(root);
 
 	}
 

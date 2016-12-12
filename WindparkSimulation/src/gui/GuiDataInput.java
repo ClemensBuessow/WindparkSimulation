@@ -84,7 +84,7 @@ public class GuiDataInput {
 			}
 		});
 		
-		Chart chart = new Chart(pane, art);
+		Chart chart = new Chart(pane, art,root);
 		chart.setNewSeries(series);
 		chart.setLayout(10, 50);
 

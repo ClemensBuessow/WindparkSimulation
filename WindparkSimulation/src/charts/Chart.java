@@ -2,6 +2,7 @@ package charts;
 
 import handler.ClickHandler;
 import javafx.geometry.Side;
+import javafx.scene.Group;
 import javafx.scene.chart.Axis;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
@@ -24,13 +25,17 @@ public class Chart {
 
     public XYChart.Series<String, Number> series;
     public XYChart.Series<String, Number> series2;
+    Group root;
     
   
 
     public String art;
 
-    public Chart(Pane pane, String typ) {
+    public Chart(Pane pane, String typ, Group root) {
         art = typ;
+        
+        this.root = root;
+        
         Axis<Number> xAxis = new NumberAxis();
         Axis<String> yAxis = new CategoryAxis();
 
@@ -84,8 +89,8 @@ public class Chart {
               chart.setLayoutX(820);
               chart.setLayoutY(300);
         }
-
-        pane.getChildren().add(chart);
+        root.getChildren().add(chart);
+        
     }
 
     public void setLayout(double x, double y) {

@@ -2,7 +2,6 @@ package mapElements;
 
 import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
-import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
@@ -30,14 +29,16 @@ public class Cloud extends BasicElement {
 	Scene scene;
 	Group cloud;
 	Stage primaryStage;
+	Group root;
 
-	public Cloud(Scene scene, Pane pane) {
+
+	public Cloud(Scene scene, Pane pane, Group root) {
 		this.scene = scene;
 		this.pane = pane;
-		cloud = new Group();
+		this.root = root;
 
 		addAllClouds();
-		pane.getChildren().add(cloud);
+		
 	}
 
 	public void setXY(Double x, Double y) {
@@ -76,6 +77,9 @@ public class Cloud extends BasicElement {
 	}
 
 	private void addAllClouds() {
+		
+		cloud = new Group();
+		
 		cloudElementOne = new Sphere(30 / a);
 		cloudElementOne.setLayoutX(220 / a);
 		cloudElementOne.setLayoutY(105 / a);
@@ -120,6 +124,7 @@ public class Cloud extends BasicElement {
 
 		cloud.getChildren().addAll(cloudElementOne, cloudElementTwo, cloudElementThree, cloudElementFour,
 				cloudElementFive, cloudElementSix, cloudElementSeven);
+		root.getChildren().add(cloud);
 	}
 
 }
