@@ -88,9 +88,9 @@ public class GuiDataInput {
 		chart.setNewSeries(series);
 		chart.setLayout(10, 50);
 
-		pane.getChildren().addAll(settings, time, windStrenght, add);
+		root.getChildren().addAll(settings, time, windStrenght, add);
 
-		scene.setRoot(pane);
+		scene.setRoot(root);
 
 		stage.setTitle("Daten eingeben");
 		stage.setScene(scene);
