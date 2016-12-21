@@ -11,6 +11,7 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -59,6 +60,10 @@ public class SingleWindWheel extends Application {
 	CheckBox checkManuell;
 	CheckBox checkAutomatik;
 
+	
+	ImageView wind;
+	ImageView rotationSettings;
+	
 	public static void main(String[] args) {
 		launch(args);
 	}
@@ -109,6 +114,8 @@ public class SingleWindWheel extends Application {
 		sliderWindSpeed.setMajorTickUnit(17.5);
 		sliderWindSpeed.setMinorTickCount(5);
 		sliderWindSpeed.setBlockIncrement(5);
+		sliderWindSpeed.setDisable(true);
+		
 		
 		sliderDegrees = new Slider();
 		sliderDegrees.setPrefSize(180, 30);
@@ -174,8 +181,17 @@ public class SingleWindWheel extends Application {
 		checkManuell = new CheckBox();
 		checkManuell.setLayoutX(150);
 		checkManuell.setLayoutY(20);
-
-		root.getChildren().addAll(degrees, automatik, providedHouses, power, leftLine, rightLine, bottomLine, wingOne,
+		
+		wind = new ImageView();
+		wind.setLayoutX(20);
+		wind.setLayoutY(150);
+		//wind.setImage();
+		
+		rotationSettings = new ImageView();
+		rotationSettings.setLayoutX(70);
+		rotationSettings.setLayoutY(150);
+		
+		root.getChildren().addAll(rotationSettings, wind,degrees, automatik, providedHouses, power, leftLine, rightLine, bottomLine, wingOne,
 				wingTwo, wingThree, shaft, sliderWindSpeed, showPower, showProvidedHouses, housesOne, housesTwo, housesThree,
 				manuell, windSpeed,sliderDegrees,checkAutomatik, checkManuell);
 

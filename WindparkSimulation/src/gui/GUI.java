@@ -11,6 +11,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tooltip;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
@@ -79,6 +80,8 @@ public class GUI {
 	Cloud cloud;
 	Cloud cloud2;
 	Cloud cloud3;
+	
+	Tooltip tooltip;
 
 	public GUI(Scene scene, Pane pane) {
 
@@ -237,6 +240,9 @@ public class GUI {
 		cloud2.setXY(400.0, 160.0);
 		cloud3 = new Cloud(scene, pane, root);
 		cloud3.setXY(600.0, 160.0);
+		
+		
+		
 
 		windWheelTwo = new WindWheel(scene, pane,root);
 		windWheelTwo.setVisibilityFalse();
@@ -255,7 +261,9 @@ public class GUI {
 
 		windWheelFive = new WindWheel(scene, pane,root);
 		windWheelFive.setVisibilityFalse();
-
+		
+		
+		
 	}
 
 	/**
@@ -289,6 +297,8 @@ public class GUI {
 				"West - Nord/West");
 		
 		root = new Group();
+		
+		
 
 		settings = new Label("Settings");
 		settings.setLayoutX(900);
@@ -397,6 +407,8 @@ public class GUI {
 		windDirectionCombo = new ComboBox<>(recrodsWindDirection);
 		windDirectionCombo.setLayoutX(900);
 		windDirectionCombo.setLayoutY(230);
+		
+		chartRenew.setTooltip(tooltip);
 
 		root.getChildren().addAll(gamefield, settings, windpark, windDirection, windStrength, birds, bos, fire, totalKW,
 				start, stop, reset, add, delete, x1, x2, x4, bottomLine, sideline, settingLine, birdsYes, birdsNo,
@@ -583,6 +595,18 @@ public class GUI {
 
 				switchingDirectionClouds();
 
+			}
+		});
+		
+		chartRenew.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				tooltip = new Tooltip("Irgendwelcher kack halt");
+				tooltip.setAnchorX(200.0);
+				tooltip.setAnchorY(200);
+				chartRenew.setTooltip(tooltip);
+				
 			}
 		});
 

@@ -9,6 +9,7 @@ import javafx.scene.DepthTest;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Tooltip;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -44,14 +45,13 @@ public class WindWheel extends BasicElement {
 		this.scene = scene;
 		this.pane = pane;
 		this.root = root;
-		
+
 		head = new Group();
 		windrad = new Group();
 		fullhead = new Group();
 		nabe = new Group();
 
 		generateWindWheel();
-		
 
 	}
 
@@ -84,34 +84,34 @@ public class WindWheel extends BasicElement {
 	}
 
 	public void startRotation(Double duration) {
-//		Rotate rt = new Rotate();
-//		rt.setPivotX(nabe.getTranslateX());
-//		rt.setPivotY(nabe.getTranslateY());
-//		nabe.getTransforms().add(rt);
-//		System.out.println("Die rotate soll starten");
-		
-		rotateHead = new RotateTransition(Duration.seconds(duration),nabe);
+		// Rotate rt = new Rotate();
+		// rt.setPivotX(nabe.getTranslateX());
+		// rt.setPivotY(nabe.getTranslateY());
+		// nabe.getTransforms().add(rt);
+		// System.out.println("Die rotate soll starten");
+
+		rotateHead = new RotateTransition(Duration.seconds(duration), nabe);
 		rotateHead.setToAngle(600000);
 		rotateHead.setCycleCount(Animation.INDEFINITE);
 		rotateHead.play();
-		
-		
-		
-//	
-//		Rotate rt = new Rotate(360, rotorNabe.getTranslateX(), rotorNabe.getTranslateY(), rotorNabe.getTranslateZ());
-//		nabe.getTransforms().add(rt);
-		
-//		Rotate rotateTransform = new Rotate(0, rotorNabe.getTranslateX()+ 50, rotorNabe.getTranslateY()+10);
-//		nabe.getTransforms().add(rotateTransform);
-//
-//		Timeline rotateAnimation = new Timeline();
-//		rotateAnimation.getKeyFrames()
-//				.add(new KeyFrame(Duration.seconds(10), new KeyValue(rt.angleProperty(), 360)));
-//		rotateAnimation.setCycleCount(Animation.INDEFINITE);
-//		rotateAnimation.play();
-//		System.out.println("Rotatiion starten");
-//		
-		
+
+		//
+		// Rotate rt = new Rotate(360, rotorNabe.getTranslateX(),
+		// rotorNabe.getTranslateY(), rotorNabe.getTranslateZ());
+		// nabe.getTransforms().add(rt);
+
+		// Rotate rotateTransform = new Rotate(0, rotorNabe.getTranslateX()+ 50,
+		// rotorNabe.getTranslateY()+10);
+		// nabe.getTransforms().add(rotateTransform);
+		//
+		// Timeline rotateAnimation = new Timeline();
+		// rotateAnimation.getKeyFrames()
+		// .add(new KeyFrame(Duration.seconds(10), new
+		// KeyValue(rt.angleProperty(), 360)));
+		// rotateAnimation.setCycleCount(Animation.INDEFINITE);
+		// rotateAnimation.play();
+		// System.out.println("Rotatiion starten");
+		//
 
 	}
 
@@ -121,9 +121,10 @@ public class WindWheel extends BasicElement {
 	}
 
 	public void rotateToWindDirection(double angle, double duration) {
-		
-//		Rotate rt2 = new Rotate(angle, fullhead.getLayoutX() ,fullhead.getLayoutY());
-		
+
+		// Rotate rt2 = new Rotate(angle, fullhead.getLayoutX()
+		// ,fullhead.getLayoutY());
+
 		RotateTransition rt = new RotateTransition(Duration.seconds(duration), fullhead);
 		rt.setToAngle(angle);
 		rt.setAxis(Rotate.Y_AXIS);
@@ -142,8 +143,6 @@ public class WindWheel extends BasicElement {
 		wingOne.setTranslateX(290 / a);
 		wingOne.setTranslateY(230 / a);
 		wingOne.setTranslateZ(-50 / a);
-	
-	
 
 		wingTwo = new Box(30 / a, 250 / a, 7 / a);
 		wingTwo.setMaterial(new PhongMaterial(Color.ALICEBLUE));
@@ -190,13 +189,15 @@ public class WindWheel extends BasicElement {
 		shaft.setTranslateY(310 / a);
 
 		movePivot(nabe, 50 / a, -14 / a);
-		movePivot(fullhead, 55.0 /a ,0.0);
-//		movePivot(windrad, -10, 0);
+		movePivot(fullhead, 55.0 / a, 0.0);
+		// movePivot(windrad, -10, 0);
+
+		Tooltip tool = new Tooltip(
+				"KW: \n" + "Geschwindigkeit: \n" + "Grad Rotorblätter: \n" + "Windgeschwindigkeit: \n");
+		Tooltip.install(windrad, tool);
 
 		nabe.getChildren().addAll(head, rotorNabe);
 		head.getChildren().addAll(wingOne, wingTwo, wingThree);
-		
-		
 
 		fullhead.getChildren().addAll(generator, nabe);
 		windrad.setDepthTest(DepthTest.ENABLE);
@@ -204,7 +205,9 @@ public class WindWheel extends BasicElement {
 		windrad.addEventHandler(MouseEvent.MOUSE_CLICKED, new WindradClickHandler());
 		root.getChildren().add(windrad);
 
-
 	}
 
+	public void addTooltip() {
+
+	}
 }

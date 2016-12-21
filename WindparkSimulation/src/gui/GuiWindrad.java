@@ -24,6 +24,8 @@ public class GuiWindrad {
 		scene = new Scene(root,1000,700);
 		
        new SingleWindWheel();
+       
+       	
     	
     }
 
