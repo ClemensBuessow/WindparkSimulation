@@ -32,16 +32,12 @@ public class Main extends Application {
 		root = new Group();
 		
 		root.setDepthTest(DepthTest.ENABLE);
-		System.out.println("root z-buffer" + root.getDepthTest());
-		System.out.println("3D Support?" + Platform.isSupported(ConditionalFeature.SCENE3D));
+		System.out.println("root z-buffer: " + root.getDepthTest());
+		System.out.println("3D Support? " + Platform.isSupported(ConditionalFeature.SCENE3D));
 		PerspectiveCamera p = new PerspectiveCamera();
 		p.setFarClip(1000);
 		
 		simulation = new Scene(root, 1200, 1000,true);
-		
-//		PerspectiveCamera pe = new PerspectiveCamera();
-//		pe.setRotationAxis(Rotate.Y_AXIS);
-//		simulation.setCamera(pe);
 		
 		
 		primaryStage.setScene(simulation);

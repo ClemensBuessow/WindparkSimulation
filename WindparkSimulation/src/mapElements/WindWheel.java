@@ -23,20 +23,20 @@ import javafx.util.Duration;
 
 public class WindWheel extends BasicElement {
 
-	Box wingOne;
-	Box wingTwo;
-	Box wingThree;
-	Cylinder shaft;
-	Sphere rotorNabe;
-	Box generator;
+	private Box wingOne;
+	private Box wingTwo;
+	private Box wingThree;
+	private Cylinder shaft;
+	private Sphere rotorNabe;
+	private Box generator;
 	Pane pane;
 	Scene scene;
-	int a = 4;
+	private int a = 4;
 	Group windrad;
 	Group head;
 	Group fullhead;
 	Group nabe;
-	Group root;
+	private Group root;
 
 	RotateTransition rotateHead;
 
@@ -122,9 +122,6 @@ public class WindWheel extends BasicElement {
 
 	public void rotateToWindDirection(double angle, double duration) {
 
-		// Rotate rt2 = new Rotate(angle, fullhead.getLayoutX()
-		// ,fullhead.getLayoutY());
-
 		RotateTransition rt = new RotateTransition(Duration.seconds(duration), fullhead);
 		rt.setToAngle(angle);
 		rt.setAxis(Rotate.Y_AXIS);
@@ -135,10 +132,8 @@ public class WindWheel extends BasicElement {
 	public void generateWindWheel() {
 		wingOne = new Box(30 / a, 250 / a, 7 / a);
 		wingOne.setMaterial(new PhongMaterial(Color.ALICEBLUE));
-		// wingOne.getTransforms().add(new Rotate(20, 0, 0, 0, Rotate.X_AXIS));
 		wingOne.getTransforms().add(new Rotate(20, 0, 0, 0, Rotate.Y_AXIS));
 		wingOne.getTransforms().add(new Rotate(20, 0, 0, 0, Rotate.Z_AXIS));
-		// fluegel1.getTransforms().add(new Translate(0, 0, -10));
 		wingOne.getTransforms().add(new Rotate(131));
 		wingOne.setTranslateX(290 / a);
 		wingOne.setTranslateY(230 / a);
@@ -146,7 +141,6 @@ public class WindWheel extends BasicElement {
 
 		wingTwo = new Box(30 / a, 250 / a, 7 / a);
 		wingTwo.setMaterial(new PhongMaterial(Color.ALICEBLUE));
-		// wingTwo.getTransforms().add(new Rotate(20, 0, 0, 0, Rotate.X_AXIS));k
 		wingTwo.getTransforms().add(new Rotate(20, 0, 0, 0, Rotate.Y_AXIS));
 		wingTwo.getTransforms().add(new Rotate(20, 0, 0, 0, Rotate.Z_AXIS));
 		wingTwo.getTransforms().add(new Rotate(196));
@@ -156,8 +150,6 @@ public class WindWheel extends BasicElement {
 
 		wingThree = new Box(30 / a, 250 / a, 7 / a);
 		wingThree.setMaterial(new PhongMaterial(Color.ALICEBLUE));
-		// wingThree.getTransforms().add(new Rotate(20, 0, 0, 0,
-		// Rotate.X_AXIS));
 		wingThree.getTransforms().add(new Rotate(20, 0, 0, 0, Rotate.Y_AXIS));
 		wingThree.getTransforms().add(new Rotate(20, 0, 0, 0, Rotate.Z_AXIS));
 		wingThree.getTransforms().add(new Rotate(63));
@@ -174,8 +166,6 @@ public class WindWheel extends BasicElement {
 
 		generator = new Box(60 / a, 60 / a, 60 / a);
 		generator.setMaterial(new PhongMaterial(Color.ALICEBLUE));
-		// generator.getTransforms().add(new Rotate(20, 0, 0, 0,
-		// Rotate.X_AXIS));
 		generator.getTransforms().add(new Rotate(20, 0, 0, 0, Rotate.Y_AXIS));
 		generator.setTranslateX(235 / a);
 		generator.setTranslateY(95 / a);
@@ -192,10 +182,6 @@ public class WindWheel extends BasicElement {
 		movePivot(fullhead, 55.0 / a, 0.0);
 		// movePivot(windrad, -10, 0);
 
-		Tooltip tool = new Tooltip(
-				"KW: \n" + "Geschwindigkeit: \n" + "Grad Rotorblätter: \n" + "Windgeschwindigkeit: \n");
-		Tooltip.install(windrad, tool);
-
 		nabe.getChildren().addAll(head, rotorNabe);
 		head.getChildren().addAll(wingOne, wingTwo, wingThree);
 
@@ -204,10 +190,13 @@ public class WindWheel extends BasicElement {
 		windrad.getChildren().addAll(shaft, fullhead);
 		windrad.addEventHandler(MouseEvent.MOUSE_CLICKED, new WindradClickHandler());
 		root.getChildren().add(windrad);
+		addTooltip();
 
 	}
 
 	public void addTooltip() {
-
+		Tooltip tool = new Tooltip(
+				"KW: 10 \n" + "Grad Rotorblätter: 20 Grad \n" + "Windgeschwindigkeit: 35 m/s \n");
+		Tooltip.install(windrad, tool);
 	}
 }
