@@ -64,9 +64,6 @@ public class SingleWindWheel extends Application {
 	ImageView wind;
 	ImageView rotationSettings;
 	
-	public static void main(String[] args) {
-		launch(args);
-	}
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {

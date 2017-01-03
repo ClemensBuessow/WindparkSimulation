@@ -20,5 +20,6 @@ public class ClickHandler implements EventHandler<MouseEvent> {
         System.out.println("wurde gehandelt");
         GuiDataInput daten = new GuiDataInput();
         daten.setGuiData(serie, art);
+        
     }
 }

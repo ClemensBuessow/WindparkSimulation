@@ -1,10 +1,11 @@
 package mapElements;
 
+import gui.GUI;
 import handler.WindradClickHandler;
 import javafx.animation.Animation;
 
 import javafx.animation.RotateTransition;
-
+import javafx.event.EventHandler;
 import javafx.scene.DepthTest;
 import javafx.scene.Group;
 import javafx.scene.Node;
@@ -127,6 +128,7 @@ public class WindWheel extends BasicElement {
 		rt.setAxis(Rotate.Y_AXIS);
 		rt.setCycleCount(1);
 		rt.play();
+		
 	}
 
 	public void generateWindWheel() {
@@ -191,12 +193,18 @@ public class WindWheel extends BasicElement {
 		windrad.addEventHandler(MouseEvent.MOUSE_CLICKED, new WindradClickHandler());
 		root.getChildren().add(windrad);
 		addTooltip();
+		
 
 	}
 
 	public void addTooltip() {
+		
+		
+		
 		Tooltip tool = new Tooltip(
-				"KW: 10 \n" + "Grad Rotorblätter: 20 Grad \n" + "Windgeschwindigkeit: 35 m/s \n");
+				"KW: 10 \n" + "Grad Rotorblätter: 20 Grad \n" + "Windgeschwindigkeit: 35 m/s \n" + "Windrichtung: ");
 		Tooltip.install(windrad, tool);
+		
+		
 	}
 }

@@ -98,6 +98,7 @@ public class GUI {
 
 	}
 
+
 	private void switchingPark() {
 		switch (windpark.getValue()) {
 		case "Windpark Ostsee":
@@ -373,8 +374,8 @@ public class GUI {
 		gamefield.setTranslateZ(1);
 
 		bottomLine = new Line(0, 650, 850, 650);
-		sideline = new Line(850, 0, 850, 1000);
-		settingLine = new Line(850, 140, 1500, 140);
+		sideline = new Line(850, 0, 850, 2000);
+		settingLine = new Line(850, 140, 3000, 140);
 
 		birdsYes = new CheckBox("Yes");
 		birdsYes.setLayoutX(900);
@@ -417,6 +418,7 @@ public class GUI {
 		Sun sun = new Sun(scene, pane,root);
 		sun.startRotation(10000.0);
 		scene.setRoot(root);
+		
 
 	}
 
@@ -598,17 +600,7 @@ public class GUI {
 			}
 		});
 		
-		chartRenew.setOnAction(new EventHandler<ActionEvent>() {
-
-			@Override
-			public void handle(ActionEvent event) {
-				tooltip = new Tooltip("Irgendwelcher kack halt");
-				tooltip.setAnchorX(200.0);
-				tooltip.setAnchorY(200);
-				chartRenew.setTooltip(tooltip);
-				
-			}
-		});
+		
 
 	}
 
@@ -628,5 +620,6 @@ public class GUI {
 
 		gamefield.setMaterial(new PhongMaterial(Color.DEEPSKYBLUE));
 	}
+
 
 }
