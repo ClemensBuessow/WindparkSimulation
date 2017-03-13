@@ -37,7 +37,7 @@ public class Main extends Application {
 		PerspectiveCamera p = new PerspectiveCamera();
 		p.setFarClip(1000);
 		
-		simulation = new Scene(root, 1200, 1000,true);
+		simulation = new Scene(root, 1350, 1000,true);
 		
 		
 		primaryStage.setScene(simulation);

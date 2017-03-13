@@ -45,7 +45,7 @@ public class Chart {
 
             series = new XYChart.Series<String, Number>();
             series.setName("Windrichtung");
-            series.getData().add(new Data<String, Number>("1.1.", 5));
+            
 
             chart = new LineChart<String, Number>(yAxis, xAxis);
             chart.getData().add(series);
@@ -57,11 +57,11 @@ public class Chart {
 
         } if (art.equals("Leistung")) {
             xAxis.setLabel("Windstaerke in m/s");
-            yAxis.setLabel("Zeit");
+            yAxis.setLabel("Zeit in Stunden");
 
             series = new XYChart.Series<String, Number>();
             series.setName("Windstaerke");
-            series.getData().add(new Data<String, Number>("1.1.", 5));
+            
 
             chart = new LineChart<String, Number>(yAxis, xAxis);
             chart.getData().add(series);
@@ -79,7 +79,7 @@ public class Chart {
 
               series = new XYChart.Series<String, Number>();
               series.setName("Windstaerke");
-              series.getData().add(new Data<String, Number>("1.1.", 5));
+              
 
               chart = new LineChart<String, Number>(yAxis, xAxis);
               chart.getData().add(series);

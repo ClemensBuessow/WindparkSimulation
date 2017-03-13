@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.chart.XYChart.Data;
+import javafx.scene.chart.XYChart.Series;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -42,10 +43,12 @@ public class GuiDataInput {
 	double timeData;
 
 	XYChart.Series<String, Number> series2;
+	XYChart.Series<String, Number> series3;
 
 	public void setGuiData(XYChart.Series<String, Number> series, String art) {
 		System.out.println("eine Gui zum Daten Eingeben");
 
+		series3 = new XYChart.Series<String, Number>();
 		pane = new Pane();
 		root = new Group();
 		scene = new Scene(root, 800, 500);
@@ -72,20 +75,34 @@ public class GuiDataInput {
 
 			@Override
 			public void handle(ActionEvent event) {
-			
+
 				timeData = Double.parseDouble(time.getText());
 				windStrenghtData = windStrenght.getText();
 				series.getData().add(new Data<String, Number>(windStrenghtData, timeData));
 				time.clear();
 				windStrenght.clear();
-
 				
+				System.out.println(series.getData().size());
+				for (int i = 0; i < series.getData().size(); i++) {
+					Data<String, Number> data = series.getData().get(i);
+
+					System.out.println(data);
+					String test = data.getXValue().toString();
+					Double test2 = data.getYValue().doubleValue();
+					Data<String, Number> a = new Data<String, Number>(data.getXValue(), data.getYValue());
+					System.out.println(a);
+					series3.getData().add(a);
+					System.out.println(series3);
+				}
 
 			}
 		});
+
 		
-		Chart chart = new Chart(pane, art,root);
+		Chart chart = new Chart(pane, art, root);
 		chart.setNewSeries(series);
+		System.out.println(series.getData().get(0));
+
 		chart.setLayout(10, 50);
 
 		root.getChildren().addAll(settings, time, windStrenght, add);

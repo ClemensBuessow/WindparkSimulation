@@ -7,10 +7,14 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.chart.XYChart;
+import javafx.scene.chart.XYChart.Data;
+import javafx.scene.chart.XYChart.Series;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -27,7 +31,6 @@ public class GUI {
 	Pane pane;
 	Scene scene;
 	Group root;
-	
 
 	ComboBox<String> windpark;
 	ComboBox<String> windDirectionCombo;
@@ -67,8 +70,8 @@ public class GUI {
 	Box gamefield;
 
 	int scalingForGUI;
-	Double timeData;
-	String windStrenghtData;
+	String timeData;
+	Double windStrenghtData;
 
 	WindWheel windWheelOne;
 	WindWheel windWheelTwo;
@@ -80,24 +83,84 @@ public class GUI {
 	Cloud cloud;
 	Cloud cloud2;
 	Cloud cloud3;
-	
+
 	Tooltip tooltip;
+
+	Button addSeries;
+
+	TextField time;
+
+	TextField windStrenghtText;
+	
+	XYChart.Series<String, Number> series;
+	XYChart.Series<String, Number> series2;
+	
+	
 
 	public GUI(Scene scene, Pane pane) {
 
 		this.pane = pane;
 		root = new Group();
 		this.scene = scene;
-
+		
+		generateCharts();
 		creatingGUI();
 		accessEventHandler();
 		generateMapElements();
 		createDataEntrys();
 		resetTransition();
-		
 
 	}
 
+	private void generateCharts() {
+		
+		time = new TextField();
+		time.setPromptText("Set Time");
+		time.setLayoutX(880);
+		time.setLayoutY(290);
+
+		windStrenghtText = new TextField();
+		windStrenghtText.setPromptText("Set Windstaerke");
+		windStrenghtText.setLayoutX(1030);
+		windStrenghtText.setLayoutY(290);
+
+		addSeries = new Button("Add to Series");
+		addSeries.setLayoutX(1220);
+		addSeries.setLayoutY(290);
+		
+		series = new Series<String,Number>();
+		series2 = new Series<String,Number>();
+		addSeries.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+
+				
+				timeData = time.getText();
+				windStrenghtData = Double.parseDouble(windStrenghtText.getText());
+				series.getData().add(new Data<String, Number>(timeData,windStrenghtData));
+				time.clear();
+				windStrenghtText.clear();
+				
+				System.out.println(series.getData().size());
+				for (int i = 0; i < series.getData().size(); i++) {
+					Data<String, Number> data = series.getData().get(i);
+
+						System.out.println(data);
+						Double test = Double.parseDouble(data.getXValue());
+						Double test2 = data.getYValue().doubleValue();
+						Data<String, Number> a = new Data<String, Number>(test.toString(), test2*5);
+						System.out.println(a);
+						series2.getData().add(a);
+						System.out.println(series2);
+
+					
+				}
+
+			}
+		});
+
+	}
 
 	private void switchingPark() {
 		switch (windpark.getValue()) {
@@ -241,30 +304,25 @@ public class GUI {
 		cloud2.setXY(400.0, 160.0);
 		cloud3 = new Cloud(scene, pane, root);
 		cloud3.setXY(600.0, 160.0);
-		
-		
-		
 
-		windWheelTwo = new WindWheel(scene, pane,root);
+		windWheelTwo = new WindWheel(scene, pane, root);
 		windWheelTwo.setVisibilityFalse();
 
-		windWheelFour = new WindWheel(scene, pane,root);
+		windWheelFour = new WindWheel(scene, pane, root);
 		windWheelFour.setVisibilityFalse();
 
-		windWheelOne = new WindWheel(scene, pane,root);
+		windWheelOne = new WindWheel(scene, pane, root);
 		windWheelOne.setVisibilityFalse();
 
-		windWheelSix = new WindWheel(scene, pane,root);
+		windWheelSix = new WindWheel(scene, pane, root);
 		windWheelSix.setVisibilityFalse();
 
-		windWheelThree = new WindWheel(scene, pane,root);
+		windWheelThree = new WindWheel(scene, pane, root);
 		windWheelThree.setVisibilityFalse();
 
-		windWheelFive = new WindWheel(scene, pane,root);
+		windWheelFive = new WindWheel(scene, pane, root);
 		windWheelFive.setVisibilityFalse();
-		
-		
-		
+
 	}
 
 	/**
@@ -273,22 +331,17 @@ public class GUI {
 	private void createDataEntrys() {
 
 		String artLeistung = "Leistung";
-		Chart chartLeistung = new Chart(pane, artLeistung,root);
+		Chart chartLeistung = new Chart(pane, artLeistung, root);
+		chartLeistung.setNewSeries(series);
 		chartLeistung.enableEventHandler();
 		chartLeistung.setLayout(835, 310);
 
 		String artStaerke = "Staerke";
-		Chart chartStaerke = new Chart(pane, artStaerke,root);
+		Chart chartStaerke = new Chart(pane, artStaerke, root);
+		chartStaerke.setNewSeries(series2);
 		chartStaerke.enableEventHandler();
 		chartStaerke.setLayout(835, 760);
-		chartStaerke.setNewDataEntry("1", 15);
-		chartStaerke.setNewDataEntry("2", 11);
-		chartStaerke.setNewDataEntry("3", 10);
-		chartStaerke.setNewDataEntry("4", 5);
-		chartStaerke.setNewDataEntry("5", 0);
-		chartStaerke.setNewDataEntry("6", 5);
-		chartStaerke.setNewDataEntry("7", 5);
-		chartStaerke.setNewDataEntry("8", 10);
+
 
 	}
 
@@ -296,10 +349,8 @@ public class GUI {
 		recordsWindpark = FXCollections.observableArrayList("Windpark Ostsee", "Windpark Nordsee", "Delete");
 		recrodsWindDirection = FXCollections.observableArrayList("Nord - Nord/Ost", "Ost - Süd/Ost", "Süd - Süd/West",
 				"West - Nord/West");
-		
+
 		root = new Group();
-		
-		
 
 		settings = new Label("Settings");
 		settings.setLayoutX(900);
@@ -408,17 +459,16 @@ public class GUI {
 		windDirectionCombo = new ComboBox<>(recrodsWindDirection);
 		windDirectionCombo.setLayoutX(900);
 		windDirectionCombo.setLayoutY(230);
-		
+
 		chartRenew.setTooltip(tooltip);
 
 		root.getChildren().addAll(gamefield, settings, windpark, windDirection, windStrength, birds, bos, fire, totalKW,
 				start, stop, reset, add, delete, x1, x2, x4, bottomLine, sideline, settingLine, birdsYes, birdsNo,
-				fireYes, fireNo, bosYes, bosNo, windDirectionCombo, chartRenew);
+				fireYes, fireNo, bosYes, bosNo, windDirectionCombo, chartRenew, addSeries, windStrenghtText, time);
 
-		Sun sun = new Sun(scene, pane,root);
+		Sun sun = new Sun(scene, pane, root);
 		sun.startRotation(10000.0);
 		scene.setRoot(root);
-		
 
 	}
 
@@ -599,8 +649,6 @@ public class GUI {
 
 			}
 		});
-		
-		
 
 	}
 
@@ -620,6 +668,5 @@ public class GUI {
 
 		gamefield.setMaterial(new PhongMaterial(Color.DEEPSKYBLUE));
 	}
-
 
 }

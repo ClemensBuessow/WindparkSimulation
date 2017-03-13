@@ -1,11 +1,9 @@
 package mapElements;
 
-import gui.GUI;
 import handler.WindradClickHandler;
 import javafx.animation.Animation;
 
 import javafx.animation.RotateTransition;
-import javafx.event.EventHandler;
 import javafx.scene.DepthTest;
 import javafx.scene.Group;
 import javafx.scene.Node;
@@ -68,6 +66,8 @@ public class WindWheel extends BasicElement {
 		node.setTranslateY(y);
 
 	}
+	
+	
 
 	public void setXY(Double x, Double y) {
 		windrad.setLayoutX(x);
@@ -128,6 +128,7 @@ public class WindWheel extends BasicElement {
 		rt.setAxis(Rotate.Y_AXIS);
 		rt.setCycleCount(1);
 		rt.play();
+		g2();
 		
 	}
 
@@ -180,19 +181,20 @@ public class WindWheel extends BasicElement {
 		shaft.setTranslateX(235 / a);
 		shaft.setTranslateY(310 / a);
 
-		movePivot(nabe, 50 / a, -14 / a);
+		movePivot(nabe, generator.getTranslateX(), generator.getTranslateY());
 		movePivot(fullhead, 55.0 / a, 0.0);
 		// movePivot(windrad, -10, 0);
 
 		nabe.getChildren().addAll(head, rotorNabe);
 		head.getChildren().addAll(wingOne, wingTwo, wingThree);
 
-		fullhead.getChildren().addAll(generator, nabe);
+		fullhead.getChildren().addAll(nabe,generator);
 		windrad.setDepthTest(DepthTest.ENABLE);
 		windrad.getChildren().addAll(shaft, fullhead);
 		windrad.addEventHandler(MouseEvent.MOUSE_CLICKED, new WindradClickHandler());
 		root.getChildren().add(windrad);
 		addTooltip();
+	
 		
 
 	}
@@ -205,6 +207,18 @@ public class WindWheel extends BasicElement {
 				"KW: 10 \n" + "Grad Rotorblätter: 20 Grad \n" + "Windgeschwindigkeit: 35 m/s \n" + "Windrichtung: ");
 		Tooltip.install(windrad, tool);
 		
+		
+	}
+	
+	public void g2(){
+		Double x;
+		Double y;
+		
+		x = generator.getTranslateX();
+		y = generator.getTranslateY();
+		
+		System.out.println(x);
+		System.out.println(y);
 		
 	}
 }
