@@ -1,5 +1,9 @@
 package gui;
 
+import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
+
 import charts.Chart;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -22,6 +26,7 @@ import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Box;
 import javafx.scene.shape.Line;
 import javafx.scene.transform.Rotate;
+import mapElements.Birds;
 import mapElements.Cloud;
 import mapElements.Sun;
 import mapElements.WindWheel;
@@ -95,6 +100,9 @@ public class GUI {
 	XYChart.Series<String, Number> series;
 	XYChart.Series<String, Number> series2;
 	
+	Birds bird1;
+	Birds bird2;
+	
 	
 
 	public GUI(Scene scene, Pane pane) {
@@ -149,10 +157,40 @@ public class GUI {
 						System.out.println(data);
 						Double test = Double.parseDouble(data.getXValue());
 						Double test2 = data.getYValue().doubleValue();
-						Data<String, Number> a = new Data<String, Number>(test.toString(), test2*5);
-						System.out.println(a);
-						series2.getData().add(a);
-						System.out.println(series2);
+						
+						if(test >=10 && test <=15 ){
+							Data<String, Number> a = new Data<String, Number>(test.toString(), test2*5);
+							
+								System.out.println(a);
+//									series2.getData().add(a);
+										System.out.println(series2);
+										String wind = windDirectionCombo.getSelectionModel().getSelectedItem().toString();
+										System.out.println(wind);
+										a.setExtraValue(wind);
+										System.out.println(a);
+										
+						}else if(test <5 ){
+							Data<String, Number> a = new Data<String, Number>(test.toString(), test2*1);
+							System.out.println(a);
+//								series2.getData().add(a);
+//									System.out.println(series2);
+									String wind = windDirectionCombo.getSelectionModel().getSelectedItem().toString();
+									System.out.println(wind);
+									a.setExtraValue(wind);
+//									System.out.println(a);
+									
+						}else if(test >5 && test < 10){
+							Data<String, Number> a = new Data<String, Number>(test.toString(), test2*1);
+							System.out.println(a);
+//							series2.getData().add(a);
+							System.out.println(series2);
+							String wind = windDirectionCombo.getSelectionModel().getSelectedItem().toString();
+							System.out.println(wind);
+							a.setExtraValue(wind);
+//							System.out.println(a);
+						}
+						
+						
 
 					
 				}
@@ -352,6 +390,14 @@ public class GUI {
 
 		root = new Group();
 
+		bird1 = new Birds(scene, pane, root);
+		bird1.setXY(300.0, 210.0);
+		bird1.setVisibilityFalse();
+		bird2 = new Birds(scene, pane, root);
+		bird2.setXY(550.0, 200.0);
+		bird2.setVisibilityFalse();
+		
+		
 		settings = new Label("Settings");
 		settings.setLayoutX(900);
 		settings.setLayoutY(30 - scalingForGUI);
@@ -522,7 +568,8 @@ public class GUI {
 
 			@Override
 			public void handle(ActionEvent event) {
-				stopHeadRotation();
+				//stopHeadRotation();
+				addTimerChart();
 
 			}
 		});
@@ -559,8 +606,16 @@ public class GUI {
 			public void handle(ActionEvent event) {
 				if (birdsYes.isSelected()) {
 					birdsNo.setDisable(true);
+		
+					
+					bird1.setVisibilityTrue();
+					
+					bird2.setVisibilityTrue();
 				} else {
+					
 					birdsNo.setDisable(false);
+					bird1.setVisibilityFalse();
+					bird2.setVisibilityFalse();
 				}
 
 			}
@@ -668,5 +723,84 @@ public class GUI {
 
 		gamefield.setMaterial(new PhongMaterial(Color.DEEPSKYBLUE));
 	}
+	
+	private void addTimerChart(){
+		TimerTask task = new TimerTask() {
+	         public void run() {
+	        	
+					time.clear();
+					windStrenghtText.clear();
+					
+					System.out.println(series.getData().size());
+					for (int i = 0; i < series.getData().size(); i++) {
+						Data<String, Number> data = series.getData().get(i);
+
+							System.out.println(data);
+							Double test = Double.parseDouble(data.getXValue());
+							Double test2 = data.getYValue().doubleValue();
+							
+							if(test >=10 && test <=15 ){
+								Data<String, Number> a = new Data<String, Number>(test.toString(), test2*5);
+								
+									System.out.println(a);
+										series2.getData().add(a);
+											System.out.println(series2);
+											String wind = windDirectionCombo.getSelectionModel().getSelectedItem().toString();
+											System.out.println(wind);
+											a.setExtraValue(wind);
+											System.out.println(a);
+											
+							}else if(test <5 ){
+								Data<String, Number> a = new Data<String, Number>(test.toString(), test2*1);
+								System.out.println(a);
+									series2.getData().add(a);
+										System.out.println(series2);
+										String wind = windDirectionCombo.getSelectionModel().getSelectedItem().toString();
+										System.out.println(wind);
+										a.setExtraValue(wind);
+										System.out.println(a);
+										
+							}else if(test >5 && test < 10){
+								Data<String, Number> a = new Data<String, Number>(test.toString(), test2*1);
+								System.out.println(a);
+								series2.getData().add(a);
+								System.out.println(series2);
+								String wind = windDirectionCombo.getSelectionModel().getSelectedItem().toString();
+								System.out.println(wind);
+								a.setExtraValue(wind);
+								System.out.println(a);
+							}
+							
+							
+
+						
+					}
+
+				}
+	     };
+	     
+	     Timer timer = new Timer("Generate Random Number : ");
+	      
+	     long delay = 5000L;
+	     long period = 100000L;
+	     timer.scheduleAtFixedRate(task, delay, period);
+	 }
+	
+	private void addTimer(){
+		TimerTask task = new TimerTask() {
+	         public void run() {
+	             Random rand = new Random();
+	             int n = rand.nextInt(1000);
+	             System.out.println(Thread.currentThread().getName() + n);
+	         }
+	     };
+	     
+	     Timer timer = new Timer("Generate Random Number : ");
+	      
+	     long delay = 500L;
+	     long period = 1000L;
+	     timer.scheduleAtFixedRate(task, delay, period);
+	 }
+	
 
 }
