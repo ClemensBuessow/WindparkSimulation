@@ -5,6 +5,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import charts.Chart;
+import charts.addDataCharts;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -109,6 +110,7 @@ public class GUI {
 
 	boolean outOfIndex = true;
 	boolean boeen = false;
+	int counter = 0;
 
 	public GUI(Scene scene, Pane region) {
 
@@ -484,14 +486,14 @@ public class GUI {
 		windWheelSix.startRotation(1000.0);
 	}
 
-//	private void stopHeadRotation() {
-//		windWheelOne.stopRotation();
-//		windWheelTwo.stopRotation();
-//		windWheelThree.stopRotation();
-//		windWheelFour.stopRotation();
-//		windWheelFive.stopRotation();
-//		windWheelSix.stopRotation();
-//	}
+	// private void stopHeadRotation() {
+	// windWheelOne.stopRotation();
+	// windWheelTwo.stopRotation();
+	// windWheelThree.stopRotation();
+	// windWheelFour.stopRotation();
+	// windWheelFive.stopRotation();
+	// windWheelSix.stopRotation();
+	// }
 
 	private void windWheelSpeedTwo() {
 		windWheelOne.startRotation(700.0);
@@ -526,7 +528,11 @@ public class GUI {
 			@Override
 			public void handle(ActionEvent event) {
 				// stopHeadRotation();
-				threading(10000);
+
+				addDataCharts thread = new addDataCharts(1000, series, series2, counter, boeen);
+				if (counter <= series.getData().size()) {
+					thread.start();
+				}
 
 			}
 		});
@@ -544,6 +550,16 @@ public class GUI {
 			@Override
 			public void handle(ActionEvent event) {
 				windWheelSpeedTwo();
+
+			}
+		});
+
+		reset.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				series.getData().clear();
+				series2.getData().clear();
 
 			}
 		});
@@ -688,191 +704,199 @@ public class GUI {
 
 			@Override
 			public void run() {
+
 				while (outOfIndex == true)
 					try {
-						for (int i = 0; i < series.getData().size(); i++) {
 
-							Data<String, Number> data = series.getData().get(i);
+						Data<String, Number> data = series.getData().get(counter);
 
-							System.out.println(data);
-							Double test = Double.parseDouble(data.getXValue());
-							Double test2 = data.getYValue().doubleValue();
+						System.out.println(data);
+						Double test = Double.parseDouble(data.getXValue());
+						Double test2 = data.getYValue().doubleValue();
 
-							if (boeen == true) {
-								if (test2 >= 10 && test2 <= 15) {
+						if (test2 >= 10 && test2 <= 15) {
 
-									Data<String, Number> a = new Data<String, Number>(test.toString(),
-											(test2 / 4) + Math.random());
+							Data<String, Number> a = new Data<String, Number>(test.toString(),
+									(test2 / 4) + Math.random());
 
-									System.out.println(a);
+							System.out.println(a);
 
-									System.out.println(series2);
-									String wind = windDirectionCombo.getSelectionModel().getSelectedItem().toString();
-									System.out.println(wind);
-									a.setExtraValue(wind);
+							System.out.println(series2);
+							String wind = windDirectionCombo.getSelectionModel().getSelectedItem().toString();
+							System.out.println(wind);
+							a.setExtraValue(wind);
 
-									try {
-										series2.getData().add(a);
-									} catch (IllegalStateException e) {
-										System.out.println("Das Ja blöd jetzt");
-									}
-									System.out.println(a);
+							try {
+								series2.getData().add(a);
+							} catch (IllegalStateException e) {
+								System.out.println("Das Ja blöd jetzt");
+							}
+							System.out.println(a);
 
-								} else if (test2 < 5) {
-									Data<String, Number> a = new Data<String, Number>(test.toString(),
-											(test2 * 0) + Math.random());
-									System.out.println(a);
+						} else if (test2 < 5) {
+							Data<String, Number> a = new Data<String, Number>(test.toString(),
+									(test2 * 0) + Math.random());
+							System.out.println(a);
 
-									System.out.println(series2);
+							System.out.println(series2);
 
-									String wind = windDirectionCombo.getSelectionModel().getSelectedItem().toString();
-									System.out.println(wind);
-									a.setExtraValue(wind);
-									System.out.println(a);
-									try {
-										series2.getData().add(a);
-									} catch (Exception e) {
-										// TODO: handle exception
-										System.out.println("Kann ja mal passieren");
-									}
-
-								} else if (test2 > 5 && test2 < 10) {
-									Data<String, Number> a = new Data<String, Number>(test.toString(),
-											(test2 / 4.5) + Math.random());
-									System.out.println(a);
-
-									System.out.println(series2);
-									String wind = windDirectionCombo.getSelectionModel().getSelectedItem().toString();
-									System.out.println(wind);
-									a.setExtraValue(wind);
-									System.out.println(a);
-									try {
-										series2.getData().add(a);
-									} catch (Exception e) {
-										System.out.println("Nicht so cool");
-									}
-
-								} else if (test > 15 && test < 25) {
-									Data<String, Number> a = new Data<String, Number>(test.toString(), 3.6);
-									System.out.println(a);
-
-									System.out.println(series2);
-									String wind = windDirectionCombo.getSelectionModel().getSelectedItem().toString();
-									System.out.println(wind);
-									a.setExtraValue(wind);
-									System.out.println(a);
-									try {
-										series2.getData().add(a);
-									} catch (Exception e) {
-										System.out.println("Nicht so cool");
-									}
-
-								} else if (test > 25) {
-									Data<String, Number> a = new Data<String, Number>(test.toString(), test2 * 0);
-									System.out.println(a);
-
-									System.out.println(series2);
-									String wind = windDirectionCombo.getSelectionModel().getSelectedItem().toString();
-									System.out.println(wind);
-									a.setExtraValue(wind);
-									System.out.println(a);
-									try {
-										series2.getData().add(a);
-									} catch (Exception e) {
-										System.out.println("Nicht so cool");
-									}
-
-								}
-							} else if (boeen == false) {
-								if (test2 >= 10 && test2 <= 15) {
-
-									Data<String, Number> a = new Data<String, Number>(test.toString(), test2 / 4);
-
-									System.out.println(a);
-
-									System.out.println(series2);
-									String wind = windDirectionCombo.getSelectionModel().getSelectedItem().toString();
-									System.out.println(wind);
-									a.setExtraValue(wind);
-
-									try {
-										series2.getData().add(a);
-									} catch (IllegalStateException e) {
-										System.out.println("Das Ja blöd jetzt");
-									}
-									System.out.println(a);
-
-								} else if (test2 < 5) {
-									Data<String, Number> a = new Data<String, Number>(test.toString(), test2 * 0);
-									System.out.println(a);
-
-									System.out.println(series2);
-
-									String wind = windDirectionCombo.getSelectionModel().getSelectedItem().toString();
-									System.out.println(wind);
-									a.setExtraValue(wind);
-									System.out.println(a);
-									try {
-										series2.getData().add(a);
-									} catch (Exception e) {
-										// TODO: handle exception
-										System.out.println("Kann ja mal passieren");
-									}
-
-								} else if (test2 > 5 && test2 < 10) {
-									Data<String, Number> a = new Data<String, Number>(test.toString(), test2 / 4.5);
-									System.out.println(a);
-
-									System.out.println(series2);
-									String wind = windDirectionCombo.getSelectionModel().getSelectedItem().toString();
-									System.out.println(wind);
-									a.setExtraValue(wind);
-									System.out.println(a);
-									try {
-										series2.getData().add(a);
-									} catch (Exception e) {
-										System.out.println("Nicht so cool");
-									}
-
-								} else if (test > 15 && test < 25) {
-									Data<String, Number> a = new Data<String, Number>(test.toString(), 3.6);
-									System.out.println(a);
-
-									System.out.println(series2);
-									String wind = windDirectionCombo.getSelectionModel().getSelectedItem().toString();
-									System.out.println(wind);
-									a.setExtraValue(wind);
-									System.out.println(a);
-									try {
-										series2.getData().add(a);
-									} catch (Exception e) {
-										System.out.println("Nicht so cool");
-									}
-
-								} else if (test > 25) {
-									Data<String, Number> a = new Data<String, Number>(test.toString(), test2 * 0);
-									System.out.println(a);
-
-									System.out.println(series2);
-									String wind = windDirectionCombo.getSelectionModel().getSelectedItem().toString();
-									System.out.println(wind);
-									a.setExtraValue(wind);
-									System.out.println(a);
-									try {
-										series2.getData().add(a);
-									} catch (Exception e) {
-										System.out.println("Nicht so cool");
-									}
-
-								}
-
+							String wind = windDirectionCombo.getSelectionModel().getSelectedItem().toString();
+							System.out.println(wind);
+							a.setExtraValue(wind);
+							System.out.println(a);
+							try {
+								series2.getData().add(a);
+							} catch (Exception e) {
+								// TODO: handle exception
+								System.out.println("Kann ja mal passieren");
 							}
 
-							if (i > series.getData().size()) {
-								outOfIndex = false;
+						} else if (test2 > 5 && test2 < 10) {
+							Data<String, Number> a = new Data<String, Number>(test.toString(),
+									(test2 / 4.5) + Math.random());
+							System.out.println(a);
+
+							System.out.println(series2);
+							String wind = windDirectionCombo.getSelectionModel().getSelectedItem().toString();
+							System.out.println(wind);
+							a.setExtraValue(wind);
+							System.out.println(a);
+							try {
+								series2.getData().add(a);
+							} catch (Exception e) {
+								System.out.println("Nicht so cool");
+							}
+
+						} else if (test > 15 && test < 25) {
+							Data<String, Number> a = new Data<String, Number>(test.toString(), 3.6);
+							System.out.println(a);
+
+							System.out.println(series2);
+							String wind = windDirectionCombo.getSelectionModel().getSelectedItem().toString();
+							System.out.println(wind);
+							a.setExtraValue(wind);
+							System.out.println(a);
+							try {
+								series2.getData().add(a);
+							} catch (Exception e) {
+								System.out.println("Nicht so cool");
+							}
+
+						} else if (test > 25) {
+							Data<String, Number> a = new Data<String, Number>(test.toString(), test2 * 0);
+							System.out.println(a);
+
+							System.out.println(series2);
+							String wind = windDirectionCombo.getSelectionModel().getSelectedItem().toString();
+							System.out.println(wind);
+							a.setExtraValue(wind);
+							System.out.println(a);
+							try {
+								series2.getData().add(a);
+							} catch (Exception e) {
+								System.out.println("Nicht so cool");
 							}
 
 						}
+						// } else if (boeen == false) {
+						// if (test2 >= 10 && test2 <= 15) {
+						//
+						// Data<String, Number> a = new Data<String,
+						// Number>(test.toString(), test2 / 4);
+						//
+						// System.out.println(a);
+						//
+						// System.out.println(series2);
+						// String wind =
+						// windDirectionCombo.getSelectionModel().getSelectedItem().toString();
+						// System.out.println(wind);
+						// a.setExtraValue(wind);
+						//
+						// try {
+						// series2.getData().add(a);
+						// } catch (IllegalStateException e) {
+						// System.out.println("Das Ja blöd jetzt");
+						// }
+						// System.out.println(a);
+						//
+						// } else if (test2 < 5) {
+						// Data<String, Number> a = new Data<String,
+						// Number>(test.toString(), test2 * 0);
+						// System.out.println(a);
+						//
+						// System.out.println(series2);
+						//
+						// String wind =
+						// windDirectionCombo.getSelectionModel().getSelectedItem().toString();
+						// System.out.println(wind);
+						// a.setExtraValue(wind);
+						// System.out.println(a);
+						// try {
+						// series2.getData().add(a);
+						// } catch (Exception e) {
+						// // TODO: handle exception
+						// System.out.println("Kann ja mal passieren");
+						// }
+						//
+						// } else if (test2 > 5 && test2 < 10) {
+						// Data<String, Number> a = new Data<String,
+						// Number>(test.toString(), test2 / 4.5);
+						// System.out.println(a);
+						//
+						// System.out.println(series2);
+						// String wind =
+						// windDirectionCombo.getSelectionModel().getSelectedItem().toString();
+						// System.out.println(wind);
+						// a.setExtraValue(wind);
+						// System.out.println(a);
+						// try {
+						// series2.getData().add(a);
+						// } catch (Exception e) {
+						// System.out.println("Nicht so cool");
+						// }
+						//
+						// } else if (test > 15 && test < 25) {
+						// Data<String, Number> a = new Data<String,
+						// Number>(test.toString(), 3.6);
+						// System.out.println(a);
+						//
+						// System.out.println(series2);
+						// String wind =
+						// windDirectionCombo.getSelectionModel().getSelectedItem().toString();
+						// System.out.println(wind);
+						// a.setExtraValue(wind);
+						// System.out.println(a);
+						// try {
+						// series2.getData().add(a);
+						// } catch (Exception e) {
+						// System.out.println("Nicht so cool");
+						// }
+						//
+						// } else if (test > 25) {
+						// Data<String, Number> a = new Data<String,
+						// Number>(test.toString(), test2 * 0);
+						// System.out.println(a);
+						//
+						// System.out.println(series2);
+						// String wind =
+						// windDirectionCombo.getSelectionModel().getSelectedItem().toString();
+						// System.out.println(wind);
+						// a.setExtraValue(wind);
+						// System.out.println(a);
+						// try {
+						// series2.getData().add(a);
+						// } catch (Exception e) {
+						// System.out.println("Nicht so cool");
+						// }
+						//
+						// }
+						//
+						// }
+						counter++;
+						if (counter >= series.getData().size()) {
+							outOfIndex = false;
+						}
+
 						System.out.println("Ich bin ein Thread");
 						Thread.sleep(millis);
 
@@ -885,114 +909,123 @@ public class GUI {
 		}).start();
 	}
 
-//	private void addTimerChart() {
-//		TimerTask task = new TimerTask() {
-//			public void run() {
-//
-//				time.clear();
-//				windStrenghtText.clear();
-//
-//				System.out.println(series.getData().size());
-//				for (int i = 0; i < series.getData().size(); i++) {
-//					Data<String, Number> data = series.getData().get(i);
-//
-//					System.out.println(data);
-//					Double test = Double.parseDouble(data.getXValue());
-//					Double test2 = data.getYValue().doubleValue();
-//
-//					if (test2 >= 10 && test2 <= 15) {
-//
-//						Data<String, Number> a = new Data<String, Number>(test.toString(), test2 / 4);
-//
-//						System.out.println(a);
-//
-//						System.out.println(series2);
-//						String wind = windDirectionCombo.getSelectionModel().getSelectedItem().toString();
-//						System.out.println(wind);
-//						a.setExtraValue(wind);
-//
-//						try {
-//							series2.getData().add(a);
-//						} catch (IllegalStateException e) {
-//							System.out.println("Das Ja blöd jetzt");
-//						}
-//						System.out.println(a);
-//
-//					} else if (test2 < 5) {
-//						Data<String, Number> a = new Data<String, Number>(test.toString(), test2 * 0);
-//						System.out.println(a);
-//
-//						System.out.println(series2);
-//
-//						String wind = windDirectionCombo.getSelectionModel().getSelectedItem().toString();
-//						System.out.println(wind);
-//						a.setExtraValue(wind);
-//						System.out.println(a);
-//						try {
-//							series2.getData().add(a);
-//						} catch (Exception e) {
-//							// TODO: handle exception
-//							System.out.println("Kann ja mal passieren");
-//						}
-//
-//					} else if (test2 > 5 && test2 < 10) {
-//						Data<String, Number> a = new Data<String, Number>(test.toString(), test2 / 4.5);
-//						System.out.println(a);
-//
-//						System.out.println(series2);
-//						String wind = windDirectionCombo.getSelectionModel().getSelectedItem().toString();
-//						System.out.println(wind);
-//						a.setExtraValue(wind);
-//						System.out.println(a);
-//						try {
-//							series2.getData().add(a);
-//						} catch (Exception e) {
-//							System.out.println("Nicht so cool");
-//						}
-//
-//					} else if (test > 15 && test < 25) {
-//						Data<String, Number> a = new Data<String, Number>(test.toString(), 3.6);
-//						System.out.println(a);
-//
-//						System.out.println(series2);
-//						String wind = windDirectionCombo.getSelectionModel().getSelectedItem().toString();
-//						System.out.println(wind);
-//						a.setExtraValue(wind);
-//						System.out.println(a);
-//						try {
-//							series2.getData().add(a);
-//						} catch (Exception e) {
-//							System.out.println("Nicht so cool");
-//						}
-//
-//					} else if (test > 25) {
-//						Data<String, Number> a = new Data<String, Number>(test.toString(), test2 * 0);
-//						System.out.println(a);
-//
-//						System.out.println(series2);
-//						String wind = windDirectionCombo.getSelectionModel().getSelectedItem().toString();
-//						System.out.println(wind);
-//						a.setExtraValue(wind);
-//						System.out.println(a);
-//						try {
-//							series2.getData().add(a);
-//						} catch (Exception e) {
-//							System.out.println("Nicht so cool");
-//						}
-//
-//					}
-//
-//				}
-//
-//			}
-//		};
-//
-//		Timer timer2 = new Timer();
-//
-//		long delay = 500L;
-//		long period = 100000L;
-//		timer2.scheduleAtFixedRate(task, delay, period);
-//	}
+	// private void addTimerChart() {
+	// TimerTask task = new TimerTask() {
+	// public void run() {
+	//
+	// time.clear();
+	// windStrenghtText.clear();
+	//
+	// System.out.println(series.getData().size());
+	// for (int i = 0; i < series.getData().size(); i++) {
+	// Data<String, Number> data = series.getData().get(i);
+	//
+	// System.out.println(data);
+	// Double test = Double.parseDouble(data.getXValue());
+	// Double test2 = data.getYValue().doubleValue();
+	//
+	// if (test2 >= 10 && test2 <= 15) {
+	//
+	// Data<String, Number> a = new Data<String, Number>(test.toString(), test2
+	// / 4);
+	//
+	// System.out.println(a);
+	//
+	// System.out.println(series2);
+	// String wind =
+	// windDirectionCombo.getSelectionModel().getSelectedItem().toString();
+	// System.out.println(wind);
+	// a.setExtraValue(wind);
+	//
+	// try {
+	// series2.getData().add(a);
+	// } catch (IllegalStateException e) {
+	// System.out.println("Das Ja blöd jetzt");
+	// }
+	// System.out.println(a);
+	//
+	// } else if (test2 < 5) {
+	// Data<String, Number> a = new Data<String, Number>(test.toString(), test2
+	// * 0);
+	// System.out.println(a);
+	//
+	// System.out.println(series2);
+	//
+	// String wind =
+	// windDirectionCombo.getSelectionModel().getSelectedItem().toString();
+	// System.out.println(wind);
+	// a.setExtraValue(wind);
+	// System.out.println(a);
+	// try {
+	// series2.getData().add(a);
+	// } catch (Exception e) {
+	// // TODO: handle exception
+	// System.out.println("Kann ja mal passieren");
+	// }
+	//
+	// } else if (test2 > 5 && test2 < 10) {
+	// Data<String, Number> a = new Data<String, Number>(test.toString(), test2
+	// / 4.5);
+	// System.out.println(a);
+	//
+	// System.out.println(series2);
+	// String wind =
+	// windDirectionCombo.getSelectionModel().getSelectedItem().toString();
+	// System.out.println(wind);
+	// a.setExtraValue(wind);
+	// System.out.println(a);
+	// try {
+	// series2.getData().add(a);
+	// } catch (Exception e) {
+	// System.out.println("Nicht so cool");
+	// }
+	//
+	// } else if (test > 15 && test < 25) {
+	// Data<String, Number> a = new Data<String, Number>(test.toString(), 3.6);
+	// System.out.println(a);
+	//
+	// System.out.println(series2);
+	// String wind =
+	// windDirectionCombo.getSelectionModel().getSelectedItem().toString();
+	// System.out.println(wind);
+	// a.setExtraValue(wind);
+	// System.out.println(a);
+	// try {
+	// series2.getData().add(a);
+	// } catch (Exception e) {
+	// System.out.println("Nicht so cool");
+	// }
+	//
+	// } else if (test > 25) {
+	// Data<String, Number> a = new Data<String, Number>(test.toString(), test2
+	// * 0);
+	// System.out.println(a);
+	//
+	// System.out.println(series2);
+	// String wind =
+	// windDirectionCombo.getSelectionModel().getSelectedItem().toString();
+	// System.out.println(wind);
+	// a.setExtraValue(wind);
+	// System.out.println(a);
+	// try {
+	// series2.getData().add(a);
+	// } catch (Exception e) {
+	// System.out.println("Nicht so cool");
+	// }
+	//
+	// }
+	//
+	// }
+	//
+	// }
+	// };
+	//
+	// Timer timer2 = new Timer();
+	//
+	// long delay = 500L;
+	// long period = 100000L;
+	// timer2.scheduleAtFixedRate(task, delay, period);
+	// }
 
 	private void addTimer() {
 		TimerTask task = new TimerTask() {
