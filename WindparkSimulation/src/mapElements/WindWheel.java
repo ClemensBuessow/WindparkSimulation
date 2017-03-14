@@ -2,7 +2,6 @@ package mapElements;
 
 import handler.WindradClickHandler;
 import javafx.animation.Animation;
-
 import javafx.animation.RotateTransition;
 import javafx.scene.DepthTest;
 import javafx.scene.Group;
@@ -204,7 +203,7 @@ public class WindWheel extends BasicElement {
 		
 		
 		Tooltip tool = new Tooltip(
-				"KW: 10 \n" + "Grad Rotorblätter: 20 Grad \n" + "Windgeschwindigkeit: 35 m/s \n" + "Windrichtung: ");
+				"KW: 10 \n" + "Grad Rotorblï¿½tter: 20 Grad \n" + "Windgeschwindigkeit: 35 m/s \n" + "Windrichtung: ");
 		Tooltip.install(windrad, tool);
 		
 		
@@ -220,5 +219,13 @@ public class WindWheel extends BasicElement {
 		System.out.println(x);
 		System.out.println(y);
 		
+	}
+	public void changeColorToRed(){
+		wingThree.setMaterial(new PhongMaterial(Color.RED));
+		wingOne.setMaterial(new PhongMaterial(Color.RED));
+		wingTwo.setMaterial(new PhongMaterial(Color.RED));
+		shaft.setMaterial(new PhongMaterial(Color.RED));
+		rotorNabe.setMaterial(new PhongMaterial(Color.RED));
+		generator.setMaterial(new PhongMaterial(Color.RED));
 	}
 }

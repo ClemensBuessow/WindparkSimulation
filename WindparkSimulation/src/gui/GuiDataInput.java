@@ -9,7 +9,6 @@ import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.chart.XYChart.Data;
-import javafx.scene.chart.XYChart.Series;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -101,7 +100,12 @@ public class GuiDataInput {
 		
 		Chart chart = new Chart(pane, art, root);
 		chart.setNewSeries(series);
-		System.out.println(series.getData().get(0));
+		try {
+			System.out.println(series.getData().get(0));
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
 
 		chart.setLayout(10, 50);
 

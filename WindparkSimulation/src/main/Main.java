@@ -4,14 +4,11 @@ import gui.GUI;
 import javafx.application.Application;
 import javafx.application.ConditionalFeature;
 import javafx.application.Platform;
-
 import javafx.scene.DepthTest;
 import javafx.scene.Group;
-
 import javafx.scene.PerspectiveCamera;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
-
 import javafx.stage.Stage;
 
 public class Main extends Application {
