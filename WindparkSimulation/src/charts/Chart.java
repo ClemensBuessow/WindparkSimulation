@@ -57,7 +57,7 @@ public class Chart {
 
         } if (art.equals("Leistung")) {
             xAxis.setLabel("Windstaerke in m/s");
-            yAxis.setLabel("Zeit in Stunden");
+            yAxis.setLabel("Uhrzeit");
 
             series = new XYChart.Series<String, Number>();
             series.setName("Windstaerke");
@@ -75,7 +75,7 @@ public class Chart {
         
         if(art.equals("Staerke")){
         	  xAxis.setLabel("Leistung in KW");
-              yAxis.setLabel("Zeit");
+              yAxis.setLabel("Uhrzeit");
 
               series = new XYChart.Series<String, Number>();
               series.setName("Windstaerke");
