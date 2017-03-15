@@ -49,7 +49,7 @@ public class GUI {
 	Label windStrength;
 	Label birds;
 	Label bos;
-	Label fire;
+
 	Label totalKW;
 
 	Button start;
@@ -68,8 +68,6 @@ public class GUI {
 
 	CheckBox birdsYes;
 	CheckBox birdsNo;
-	CheckBox fireYes;
-	CheckBox fireNo;
 	CheckBox bosYes;
 	CheckBox bosNo;
 
@@ -89,8 +87,8 @@ public class GUI {
 	WindWheel windWheelSix;
 
 	Cloud cloud;
-	Cloud cloud2;
-	Cloud cloud3;
+	Cloud cloudTwo;
+	Cloud cloudThree;
 
 	Tooltip tooltip;
 
@@ -103,14 +101,15 @@ public class GUI {
 	XYChart.Series<String, Number> series;
 	XYChart.Series<String, Number> series2;
 
-	Birds bird1;
-	Birds bird2;
+	Birds birdOne;
+	Birds birdTwo;
 
 	boolean windradChrash = false;
 
 	boolean outOfIndex = true;
 	boolean boeen = false;
 	int counter = 0;
+	Tooltip tooltipSetTime;
 
 	public GUI(Scene scene, Pane region) {
 
@@ -124,7 +123,19 @@ public class GUI {
 		generateMapElements();
 		createDataEntrys();
 		resetTransition();
+		addToolTipTime();
+
 		// addTimer();
+
+	}
+
+	private void addToolTipTime() {
+		tooltipSetTime = new Tooltip(
+				"Bitte die Uhrzeiten von 0-24 Uhr stündlich eingeben! Windstärke in m/s eingeben!");
+		Tooltip.install(time, tooltipSetTime);
+
+		Tooltip direction = new Tooltip("Bitte die Windrichtung immer mit der Zeit und Särke deklarieren!");
+		Tooltip.install(windDirectionCombo, direction);
 
 	}
 
@@ -153,7 +164,8 @@ public class GUI {
 
 				timeData = time.getText();
 				windStrenghtData = Double.parseDouble(windStrenghtText.getText());
-				series.getData().add(new Data<String, Number>(timeData, windStrenghtData));
+				String wind = windDirectionCombo.getSelectionModel().getSelectedItem().toString();
+				series.getData().add(new Data<String, Number>(timeData, windStrenghtData, wind));
 				time.clear();
 				windStrenghtText.clear();
 			}
@@ -178,131 +190,130 @@ public class GUI {
 
 	}
 
-	private void switchingDirectionClouds() {
-		switch (windDirectionCombo.getValue()) {
-
-		case "Nord - Nord/Ost":
-
-			stopTransition();
-			changeDirectionToNorth();
-			break;
-
-		case "Ost - S�d/Ost":
-
-			stopTransition();
-			changeDirectionToEast();
-			break;
-
-		case "S�d - S�d/West":
-
-			stopTransition();
-			changeDirectionToSouth();
-			break;
-
-		case "West - Nord/West":
-
-			stopTransition();
-			changeDirectionToWest();
-			break;
-
-		}
-	}
+	// private void switchingDirectionClouds() {
+	// switch (windDirectionCombo.getValue()) {
+	//
+	// case "Nord - Nord/Ost":
+	//
+	// stopTransition();
+	// changeDirectionToNorth();
+	// break;
+	//
+	// case "Ost - Süd/Ost":
+	//
+	// stopTransition();
+	// changeDirectionToEast();
+	// break;
+	//
+	// case "Süd - Süd/West":
+	//
+	// stopTransition();
+	// changeDirectionToSouth();
+	// break;
+	//
+	// case "West - Nord/West":
+	//
+	// stopTransition();
+	// changeDirectionToWest();
+	// break;
+	//
+	// }
+	// }
 
 	private void stopTransition() {
 		cloud.stopTT();
-		cloud2.stopTT();
-		cloud3.stopTT();
+		cloudTwo.stopTT();
+		cloudThree.stopTT();
 	}
 
-	private void changeDirectionToNorth() {
-
-		cloud.setXY(150.0, 160.0);
-		cloud.translateToWindDirection(-80.0, 20.0, 45.0, 4.0);
-
-		cloud2.setXY(350.0, 160.0);
-		cloud2.translateToWindDirection(-80.0, 20.0, 45.0, 4.0);
-
-		cloud3.setXY(550.0, 160.0);
-		cloud3.translateToWindDirection(-80.0, 20.0, 45.0, 4.0);
-
-		windWheelOne.rotateToWindDirection(180.0, 6);
-
-		windWheelTwo.rotateToWindDirection(180.0, 6);
-		windWheelThree.rotateToWindDirection(180.0, 6);
-		windWheelFour.rotateToWindDirection(180.0, 6);
-		windWheelFive.rotateToWindDirection(180.0, 6);
-		windWheelSix.rotateToWindDirection(180.0, 6);
-
-	}
-
-	private void changeDirectionToEast() {
-		cloud.setXY(150.0, 160.0);
-		cloud.translateToWindDirection(80.0, 0.0, 0.0, 4.0);
-
-		cloud2.setXY(350.0, 160.0);
-		cloud2.translateToWindDirection(80.0, 0.0, 0.0, 4.0);
-
-		cloud3.setXY(550.0, 160.0);
-		cloud3.translateToWindDirection(80.0, 0.0, 0.0, 4.0);
-
-		windWheelOne.rotateToWindDirection(90.0, 4);
-		windWheelTwo.rotateToWindDirection(90.0, 4);
-		windWheelThree.rotateToWindDirection(90.0, 4);
-		windWheelFour.rotateToWindDirection(90.0, 4);
-		windWheelFive.rotateToWindDirection(90.0, 4);
-		windWheelSix.rotateToWindDirection(90.0, 4);
-	}
-
-	private void changeDirectionToSouth() {
-		cloud.setXY(150.0, 160.0);
-		cloud.translateToWindDirection(80.0, -20.0, 0.0, 4.0);
-
-		cloud2.setXY(350.0, 160.0);
-		cloud2.translateToWindDirection(80.0, -20.0, 0.0, 4.0);
-
-		cloud3.setXY(550.0, 160.0);
-		cloud3.translateToWindDirection(80.0, -20.0, 0.0, 4.0);
-
-		windWheelOne.rotateToWindDirection(360.0, 4);
-		windWheelTwo.rotateToWindDirection(360.0, 4);
-		windWheelThree.rotateToWindDirection(360.0, 4);
-		windWheelFour.rotateToWindDirection(360.0, 4);
-		windWheelFive.rotateToWindDirection(360.0, 4);
-		windWheelSix.rotateToWindDirection(360.0, 4);
-
-	}
-
-	private void changeDirectionToWest() {
-		cloud.setXY(150.0, 160.0);
-		cloud.translateToWindDirection(-80.0, 0.0, 0.0, 4.0);
-
-		cloud2.setXY(350.0, 160.0);
-		cloud2.translateToWindDirection(-80.0, 0.0, 0.0, 4.0);
-
-		cloud3.setXY(550.0, 160.0);
-		cloud3.translateToWindDirection(-80.0, 0.0, 0.0, 4.0);
-
-		windWheelOne.rotateToWindDirection(270.0, 7);
-		windWheelTwo.rotateToWindDirection(270.0, 7);
-		windWheelThree.rotateToWindDirection(270.0, 7);
-		windWheelFour.rotateToWindDirection(270.0, 7);
-		windWheelFive.rotateToWindDirection(270.0, 7);
-		windWheelSix.rotateToWindDirection(270.0, 7);
-	}
+	// private void changeDirectionToNorth() {
+	//
+	// cloud.setXY(150.0, 160.0);
+	// cloud.translateToWindDirection(-80.0, 20.0, 45.0, 4.0);
+	//
+	// cloudTwo.setXY(350.0, 160.0);
+	// cloudTwo.translateToWindDirection(-80.0, 20.0, 45.0, 4.0);
+	//
+	// cloudThree.setXY(550.0, 160.0);
+	// cloudThree.translateToWindDirection(-80.0, 20.0, 45.0, 4.0);
+	//
+	// // windWheelOne.rotateToWindDirection(180.0, 6);
+	//
+	// // windWheelTwo.rotateToWindDirection(180.0, 6);
+	// // windWheelThree.rotateToWindDirection(180.0, 6);
+	// // windWheelFour.rotateToWindDirection(180.0, 6);
+	// // windWheelFive.rotateToWindDirection(180.0, 6);
+	// // windWheelSix.rotateToWindDirection(180.0, 6);
+	//
+	// }
+	//
+	// private void changeDirectionToEast() {
+	// cloud.setXY(150.0, 160.0);
+	// cloud.translateToWindDirection(80.0, 0.0, 0.0, 4.0);
+	//
+	// cloudTwo.setXY(350.0, 160.0);
+	// cloudTwo.translateToWindDirection(80.0, 0.0, 0.0, 4.0);
+	//
+	// cloudThree.setXY(550.0, 160.0);
+	// cloudThree.translateToWindDirection(80.0, 0.0, 0.0, 4.0);
+	// //
+	// // windWheelOne.rotateToWindDirection(90.0, 4);
+	// // windWheelTwo.rotateToWindDirection(90.0, 4);
+	// // windWheelThree.rotateToWindDirection(90.0, 4);
+	// // windWheelFour.rotateToWindDirection(90.0, 4);
+	// // windWheelFive.rotateToWindDirection(90.0, 4);
+	// // windWheelSix.rotateToWindDirection(90.0, 4);
+	// }
+	//
+	// private void changeDirectionToSouth() {
+	// cloud.setXY(150.0, 160.0);
+	// cloud.translateToWindDirection(80.0, -20.0, 0.0, 4.0);
+	//
+	// cloudTwo.setXY(350.0, 160.0);
+	// cloudTwo.translateToWindDirection(80.0, -20.0, 0.0, 4.0);
+	//
+	// cloudThree.setXY(550.0, 160.0);
+	// cloudThree.translateToWindDirection(80.0, -20.0, 0.0, 4.0);
+	//
+	// // windWheelOne.rotateToWindDirection(360.0, 4);
+	// // windWheelTwo.rotateToWindDirection(360.0, 4);
+	// // windWheelThree.rotateToWindDirection(360.0, 4);
+	// // windWheelFour.rotateToWindDirection(360.0, 4);
+	// // windWheelFive.rotateToWindDirection(360.0, 4);
+	// // windWheelSix.rotateToWindDirection(360.0, 4);
+	//
+	// }
+	//
+	// private void changeDirectionToWest() {
+	// cloud.setXY(150.0, 160.0);
+	// cloud.translateToWindDirection(-80.0, 0.0, 0.0, 4.0);
+	//
+	// cloudTwo.setXY(350.0, 160.0);
+	// cloudTwo.translateToWindDirection(-80.0, 0.0, 0.0, 4.0);
+	//
+	// cloudThree.setXY(550.0, 160.0);
+	// cloudThree.translateToWindDirection(-80.0, 0.0, 0.0, 4.0);
+	// //
+	// // windWheelTwo.rotateToWindDirection(270.0, 7);
+	// // windWheelThree.rotateToWindDirection(270.0, 7);
+	// // windWheelFour.rotateToWindDirection(270.0, 7);
+	// // windWheelFive.rotateToWindDirection(270.0, 7);
+	// // windWheelSix.rotateToWindDirection(270.0, 7);
+	// }
 
 	private void resetTransition() {
 		cloud.translateToWindDirection(0.000, 0.0000, 0.0, 1.0);
-		cloud2.translateToWindDirection(0.0000, 0.00000, 0.0, 1.0);
-		cloud3.translateToWindDirection(0.0000, 0.00000, 0.0, 1.0);
+		cloudTwo.translateToWindDirection(0.0000, 0.00000, 0.0, 1.0);
+		cloudThree.translateToWindDirection(0.0000, 0.00000, 0.0, 1.0);
 	}
 
 	private void generateMapElements() {
 		cloud = new Cloud(scene, pane, root);
 		cloud.setXY(200.0, 160.0);
-		cloud2 = new Cloud(scene, pane, root);
-		cloud2.setXY(400.0, 160.0);
-		cloud3 = new Cloud(scene, pane, root);
-		cloud3.setXY(600.0, 160.0);
+		cloudTwo = new Cloud(scene, pane, root);
+		cloudTwo.setXY(400.0, 160.0);
+		cloudThree = new Cloud(scene, pane, root);
+		cloudThree.setXY(600.0, 160.0);
 
 		windWheelTwo = new WindWheel(scene, pane, root);
 		windWheelTwo.setVisibilityFalse();
@@ -344,18 +355,18 @@ public class GUI {
 	}
 
 	private void creatingGUI() {
-		recordsWindpark = FXCollections.observableArrayList("Windpark Ostsee", "Windpark Nordsee", "Delete");
-		recrodsWindDirection = FXCollections.observableArrayList("Nord - Nord/Ost", "Ost - S�d/Ost", "S�d - S�d/West",
+		recordsWindpark = FXCollections.observableArrayList("Windpark Ostsee");
+		recrodsWindDirection = FXCollections.observableArrayList("Nord - Nord/Ost", "Ost - Süd/Ost", "Süd - Süd/West",
 				"West - Nord/West");
 
 		root = new Group();
 
-		bird1 = new Birds(scene, pane, root);
-		bird1.setXY(300.0, 210.0);
-		bird1.setVisibilityFalse();
-		bird2 = new Birds(scene, pane, root);
-		bird2.setXY(550.0, 200.0);
-		bird2.setVisibilityFalse();
+		birdOne = new Birds(scene, pane, root);
+		birdOne.setXY(300.0, 210.0);
+		birdOne.setVisibilityFalse();
+		birdTwo = new Birds(scene, pane, root);
+		birdTwo.setXY(550.0, 200.0);
+		birdTwo.setVisibilityFalse();
 
 		settings = new Label("Settings");
 		settings.setLayoutX(900);
@@ -381,13 +392,9 @@ public class GUI {
 		bos.setLayoutX(900);
 		bos.setLayoutY(560 - scalingForGUI);
 
-		fire = new Label("Brand");
-		fire.setLayoutX(900);
-		fire.setLayoutY(600 - scalingForGUI);
-
 		totalKW = new Label("Gesamt KW");
 		totalKW.setLayoutX(900);
-		totalKW.setLayoutY(750 - scalingForGUI);
+		totalKW.setLayoutY(750 - scalingForGUIThree);
 
 		start = new Button("Start");
 		start.setLayoutX(30);
@@ -404,6 +411,7 @@ public class GUI {
 		add = new Button("Add");
 		add.setLayoutX(600);
 		add.setLayoutY(700);
+		add.setTooltip(tooltipSetTime);
 
 		delete = new Button("Delete");
 		delete.setLayoutX(650);
@@ -441,14 +449,6 @@ public class GUI {
 		birdsNo.setLayoutX(970);
 		birdsNo.setLayoutY(540 - scalingForGUI);
 
-		fireYes = new CheckBox("Yes");
-		fireYes.setLayoutX(900);
-		fireYes.setLayoutY(620 - scalingForGUI);
-
-		fireNo = new CheckBox("No");
-		fireNo.setLayoutX(970);
-		fireNo.setLayoutY(620 - scalingForGUI);
-
 		bosYes = new CheckBox("Yes");
 		bosYes.setLayoutX(900);
 		bosYes.setLayoutY(580 - scalingForGUI);
@@ -467,9 +467,9 @@ public class GUI {
 
 		chartRenew.setTooltip(tooltip);
 
-		root.getChildren().addAll(gamefield, settings, windpark, windDirection, windStrength, birds, bos, fire, totalKW,
+		root.getChildren().addAll(gamefield, settings, windpark, windDirection, windStrength, birds, bos, totalKW,
 				start, stop, reset, add, delete, x1, x2, x4, bottomLine, sideline, settingLine, birdsYes, birdsNo,
-				fireYes, fireNo, bosYes, bosNo, windDirectionCombo, chartRenew, addSeries, windStrenghtText, time);
+				bosYes, bosNo, windDirectionCombo, chartRenew, addSeries, windStrenghtText, time);
 
 		Sun sun = new Sun(scene, pane, root);
 		sun.startRotation(10000.0);
@@ -518,8 +518,13 @@ public class GUI {
 
 			@Override
 			public void handle(ActionEvent event) {
+				addDataCharts thread = new addDataCharts(100000, series, series2, counter, boeen, windWheelOne,
+						windWheelTwo, windWheelThree, windWheelFour, windWheelFive, windWheelSix, windDirectionCombo,
+						cloud, cloudTwo, cloudThree);
+				if (counter <= series.getData().size()) {
+					thread.start();
+				}
 
-				windWheelSpeedOne();
 			}
 		});
 
@@ -529,11 +534,6 @@ public class GUI {
 			public void handle(ActionEvent event) {
 				// stopHeadRotation();
 
-				addDataCharts thread = new addDataCharts(1000, series, series2, counter, boeen);
-				if (counter <= series.getData().size()) {
-					thread.start();
-				}
-
 			}
 		});
 
@@ -541,7 +541,12 @@ public class GUI {
 
 			@Override
 			public void handle(ActionEvent event) {
-				windWheelSpeedOne();
+				addDataCharts thread = new addDataCharts(100000, series, series2, counter, boeen, windWheelOne,
+						windWheelTwo, windWheelThree, windWheelFour, windWheelFive, windWheelSix, windDirectionCombo,
+						cloud, cloudTwo, cloudThree);
+				if (counter <= series.getData().size()) {
+					thread.start();
+				}
 			}
 		});
 
@@ -549,7 +554,12 @@ public class GUI {
 
 			@Override
 			public void handle(ActionEvent event) {
-				windWheelSpeedTwo();
+				addDataCharts thread = new addDataCharts(10000, series, series2, counter, boeen, windWheelOne,
+						windWheelTwo, windWheelThree, windWheelFour, windWheelFive, windWheelSix, windDirectionCombo,
+						cloud, cloudTwo, cloudThree);
+				if (counter <= series.getData().size()) {
+					thread.start();
+				}
 
 			}
 		});
@@ -568,7 +578,6 @@ public class GUI {
 
 			@Override
 			public void handle(ActionEvent event) {
-				windWheelSpeedFour();
 
 			}
 		});
@@ -580,14 +589,15 @@ public class GUI {
 				if (birdsYes.isSelected()) {
 					birdsNo.setDisable(true);
 
-					bird1.setVisibilityTrue();
+					birdOne.setVisibilityTrue();
+					// addTimer();
 
-					bird2.setVisibilityTrue();
+					birdTwo.setVisibilityTrue();
 				} else {
 
 					birdsNo.setDisable(false);
-					bird1.setVisibilityFalse();
-					bird2.setVisibilityFalse();
+					birdOne.setVisibilityFalse();
+					birdTwo.setVisibilityFalse();
 				}
 
 			}
@@ -634,32 +644,6 @@ public class GUI {
 			}
 		});
 
-		fireYes.setOnAction(new EventHandler<ActionEvent>() {
-
-			@Override
-			public void handle(ActionEvent event) {
-				if (fireYes.isSelected()) {
-					fireNo.setDisable(true);
-				} else {
-					fireNo.setDisable(false);
-				}
-
-			}
-		});
-
-		fireNo.setOnAction(new EventHandler<ActionEvent>() {
-
-			@Override
-			public void handle(ActionEvent event) {
-				if (fireNo.isSelected()) {
-					fireYes.setDisable(true);
-				} else {
-					fireYes.setDisable(false);
-				}
-
-			}
-		});
-
 		windpark.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
@@ -669,16 +653,16 @@ public class GUI {
 			}
 		});
 
-		windDirectionCombo.setOnAction(new EventHandler<ActionEvent>() {
-
-			@Override
-			public void handle(ActionEvent event) {
-
-				switchingDirectionClouds();
-
-			}
-		});
-
+		// windDirectionCombo.setOnAction(new EventHandler<ActionEvent>() {
+		//
+		// @Override
+		// public void handle(ActionEvent event) {
+		//
+		// switchingDirectionClouds();
+		//
+		// }
+		// });
+		//
 	}
 
 	private void generateBalticSea() {
@@ -698,335 +682,6 @@ public class GUI {
 		gamefield.setMaterial(new PhongMaterial(Color.DEEPSKYBLUE));
 	}
 
-	public void threading(long millis) {
-
-		new Thread(new Runnable() {
-
-			@Override
-			public void run() {
-
-				while (outOfIndex == true)
-					try {
-
-						Data<String, Number> data = series.getData().get(counter);
-
-						System.out.println(data);
-						Double test = Double.parseDouble(data.getXValue());
-						Double test2 = data.getYValue().doubleValue();
-
-						if (test2 >= 10 && test2 <= 15) {
-
-							Data<String, Number> a = new Data<String, Number>(test.toString(),
-									(test2 / 4) + Math.random());
-
-							System.out.println(a);
-
-							System.out.println(series2);
-							String wind = windDirectionCombo.getSelectionModel().getSelectedItem().toString();
-							System.out.println(wind);
-							a.setExtraValue(wind);
-
-							try {
-								series2.getData().add(a);
-							} catch (IllegalStateException e) {
-								System.out.println("Das Ja blöd jetzt");
-							}
-							System.out.println(a);
-
-						} else if (test2 < 5) {
-							Data<String, Number> a = new Data<String, Number>(test.toString(),
-									(test2 * 0) + Math.random());
-							System.out.println(a);
-
-							System.out.println(series2);
-
-							String wind = windDirectionCombo.getSelectionModel().getSelectedItem().toString();
-							System.out.println(wind);
-							a.setExtraValue(wind);
-							System.out.println(a);
-							try {
-								series2.getData().add(a);
-							} catch (Exception e) {
-								// TODO: handle exception
-								System.out.println("Kann ja mal passieren");
-							}
-
-						} else if (test2 > 5 && test2 < 10) {
-							Data<String, Number> a = new Data<String, Number>(test.toString(),
-									(test2 / 4.5) + Math.random());
-							System.out.println(a);
-
-							System.out.println(series2);
-							String wind = windDirectionCombo.getSelectionModel().getSelectedItem().toString();
-							System.out.println(wind);
-							a.setExtraValue(wind);
-							System.out.println(a);
-							try {
-								series2.getData().add(a);
-							} catch (Exception e) {
-								System.out.println("Nicht so cool");
-							}
-
-						} else if (test > 15 && test < 25) {
-							Data<String, Number> a = new Data<String, Number>(test.toString(), 3.6);
-							System.out.println(a);
-
-							System.out.println(series2);
-							String wind = windDirectionCombo.getSelectionModel().getSelectedItem().toString();
-							System.out.println(wind);
-							a.setExtraValue(wind);
-							System.out.println(a);
-							try {
-								series2.getData().add(a);
-							} catch (Exception e) {
-								System.out.println("Nicht so cool");
-							}
-
-						} else if (test > 25) {
-							Data<String, Number> a = new Data<String, Number>(test.toString(), test2 * 0);
-							System.out.println(a);
-
-							System.out.println(series2);
-							String wind = windDirectionCombo.getSelectionModel().getSelectedItem().toString();
-							System.out.println(wind);
-							a.setExtraValue(wind);
-							System.out.println(a);
-							try {
-								series2.getData().add(a);
-							} catch (Exception e) {
-								System.out.println("Nicht so cool");
-							}
-
-						}
-						// } else if (boeen == false) {
-						// if (test2 >= 10 && test2 <= 15) {
-						//
-						// Data<String, Number> a = new Data<String,
-						// Number>(test.toString(), test2 / 4);
-						//
-						// System.out.println(a);
-						//
-						// System.out.println(series2);
-						// String wind =
-						// windDirectionCombo.getSelectionModel().getSelectedItem().toString();
-						// System.out.println(wind);
-						// a.setExtraValue(wind);
-						//
-						// try {
-						// series2.getData().add(a);
-						// } catch (IllegalStateException e) {
-						// System.out.println("Das Ja blöd jetzt");
-						// }
-						// System.out.println(a);
-						//
-						// } else if (test2 < 5) {
-						// Data<String, Number> a = new Data<String,
-						// Number>(test.toString(), test2 * 0);
-						// System.out.println(a);
-						//
-						// System.out.println(series2);
-						//
-						// String wind =
-						// windDirectionCombo.getSelectionModel().getSelectedItem().toString();
-						// System.out.println(wind);
-						// a.setExtraValue(wind);
-						// System.out.println(a);
-						// try {
-						// series2.getData().add(a);
-						// } catch (Exception e) {
-						// // TODO: handle exception
-						// System.out.println("Kann ja mal passieren");
-						// }
-						//
-						// } else if (test2 > 5 && test2 < 10) {
-						// Data<String, Number> a = new Data<String,
-						// Number>(test.toString(), test2 / 4.5);
-						// System.out.println(a);
-						//
-						// System.out.println(series2);
-						// String wind =
-						// windDirectionCombo.getSelectionModel().getSelectedItem().toString();
-						// System.out.println(wind);
-						// a.setExtraValue(wind);
-						// System.out.println(a);
-						// try {
-						// series2.getData().add(a);
-						// } catch (Exception e) {
-						// System.out.println("Nicht so cool");
-						// }
-						//
-						// } else if (test > 15 && test < 25) {
-						// Data<String, Number> a = new Data<String,
-						// Number>(test.toString(), 3.6);
-						// System.out.println(a);
-						//
-						// System.out.println(series2);
-						// String wind =
-						// windDirectionCombo.getSelectionModel().getSelectedItem().toString();
-						// System.out.println(wind);
-						// a.setExtraValue(wind);
-						// System.out.println(a);
-						// try {
-						// series2.getData().add(a);
-						// } catch (Exception e) {
-						// System.out.println("Nicht so cool");
-						// }
-						//
-						// } else if (test > 25) {
-						// Data<String, Number> a = new Data<String,
-						// Number>(test.toString(), test2 * 0);
-						// System.out.println(a);
-						//
-						// System.out.println(series2);
-						// String wind =
-						// windDirectionCombo.getSelectionModel().getSelectedItem().toString();
-						// System.out.println(wind);
-						// a.setExtraValue(wind);
-						// System.out.println(a);
-						// try {
-						// series2.getData().add(a);
-						// } catch (Exception e) {
-						// System.out.println("Nicht so cool");
-						// }
-						//
-						// }
-						//
-						// }
-						counter++;
-						if (counter >= series.getData().size()) {
-							outOfIndex = false;
-						}
-
-						System.out.println("Ich bin ein Thread");
-						Thread.sleep(millis);
-
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-
-			}
-		}).start();
-	}
-
-	// private void addTimerChart() {
-	// TimerTask task = new TimerTask() {
-	// public void run() {
-	//
-	// time.clear();
-	// windStrenghtText.clear();
-	//
-	// System.out.println(series.getData().size());
-	// for (int i = 0; i < series.getData().size(); i++) {
-	// Data<String, Number> data = series.getData().get(i);
-	//
-	// System.out.println(data);
-	// Double test = Double.parseDouble(data.getXValue());
-	// Double test2 = data.getYValue().doubleValue();
-	//
-	// if (test2 >= 10 && test2 <= 15) {
-	//
-	// Data<String, Number> a = new Data<String, Number>(test.toString(), test2
-	// / 4);
-	//
-	// System.out.println(a);
-	//
-	// System.out.println(series2);
-	// String wind =
-	// windDirectionCombo.getSelectionModel().getSelectedItem().toString();
-	// System.out.println(wind);
-	// a.setExtraValue(wind);
-	//
-	// try {
-	// series2.getData().add(a);
-	// } catch (IllegalStateException e) {
-	// System.out.println("Das Ja blöd jetzt");
-	// }
-	// System.out.println(a);
-	//
-	// } else if (test2 < 5) {
-	// Data<String, Number> a = new Data<String, Number>(test.toString(), test2
-	// * 0);
-	// System.out.println(a);
-	//
-	// System.out.println(series2);
-	//
-	// String wind =
-	// windDirectionCombo.getSelectionModel().getSelectedItem().toString();
-	// System.out.println(wind);
-	// a.setExtraValue(wind);
-	// System.out.println(a);
-	// try {
-	// series2.getData().add(a);
-	// } catch (Exception e) {
-	// // TODO: handle exception
-	// System.out.println("Kann ja mal passieren");
-	// }
-	//
-	// } else if (test2 > 5 && test2 < 10) {
-	// Data<String, Number> a = new Data<String, Number>(test.toString(), test2
-	// / 4.5);
-	// System.out.println(a);
-	//
-	// System.out.println(series2);
-	// String wind =
-	// windDirectionCombo.getSelectionModel().getSelectedItem().toString();
-	// System.out.println(wind);
-	// a.setExtraValue(wind);
-	// System.out.println(a);
-	// try {
-	// series2.getData().add(a);
-	// } catch (Exception e) {
-	// System.out.println("Nicht so cool");
-	// }
-	//
-	// } else if (test > 15 && test < 25) {
-	// Data<String, Number> a = new Data<String, Number>(test.toString(), 3.6);
-	// System.out.println(a);
-	//
-	// System.out.println(series2);
-	// String wind =
-	// windDirectionCombo.getSelectionModel().getSelectedItem().toString();
-	// System.out.println(wind);
-	// a.setExtraValue(wind);
-	// System.out.println(a);
-	// try {
-	// series2.getData().add(a);
-	// } catch (Exception e) {
-	// System.out.println("Nicht so cool");
-	// }
-	//
-	// } else if (test > 25) {
-	// Data<String, Number> a = new Data<String, Number>(test.toString(), test2
-	// * 0);
-	// System.out.println(a);
-	//
-	// System.out.println(series2);
-	// String wind =
-	// windDirectionCombo.getSelectionModel().getSelectedItem().toString();
-	// System.out.println(wind);
-	// a.setExtraValue(wind);
-	// System.out.println(a);
-	// try {
-	// series2.getData().add(a);
-	// } catch (Exception e) {
-	// System.out.println("Nicht so cool");
-	// }
-	//
-	// }
-	//
-	// }
-	//
-	// }
-	// };
-	//
-	// Timer timer2 = new Timer();
-	//
-	// long delay = 500L;
-	// long period = 100000L;
-	// timer2.scheduleAtFixedRate(task, delay, period);
-	// }
-
 	private void addTimer() {
 		TimerTask task = new TimerTask() {
 			public void run() {
@@ -1039,6 +694,7 @@ public class GUI {
 				}
 				if (windradChrash == true && n > 970) {
 					windWheelFour.changeColorToRed();
+
 				}
 			}
 		};
