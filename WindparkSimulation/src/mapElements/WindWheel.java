@@ -65,8 +65,6 @@ public class WindWheel extends BasicElement {
 		node.setTranslateY(y);
 
 	}
-	
-	
 
 	public void setXY(Double x, Double y) {
 		windrad.setLayoutX(x);
@@ -127,8 +125,7 @@ public class WindWheel extends BasicElement {
 		rt.setAxis(Rotate.Y_AXIS);
 		rt.setCycleCount(1);
 		rt.play();
-		g2();
-		
+
 	}
 
 	public void generateWindWheel() {
@@ -187,40 +184,23 @@ public class WindWheel extends BasicElement {
 		nabe.getChildren().addAll(head, rotorNabe);
 		head.getChildren().addAll(wingOne, wingTwo, wingThree);
 
-		fullhead.getChildren().addAll(nabe,generator);
+		fullhead.getChildren().addAll(nabe, generator);
 		windrad.setDepthTest(DepthTest.ENABLE);
 		windrad.getChildren().addAll(shaft, fullhead);
 		windrad.addEventHandler(MouseEvent.MOUSE_CLICKED, new WindradClickHandler());
 		root.getChildren().add(windrad);
 		addTooltip();
-	
-		
 
 	}
 
 	public void addTooltip() {
-		
-		
-		
-		Tooltip tool = new Tooltip(
-				"KW: 10 \n" + "Grad Rotorbl�tter: 20 Grad \n" + "Windgeschwindigkeit: 35 m/s \n" + "Windrichtung: ");
+
+		Tooltip tool = new Tooltip("KW: 10 \n" + "Windgeschwindigkeit: 35 m/s \n" + "Windrichtung: ");
 		Tooltip.install(windrad, tool);
-		
-		
+
 	}
-	
-	public void g2(){
-		Double x;
-		Double y;
-		
-		x = generator.getTranslateX();
-		y = generator.getTranslateY();
-		
-		System.out.println(x);
-		System.out.println(y);
-		
-	}
-	public void changeColorToRed(){
+
+	public void changeColorToRed() {
 		wingThree.setMaterial(new PhongMaterial(Color.RED));
 		wingOne.setMaterial(new PhongMaterial(Color.RED));
 		wingTwo.setMaterial(new PhongMaterial(Color.RED));

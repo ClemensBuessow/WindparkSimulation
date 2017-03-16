@@ -25,12 +25,12 @@ public class addDataCharts extends Thread {
 	Cloud cloudTwo;
 	Cloud cloudThree;
 	ComboBox<String> windDirection;
-
+	boolean windwheelChrash;
 	int windWheelNumber = 6;
 
 	public addDataCharts(long interval, Series<String, Number> series, Series<String, Number> series2, int counter,
 			boolean boeen, WindWheel w1, WindWheel w2, WindWheel w3, WindWheel w4, WindWheel w5, WindWheel w6,
-			ComboBox<String> c1, Cloud cloudOne, Cloud cloud2, Cloud cloud3) {
+			ComboBox<String> c1, Cloud cloudOne, Cloud cloud2, Cloud cloud3, boolean windradChrash) {
 		setDaemon(true);
 		setName("thread-1");
 
@@ -49,6 +49,7 @@ public class addDataCharts extends Thread {
 		this.cloud = cloudOne;
 		this.cloudTwo = cloud2;
 		this.cloudThree = cloud3;
+		this.windwheelChrash = windradChrash;
 		setDaemon(true);
 
 	}
@@ -60,18 +61,25 @@ public class addDataCharts extends Thread {
 			Platform.runLater(new Runnable() {
 				@Override
 				public void run() {
+					if (windwheelChrash == true) {
+						windWheelNumber = 5;
+					}
 					try {
 						Data<String, Number> data = series.getData().get(counter);
 						System.out.println(data);
-						Double test = Double.parseDouble(data.getXValue());
-						Double test2 = data.getYValue().doubleValue();
+						Double time = Double.parseDouble(data.getXValue());
+						Double windStrenght = data.getYValue().doubleValue();
 						String wind = data.getExtraValue().toString();
 						if (boeen == true) {
-							if (test2 >= 10 && test2 <= 15) {
 
-								Data<String, Number> a = new Data<String, Number>(test.toString(),
-										((test2 / 4) * windWheelNumber) + Math.random(), wind);
-
+							if (windStrenght >= 10 && windStrenght <= 15) {
+								Double totalKW = ((windStrenght / 4) * windWheelNumber) + Math.random();
+								Data<String, Number> a = new Data<String, Number>(time.toString(), totalKW, wind);
+								// Tooltip t1 = new Tooltip(
+								// "KW:" + windStrenght + "\n" +
+								// "Windgeschwindigkeit:"+ windStrenght + "m/s
+								// \n" + "Windrichtung: "+a.getExtraValue());
+								// t1.install(windWheelOne, t1);
 								System.out.println(a);
 								if (a.getExtraValue().equals("Nord - Nord/Ost")) {
 									changeDirectionToNorth();
@@ -93,10 +101,10 @@ public class addDataCharts extends Thread {
 								}
 								System.out.println(a);
 
-							} else if (test2 < 5) {
+							} else if (windStrenght < 5) {
 
-								Data<String, Number> a = new Data<String, Number>(test.toString(),
-										((test2 * 0) * windWheelNumber) + Math.random(), wind);
+								Data<String, Number> a = new Data<String, Number>(time.toString(),
+										((windStrenght * 0) * windWheelNumber) + Math.random(), wind);
 								System.out.println(a);
 								if (a.getExtraValue().equals("Nord - Nord/Ost")) {
 									changeDirectionToNorth();
@@ -121,9 +129,9 @@ public class addDataCharts extends Thread {
 									System.out.println("Kann ja mal passieren");
 								}
 
-							} else if (test2 >= 5 && test2 < 10) {
-								Data<String, Number> a = new Data<String, Number>(test.toString(),
-										((test2 / 4.5) * windWheelNumber) + Math.random(), wind);
+							} else if (windStrenght >= 5 && windStrenght < 10) {
+								Data<String, Number> a = new Data<String, Number>(time.toString(),
+										((windStrenght / 4.5) * windWheelNumber) + Math.random(), wind);
 								System.out.println(a);
 								if (a.getExtraValue().equals("Nord - Nord/Ost")) {
 									changeDirectionToNorth();
@@ -146,8 +154,8 @@ public class addDataCharts extends Thread {
 									System.out.println("Nicht so cool");
 								}
 
-							} else if (test2 > 15 && test2 < 25) {
-								Data<String, Number> a = new Data<String, Number>(test.toString(),
+							} else if (windStrenght > 15 && windStrenght < 25) {
+								Data<String, Number> a = new Data<String, Number>(time.toString(),
 										3.6 * windWheelNumber, wind);
 								System.out.println(a);
 								if (a.getExtraValue().equals("Nord - Nord/Ost")) {
@@ -171,9 +179,10 @@ public class addDataCharts extends Thread {
 									System.out.println("Nicht so cool");
 								}
 
-							} else if (test2 > 25) {
+							} else if (windStrenght > 25) {
 
-								Data<String, Number> a = new Data<String, Number>(test.toString(), test2 * 0, wind);
+								Data<String, Number> a = new Data<String, Number>(time.toString(), windStrenght * 0,
+										wind);
 								if (a.getExtraValue().equals("Nord - Nord/Ost")) {
 									changeDirectionToNorth();
 								} else if (a.getExtraValue().equals("Ost - Süd/Ost")) {
@@ -198,10 +207,10 @@ public class addDataCharts extends Thread {
 							}
 						}
 						if (boeen == false) {
-							if (test2 >= 10 && test2 <= 15) {
+							if (windStrenght >= 10 && windStrenght <= 15) {
 
-								Data<String, Number> a = new Data<String, Number>(test.toString(),
-										(test2 / 4) * windWheelNumber, wind);
+								Data<String, Number> a = new Data<String, Number>(time.toString(),
+										(windStrenght / 4) * windWheelNumber, wind);
 
 								System.out.println(a);
 								if (a.getExtraValue().equals("Nord - Nord/Ost")) {
@@ -226,8 +235,9 @@ public class addDataCharts extends Thread {
 								}
 								System.out.println(a);
 
-							} else if (test2 < 5) {
-								Data<String, Number> a = new Data<String, Number>(test.toString(), test2 * 0, wind);
+							} else if (windStrenght < 5) {
+								Data<String, Number> a = new Data<String, Number>(time.toString(), windStrenght * 0,
+										wind);
 								System.out.println(a);
 								if (a.getExtraValue().equals("Nord - Nord/Ost")) {
 									changeDirectionToNorth();
@@ -252,10 +262,10 @@ public class addDataCharts extends Thread {
 									System.out.println("Kann ja mal passieren");
 								}
 
-							} else if (test2 >= 5 && test2 < 10) {
+							} else if (windStrenght >= 5 && windStrenght < 10) {
 
-								Data<String, Number> a = new Data<String, Number>(test.toString(),
-										(test2 / 4.5) * windWheelNumber, wind);
+								Data<String, Number> a = new Data<String, Number>(time.toString(),
+										(windStrenght / 4.5) * windWheelNumber, wind);
 								System.out.println(a);
 								if (a.getExtraValue().equals("Nord - Nord/Ost")) {
 									changeDirectionToNorth();
@@ -280,8 +290,8 @@ public class addDataCharts extends Thread {
 									System.out.println("Nicht so cool");
 								}
 
-							} else if (test2 > 15 && test < 25) {
-								Data<String, Number> a = new Data<String, Number>(test.toString(),
+							} else if (windStrenght > 15 && time < 25) {
+								Data<String, Number> a = new Data<String, Number>(time.toString(),
 										3.6 * windWheelNumber, wind);
 								System.out.println(a);
 								if (a.getExtraValue().equals("Nord - Nord/Ost")) {
@@ -306,8 +316,9 @@ public class addDataCharts extends Thread {
 									System.out.println("Nicht so cool");
 								}
 
-							} else if (test2 > 25) {
-								Data<String, Number> a = new Data<String, Number>(test.toString(), test2 * 0, wind);
+							} else if (windStrenght > 25) {
+								Data<String, Number> a = new Data<String, Number>(time.toString(), windStrenght * 0,
+										wind);
 								System.out.println(a);
 								if (a.getExtraValue().equals("Nord - Nord/Ost")) {
 									changeDirectionToNorth();
@@ -376,6 +387,7 @@ public class addDataCharts extends Thread {
 		windWheelFour.rotateToWindDirection(270.0, 7);
 		windWheelFive.rotateToWindDirection(270.0, 7);
 		windWheelSix.rotateToWindDirection(270.0, 7);
+		return;
 	}
 
 	private void changeDirectionToEast() {
@@ -394,6 +406,7 @@ public class addDataCharts extends Thread {
 		windWheelFour.rotateToWindDirection(90.0, 4);
 		windWheelFive.rotateToWindDirection(90.0, 4);
 		windWheelSix.rotateToWindDirection(90.0, 4);
+		return;
 	}
 
 	private void changeDirectionToSouth() {
@@ -412,6 +425,7 @@ public class addDataCharts extends Thread {
 		windWheelFour.rotateToWindDirection(360.0, 4);
 		windWheelFive.rotateToWindDirection(360.0, 4);
 		windWheelSix.rotateToWindDirection(360.0, 4);
+		return;
 
 	}
 
@@ -432,6 +446,7 @@ public class addDataCharts extends Thread {
 		windWheelFour.rotateToWindDirection(180.0, 6);
 		windWheelFive.rotateToWindDirection(180.0, 6);
 		windWheelSix.rotateToWindDirection(180.0, 6);
+		return;
 
 	}
 

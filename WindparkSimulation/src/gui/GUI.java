@@ -51,16 +51,10 @@ public class GUI {
 	Label bos;
 
 	Label totalKW;
-
 	Button start;
-	Button stop;
-	Button reset;
-	Button add;
-	Button delete;
 	Button x1;
 	Button x2;
 	Button x4;
-	Button chartRenew;
 
 	Line bottomLine;
 	Line sideline;
@@ -110,6 +104,9 @@ public class GUI {
 	boolean boeen = false;
 	int counter = 0;
 	Tooltip tooltipSetTime;
+
+	int speedForThread;
+	boolean birdsStart = false;
 
 	public GUI(Scene scene, Pane region) {
 
@@ -190,117 +187,6 @@ public class GUI {
 
 	}
 
-	// private void switchingDirectionClouds() {
-	// switch (windDirectionCombo.getValue()) {
-	//
-	// case "Nord - Nord/Ost":
-	//
-	// stopTransition();
-	// changeDirectionToNorth();
-	// break;
-	//
-	// case "Ost - Süd/Ost":
-	//
-	// stopTransition();
-	// changeDirectionToEast();
-	// break;
-	//
-	// case "Süd - Süd/West":
-	//
-	// stopTransition();
-	// changeDirectionToSouth();
-	// break;
-	//
-	// case "West - Nord/West":
-	//
-	// stopTransition();
-	// changeDirectionToWest();
-	// break;
-	//
-	// }
-	// }
-
-	private void stopTransition() {
-		cloud.stopTT();
-		cloudTwo.stopTT();
-		cloudThree.stopTT();
-	}
-
-	// private void changeDirectionToNorth() {
-	//
-	// cloud.setXY(150.0, 160.0);
-	// cloud.translateToWindDirection(-80.0, 20.0, 45.0, 4.0);
-	//
-	// cloudTwo.setXY(350.0, 160.0);
-	// cloudTwo.translateToWindDirection(-80.0, 20.0, 45.0, 4.0);
-	//
-	// cloudThree.setXY(550.0, 160.0);
-	// cloudThree.translateToWindDirection(-80.0, 20.0, 45.0, 4.0);
-	//
-	// // windWheelOne.rotateToWindDirection(180.0, 6);
-	//
-	// // windWheelTwo.rotateToWindDirection(180.0, 6);
-	// // windWheelThree.rotateToWindDirection(180.0, 6);
-	// // windWheelFour.rotateToWindDirection(180.0, 6);
-	// // windWheelFive.rotateToWindDirection(180.0, 6);
-	// // windWheelSix.rotateToWindDirection(180.0, 6);
-	//
-	// }
-	//
-	// private void changeDirectionToEast() {
-	// cloud.setXY(150.0, 160.0);
-	// cloud.translateToWindDirection(80.0, 0.0, 0.0, 4.0);
-	//
-	// cloudTwo.setXY(350.0, 160.0);
-	// cloudTwo.translateToWindDirection(80.0, 0.0, 0.0, 4.0);
-	//
-	// cloudThree.setXY(550.0, 160.0);
-	// cloudThree.translateToWindDirection(80.0, 0.0, 0.0, 4.0);
-	// //
-	// // windWheelOne.rotateToWindDirection(90.0, 4);
-	// // windWheelTwo.rotateToWindDirection(90.0, 4);
-	// // windWheelThree.rotateToWindDirection(90.0, 4);
-	// // windWheelFour.rotateToWindDirection(90.0, 4);
-	// // windWheelFive.rotateToWindDirection(90.0, 4);
-	// // windWheelSix.rotateToWindDirection(90.0, 4);
-	// }
-	//
-	// private void changeDirectionToSouth() {
-	// cloud.setXY(150.0, 160.0);
-	// cloud.translateToWindDirection(80.0, -20.0, 0.0, 4.0);
-	//
-	// cloudTwo.setXY(350.0, 160.0);
-	// cloudTwo.translateToWindDirection(80.0, -20.0, 0.0, 4.0);
-	//
-	// cloudThree.setXY(550.0, 160.0);
-	// cloudThree.translateToWindDirection(80.0, -20.0, 0.0, 4.0);
-	//
-	// // windWheelOne.rotateToWindDirection(360.0, 4);
-	// // windWheelTwo.rotateToWindDirection(360.0, 4);
-	// // windWheelThree.rotateToWindDirection(360.0, 4);
-	// // windWheelFour.rotateToWindDirection(360.0, 4);
-	// // windWheelFive.rotateToWindDirection(360.0, 4);
-	// // windWheelSix.rotateToWindDirection(360.0, 4);
-	//
-	// }
-	//
-	// private void changeDirectionToWest() {
-	// cloud.setXY(150.0, 160.0);
-	// cloud.translateToWindDirection(-80.0, 0.0, 0.0, 4.0);
-	//
-	// cloudTwo.setXY(350.0, 160.0);
-	// cloudTwo.translateToWindDirection(-80.0, 0.0, 0.0, 4.0);
-	//
-	// cloudThree.setXY(550.0, 160.0);
-	// cloudThree.translateToWindDirection(-80.0, 0.0, 0.0, 4.0);
-	// //
-	// // windWheelTwo.rotateToWindDirection(270.0, 7);
-	// // windWheelThree.rotateToWindDirection(270.0, 7);
-	// // windWheelFour.rotateToWindDirection(270.0, 7);
-	// // windWheelFive.rotateToWindDirection(270.0, 7);
-	// // windWheelSix.rotateToWindDirection(270.0, 7);
-	// }
-
 	private void resetTransition() {
 		cloud.translateToWindDirection(0.000, 0.0000, 0.0, 1.0);
 		cloudTwo.translateToWindDirection(0.0000, 0.00000, 0.0, 1.0);
@@ -343,13 +229,13 @@ public class GUI {
 		String artLeistung = "Leistung";
 		Chart chartLeistung = new Chart(pane, artLeistung, root);
 		chartLeistung.setNewSeries(series);
-		chartLeistung.enableEventHandler();
+		// chartLeistung.enableEventHandler();
 		chartLeistung.setLayout(835, 310 - scalingForGUI);
 
 		String artStaerke = "Staerke";
 		Chart chartStaerke = new Chart(pane, artStaerke, root);
 		chartStaerke.setNewSeries(series2);
-		chartStaerke.enableEventHandler();
+		// chartStaerke.enableEventHandler();
 		chartStaerke.setLayout(835, 760 - scalingForGUIThree);
 
 	}
@@ -400,23 +286,6 @@ public class GUI {
 		start.setLayoutX(30);
 		start.setLayoutY(700);
 
-		stop = new Button("Stop");
-		stop.setLayoutX(80);
-		stop.setLayoutY(700);
-
-		reset = new Button("Reset");
-		reset.setLayoutX(130);
-		reset.setLayoutY(700);
-
-		add = new Button("Add");
-		add.setLayoutX(600);
-		add.setLayoutY(700);
-		add.setTooltip(tooltipSetTime);
-
-		delete = new Button("Delete");
-		delete.setLayoutX(650);
-		delete.setLayoutY(700);
-
 		x1 = new Button("x1");
 		x1.setLayoutX(550);
 		x1.setLayoutY(100);
@@ -457,19 +326,13 @@ public class GUI {
 		bosNo.setLayoutX(970);
 		bosNo.setLayoutY(580 - scalingForGUI);
 
-		chartRenew = new Button("Renew Charts");
-		chartRenew.setLayoutX(720);
-		chartRenew.setLayoutY(100);
-
 		windDirectionCombo = new ComboBox<>(recrodsWindDirection);
 		windDirectionCombo.setLayoutX(900);
 		windDirectionCombo.setLayoutY(230 - scalingForGUI);
 
-		chartRenew.setTooltip(tooltip);
-
 		root.getChildren().addAll(gamefield, settings, windpark, windDirection, windStrength, birds, bos, totalKW,
-				start, stop, reset, add, delete, x1, x2, x4, bottomLine, sideline, settingLine, birdsYes, birdsNo,
-				bosYes, bosNo, windDirectionCombo, chartRenew, addSeries, windStrenghtText, time);
+				start, x1, x2, x4, bottomLine, sideline, settingLine, birdsYes, birdsNo, bosYes, bosNo,
+				windDirectionCombo, addSeries, windStrenghtText, time);
 
 		Sun sun = new Sun(scene, pane, root);
 		sun.startRotation(10000.0);
@@ -477,63 +340,18 @@ public class GUI {
 
 	}
 
-	private void windWheelSpeedOne() {
-		windWheelOne.startRotation(1000.0);
-		windWheelTwo.startRotation(1000.0);
-		windWheelThree.startRotation(1000.0);
-		windWheelFour.startRotation(1000.0);
-		windWheelFive.startRotation(1000.0);
-		windWheelSix.startRotation(1000.0);
-	}
-
-	// private void stopHeadRotation() {
-	// windWheelOne.stopRotation();
-	// windWheelTwo.stopRotation();
-	// windWheelThree.stopRotation();
-	// windWheelFour.stopRotation();
-	// windWheelFive.stopRotation();
-	// windWheelSix.stopRotation();
-	// }
-
-	private void windWheelSpeedTwo() {
-		windWheelOne.startRotation(700.0);
-		windWheelTwo.startRotation(700.0);
-		windWheelThree.startRotation(700.0);
-		windWheelFour.startRotation(700.0);
-		windWheelFive.startRotation(700.0);
-		windWheelSix.startRotation(700.0);
-	}
-
-	private void windWheelSpeedFour() {
-		windWheelOne.startRotation(500.00);
-		windWheelTwo.startRotation(500.00);
-		windWheelThree.startRotation(500.00);
-		windWheelFour.startRotation(500.0);
-		windWheelFive.startRotation(500.00);
-		windWheelSix.startRotation(500.00);
-	}
-
 	private void accessEventHandler() {
 		start.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
 			public void handle(ActionEvent event) {
-				addDataCharts thread = new addDataCharts(100000, series, series2, counter, boeen, windWheelOne,
+				addDataCharts thread = new addDataCharts(speedForThread, series, series2, counter, boeen, windWheelOne,
 						windWheelTwo, windWheelThree, windWheelFour, windWheelFive, windWheelSix, windDirectionCombo,
-						cloud, cloudTwo, cloudThree);
+						cloud, cloudTwo, cloudThree, windradChrash);
 				if (counter <= series.getData().size()) {
 					thread.start();
 				}
-
-			}
-		});
-
-		stop.setOnAction(new EventHandler<ActionEvent>() {
-
-			@Override
-			public void handle(ActionEvent event) {
-				// stopHeadRotation();
-
+				addTimer();
 			}
 		});
 
@@ -541,12 +359,8 @@ public class GUI {
 
 			@Override
 			public void handle(ActionEvent event) {
-				addDataCharts thread = new addDataCharts(100000, series, series2, counter, boeen, windWheelOne,
-						windWheelTwo, windWheelThree, windWheelFour, windWheelFive, windWheelSix, windDirectionCombo,
-						cloud, cloudTwo, cloudThree);
-				if (counter <= series.getData().size()) {
-					thread.start();
-				}
+				speedForThread = 100000;
+
 			}
 		});
 
@@ -554,22 +368,7 @@ public class GUI {
 
 			@Override
 			public void handle(ActionEvent event) {
-				addDataCharts thread = new addDataCharts(10000, series, series2, counter, boeen, windWheelOne,
-						windWheelTwo, windWheelThree, windWheelFour, windWheelFive, windWheelSix, windDirectionCombo,
-						cloud, cloudTwo, cloudThree);
-				if (counter <= series.getData().size()) {
-					thread.start();
-				}
-
-			}
-		});
-
-		reset.setOnAction(new EventHandler<ActionEvent>() {
-
-			@Override
-			public void handle(ActionEvent event) {
-				series.getData().clear();
-				series2.getData().clear();
+				speedForThread = 10000;
 
 			}
 		});
@@ -578,6 +377,7 @@ public class GUI {
 
 			@Override
 			public void handle(ActionEvent event) {
+				speedForThread = 5000;
 
 			}
 		});
@@ -588,13 +388,13 @@ public class GUI {
 			public void handle(ActionEvent event) {
 				if (birdsYes.isSelected()) {
 					birdsNo.setDisable(true);
-
+					birdsStart = true;
 					birdOne.setVisibilityTrue();
 					// addTimer();
 
 					birdTwo.setVisibilityTrue();
 				} else {
-
+					birdsStart = false;
 					birdsNo.setDisable(false);
 					birdOne.setVisibilityFalse();
 					birdTwo.setVisibilityFalse();
@@ -683,27 +483,29 @@ public class GUI {
 	}
 
 	private void addTimer() {
-		TimerTask task = new TimerTask() {
-			public void run() {
-				Random rand = new Random();
-				int n = rand.nextInt(1000);
-				System.out.println(Thread.currentThread().getName() + n);
-				if (n > 950 && windradChrash == false) {
-					windWheelOne.changeColorToRed();
-					windradChrash = true;
+		if (birdsStart = true) {
+			TimerTask task = new TimerTask() {
+				public void run() {
+					Random rand = new Random();
+					int zufallszahl = rand.nextInt(1000);
+					System.out.println(Thread.currentThread().getName() + zufallszahl);
+					if (zufallszahl > 950 && windradChrash == false) {
+						windWheelOne.changeColorToRed();
+						windradChrash = true;
+					}
+					if (windradChrash == true && zufallszahl > 970) {
+						windWheelFour.changeColorToRed();
+
+					}
 				}
-				if (windradChrash == true && n > 970) {
-					windWheelFour.changeColorToRed();
+			};
 
-				}
-			}
-		};
+			Timer timer = new Timer("Generate Random Number : ");
 
-		Timer timer = new Timer("Generate Random Number : ");
+			long delay = 500L;
+			long period = 10000L;
+			timer.scheduleAtFixedRate(task, delay, period);
 
-		long delay = 500L;
-		long period = 10000L;
-		timer.scheduleAtFixedRate(task, delay, period);
+		}
 	}
-
 }
