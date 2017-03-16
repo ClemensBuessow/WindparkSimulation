@@ -378,7 +378,7 @@ public class GUI {
 
 			@Override
 			public void handle(ActionEvent event) {
-				speedForThread = 10000;
+				speedForThread = 15000;
 				delayForTimer = 500;
 
 			}
@@ -388,7 +388,7 @@ public class GUI {
 
 			@Override
 			public void handle(ActionEvent event) {
-				speedForThread = 7000;
+				speedForThread = 10000;
 				delayForTimer = 300;
 
 			}
@@ -398,7 +398,7 @@ public class GUI {
 
 			@Override
 			public void handle(ActionEvent event) {
-				speedForThread = 5000;
+				speedForThread = 7000;
 				delayForTimer = 150;
 
 			}

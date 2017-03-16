@@ -80,14 +80,12 @@ public class GuiDataInput {
 				series.getData().add(new Data<String, Number>(windStrenghtData, timeData));
 				time.clear();
 				windStrenght.clear();
-				
+
 				System.out.println(series.getData().size());
 				for (int i = 0; i < series.getData().size(); i++) {
 					Data<String, Number> data = series.getData().get(i);
 
 					System.out.println(data);
-					String test = data.getXValue().toString();
-					Double test2 = data.getYValue().doubleValue();
 					Data<String, Number> a = new Data<String, Number>(data.getXValue(), data.getYValue());
 					System.out.println(a);
 					series3.getData().add(a);
@@ -97,7 +95,6 @@ public class GuiDataInput {
 			}
 		});
 
-		
 		Chart chart = new Chart(pane, art, root);
 		chart.setNewSeries(series);
 		try {
@@ -105,7 +102,6 @@ public class GuiDataInput {
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		
 
 		chart.setLayout(10, 50);
 
