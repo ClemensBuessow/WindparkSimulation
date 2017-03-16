@@ -6,6 +6,8 @@ import java.util.TimerTask;
 
 import charts.Chart;
 import charts.addDataCharts;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -105,8 +107,10 @@ public class GUI {
 	int counter = 0;
 	Tooltip tooltipSetTime;
 
-	int speedForThread;
+	int speedForThread = 10000;
 	boolean birdsStart = false;
+	long delayForTimer = 500;
+	Timer timer;
 
 	public GUI(Scene scene, Pane region) {
 
@@ -142,11 +146,26 @@ public class GUI {
 		time.setPromptText("Set Time");
 		time.setLayoutX(880);
 		time.setLayoutY(290 - scalingForGUI);
-
+		time.textProperty().addListener(new ChangeListener<String>() {
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				if (!newValue.matches("\\d*")) {
+					time.setText(newValue.replaceAll("[^\\d]", ""));
+				}
+			}
+		});
 		windStrenghtText = new TextField();
 		windStrenghtText.setPromptText("Set Windstaerke");
 		windStrenghtText.setLayoutX(1030 + 20);
 		windStrenghtText.setLayoutY(290 - scalingForGUI);
+		windStrenghtText.textProperty().addListener(new ChangeListener<String>() {
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				if (!newValue.matches("\\d*")) {
+					windStrenghtText.setText(newValue.replaceAll("[^\\d]", ""));
+				}
+			}
+		});
 
 		addSeries = new Button("Add");
 		addSeries.setLayoutX(1220);
@@ -254,7 +273,7 @@ public class GUI {
 		birdTwo.setXY(550.0, 200.0);
 		birdTwo.setVisibilityFalse();
 
-		settings = new Label("Settings");
+		settings = new Label("Windpark Auswahl");
 		settings.setLayoutX(900);
 		settings.setLayoutY(30 - 20);
 
@@ -310,19 +329,19 @@ public class GUI {
 		sideline = new Line(850, 0, 850, 2000);
 		settingLine = new Line(850, 140 - scalingForGUITwo, 3000, 140 - scalingForGUITwo);
 
-		birdsYes = new CheckBox("Yes");
+		birdsYes = new CheckBox("Ja");
 		birdsYes.setLayoutX(900);
 		birdsYes.setLayoutY(540 - scalingForGUI);
 
-		birdsNo = new CheckBox("No");
+		birdsNo = new CheckBox("Nein");
 		birdsNo.setLayoutX(970);
 		birdsNo.setLayoutY(540 - scalingForGUI);
 
-		bosYes = new CheckBox("Yes");
+		bosYes = new CheckBox("Ja");
 		bosYes.setLayoutX(900);
 		bosYes.setLayoutY(580 - scalingForGUI);
 
-		bosNo = new CheckBox("No");
+		bosNo = new CheckBox("Nein");
 		bosNo.setLayoutX(970);
 		bosNo.setLayoutY(580 - scalingForGUI);
 
@@ -359,7 +378,8 @@ public class GUI {
 
 			@Override
 			public void handle(ActionEvent event) {
-				speedForThread = 100000;
+				speedForThread = 10000;
+				delayForTimer = 500;
 
 			}
 		});
@@ -368,7 +388,8 @@ public class GUI {
 
 			@Override
 			public void handle(ActionEvent event) {
-				speedForThread = 10000;
+				speedForThread = 7000;
+				delayForTimer = 300;
 
 			}
 		});
@@ -378,6 +399,7 @@ public class GUI {
 			@Override
 			public void handle(ActionEvent event) {
 				speedForThread = 5000;
+				delayForTimer = 150;
 
 			}
 		});
@@ -474,7 +496,7 @@ public class GUI {
 		windWheelOne.setVisibilityTrue();
 		windWheelSix.setXY(570.0, 340.0);
 		windWheelSix.setVisibilityTrue();
-		windWheelThree.setXY(480.0, 380.0);
+		windWheelThree.setXY(500.0, 360.0);
 		windWheelThree.setVisibilityTrue();
 		windWheelFive.setXY(150.0, 360.0);
 		windWheelFive.setVisibilityTrue();
@@ -488,21 +510,20 @@ public class GUI {
 				public void run() {
 					Random rand = new Random();
 					int zufallszahl = rand.nextInt(1000);
-					System.out.println(Thread.currentThread().getName() + zufallszahl);
 					if (zufallszahl > 950 && windradChrash == false) {
 						windWheelOne.changeColorToRed();
 						windradChrash = true;
 					}
 					if (windradChrash == true && zufallszahl > 970) {
 						windWheelFour.changeColorToRed();
-
+						timer.cancel();
 					}
 				}
 			};
 
-			Timer timer = new Timer("Generate Random Number : ");
+			timer = new Timer();
 
-			long delay = 500L;
+			long delay = delayForTimer;
 			long period = 10000L;
 			timer.scheduleAtFixedRate(task, delay, period);
 

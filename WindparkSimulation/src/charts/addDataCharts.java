@@ -75,11 +75,7 @@ public class addDataCharts extends Thread {
 							if (windStrenght >= 10 && windStrenght <= 15) {
 								Double totalKW = ((windStrenght / 4) * windWheelNumber) + Math.random();
 								Data<String, Number> a = new Data<String, Number>(time.toString(), totalKW, wind);
-								// Tooltip t1 = new Tooltip(
-								// "KW:" + windStrenght + "\n" +
-								// "Windgeschwindigkeit:"+ windStrenght + "m/s
-								// \n" + "Windrichtung: "+a.getExtraValue());
-								// t1.install(windWheelOne, t1);
+
 								System.out.println(a);
 								if (a.getExtraValue().equals("Nord - Nord/Ost")) {
 									changeDirectionToNorth();
@@ -104,7 +100,7 @@ public class addDataCharts extends Thread {
 							} else if (windStrenght < 5) {
 
 								Data<String, Number> a = new Data<String, Number>(time.toString(),
-										((windStrenght * 0) * windWheelNumber) + Math.random(), wind);
+										((windStrenght * 0) * windWheelNumber), wind);
 								System.out.println(a);
 								if (a.getExtraValue().equals("Nord - Nord/Ost")) {
 									changeDirectionToNorth();
