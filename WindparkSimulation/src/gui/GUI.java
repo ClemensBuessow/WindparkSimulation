@@ -475,16 +475,6 @@ public class GUI {
 			}
 		});
 
-		// windDirectionCombo.setOnAction(new EventHandler<ActionEvent>() {
-		//
-		// @Override
-		// public void handle(ActionEvent event) {
-		//
-		// switchingDirectionClouds();
-		//
-		// }
-		// });
-		//
 	}
 
 	private void generateBalticSea() {

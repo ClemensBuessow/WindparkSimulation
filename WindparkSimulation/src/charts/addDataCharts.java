@@ -10,8 +10,8 @@ import mapElements.WindWheel;
 public class addDataCharts extends Thread {
 	long interval;
 	boolean outOfIndex = true;
-	Series<String, Number> series;
-	Series<String, Number> series2;
+	Series<String, Number> seriesOfInputChart;
+	Series<String, Number> seriesofOutputChart;
 	int counter;
 	boolean boeen;
 	WindWheel windWheelOne;
@@ -36,8 +36,8 @@ public class addDataCharts extends Thread {
 
 		this.interval = interval;
 		this.counter = counter;
-		this.series = series;
-		this.series2 = series2;
+		this.seriesOfInputChart = series;
+		this.seriesofOutputChart = series2;
 		this.boeen = boeen;
 		this.windWheelOne = w1;
 		this.windWheelTwo = w2;
@@ -57,7 +57,7 @@ public class addDataCharts extends Thread {
 	public void run() {
 
 		// hier das andere
-		while (counter <= series.getData().size()) {
+		while (counter <= seriesOfInputChart.getData().size()) {
 			Platform.runLater(new Runnable() {
 				@Override
 				public void run() {
@@ -65,7 +65,7 @@ public class addDataCharts extends Thread {
 						windWheelNumber = 5;
 					}
 					try {
-						Data<String, Number> data = series.getData().get(counter);
+						Data<String, Number> data = seriesOfInputChart.getData().get(counter);
 						System.out.println(data);
 						Double time = Double.parseDouble(data.getXValue());
 						Double windStrenght = data.getYValue().doubleValue();
@@ -91,7 +91,7 @@ public class addDataCharts extends Thread {
 								}
 
 								try {
-									series2.getData().add(a);
+									seriesofOutputChart.getData().add(a);
 								} catch (IllegalStateException e) {
 									System.out.println("Das Ja blöd jetzt");
 								}
@@ -115,11 +115,11 @@ public class addDataCharts extends Thread {
 									System.out.println(a);
 								}
 
-								System.out.println(series2);
+								System.out.println(seriesofOutputChart);
 
 								System.out.println(a);
 								try {
-									series2.getData().add(a);
+									seriesofOutputChart.getData().add(a);
 								} catch (Exception e) {
 									// TODO: handle exception
 									System.out.println("Kann ja mal passieren");
@@ -142,10 +142,10 @@ public class addDataCharts extends Thread {
 									System.out.println(a);
 								}
 
-								System.out.println(series2);
+								System.out.println(seriesofOutputChart);
 								System.out.println(a);
 								try {
-									series2.getData().add(a);
+									seriesofOutputChart.getData().add(a);
 								} catch (Exception e) {
 									System.out.println("Nicht so cool");
 								}
@@ -167,10 +167,10 @@ public class addDataCharts extends Thread {
 									System.out.println(a);
 								}
 
-								System.out.println(series2);
+								System.out.println(seriesofOutputChart);
 								System.out.println(a);
 								try {
-									series2.getData().add(a);
+									seriesofOutputChart.getData().add(a);
 								} catch (Exception e) {
 									System.out.println("Nicht so cool");
 								}
@@ -192,11 +192,11 @@ public class addDataCharts extends Thread {
 									System.out.println(a);
 								}
 
-								System.out.println(series2);
+								System.out.println(seriesofOutputChart);
 
 								System.out.println(a);
 								try {
-									series2.getData().add(a);
+									seriesofOutputChart.getData().add(a);
 								} catch (Exception e) {
 									System.out.println("Nicht so cool");
 								}
@@ -222,10 +222,10 @@ public class addDataCharts extends Thread {
 									System.out.println(a);
 								}
 
-								System.out.println(series2);
+								System.out.println(seriesofOutputChart);
 
 								try {
-									series2.getData().add(a);
+									seriesofOutputChart.getData().add(a);
 								} catch (IllegalStateException e) {
 									System.out.println("Das Ja blöd jetzt");
 								}
@@ -248,11 +248,11 @@ public class addDataCharts extends Thread {
 									System.out.println(a);
 								}
 
-								System.out.println(series2);
+								System.out.println(seriesofOutputChart);
 
 								System.out.println(a);
 								try {
-									series2.getData().add(a);
+									seriesofOutputChart.getData().add(a);
 								} catch (Exception e) {
 									// TODO: handle exception
 									System.out.println("Kann ja mal passieren");
@@ -276,12 +276,12 @@ public class addDataCharts extends Thread {
 									System.out.println(a);
 								}
 
-								System.out.println(series2);
+								System.out.println(seriesofOutputChart);
 
 								a.setExtraValue(wind);
 								System.out.println(a);
 								try {
-									series2.getData().add(a);
+									seriesofOutputChart.getData().add(a);
 								} catch (Exception e) {
 									System.out.println("Nicht so cool");
 								}
@@ -303,11 +303,11 @@ public class addDataCharts extends Thread {
 									System.out.println(a);
 								}
 
-								System.out.println(series2);
+								System.out.println(seriesofOutputChart);
 
 								System.out.println(a);
 								try {
-									series2.getData().add(a);
+									seriesofOutputChart.getData().add(a);
 								} catch (Exception e) {
 									System.out.println("Nicht so cool");
 								}
@@ -329,17 +329,17 @@ public class addDataCharts extends Thread {
 									System.out.println(a);
 								}
 
-								System.out.println(series2);
+								System.out.println(seriesofOutputChart);
 
 								System.out.println(a);
 								try {
-									series2.getData().add(a);
+									seriesofOutputChart.getData().add(a);
 								} catch (Exception e) {
 									System.out.println("Nicht so cool");
 								}
 							}
 						}
-						if (counter > series.getData().size()) {
+						if (counter > seriesOfInputChart.getData().size()) {
 							return;
 
 						}
